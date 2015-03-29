@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Финансови продукти</string>
+    <string name="action_settings">Настройки</string>
+    <string name="consumer_loans">Потребителски кредит</string>
+    <string name="mortage_loans">Ипотечен кредит</string>
+    <string name="credit_cards">Кредитни карти</string>
+    <string name="deposits">Депозити</string>
+</resources>

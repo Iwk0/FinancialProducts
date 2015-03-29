@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Financial Products</string>
+    <string name="action_settings">Settings</string>
+    <string name="consumer_loans">Consumer loans</string>
+    <string name="mortage_loans">Mortage loans</string>
+    <string name="credit_cards">Credit cards</string>
+    <string name="deposits">Deposits</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string-array name="fragments_names">
+        <item>Обмени</item>
+        <item>Курсове</item>
+        <item>Локални курсове</item>
+        <item>Логове</item>
+        <item>Наличност</item>
+    </string-array>
+</resources>
