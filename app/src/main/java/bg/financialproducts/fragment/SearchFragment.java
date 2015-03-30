@@ -2,6 +2,7 @@ package bg.financialproducts.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -77,13 +78,23 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                List<NameValuePair> pairs = oldLayout.getAllViews();
-                if (!pairs.isEmpty()) {
-                    try {
-                        HttpUtil.sendGetRequest(pairs);
-                    } catch (IOException e) {
-                        Log.e("IOException", e.getMessage());
-                    }
+                final List<NameValuePair> pairs = oldLayout.getAllViews();
+
+                if (pairs != null) {
+                    Log.i("SIZE", String.valueOf(pairs.size()));
+
+                    new AsyncTask<Void, Void, Void>() {
+
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            try {
+                                HttpUtil.sendGetRequest(pairs);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            return null;
+                        }
+                    };
                 } else {
                     /*empty fields message*/
                 }

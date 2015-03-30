@@ -1,6 +1,7 @@
 package bg.financialproducts.layout;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.InputType;
@@ -20,7 +21,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -28,6 +28,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import bg.financialproducts.R;
 import bg.financialproducts.model.Loan;
+import bg.financialproducts.util.XMLParser;
 
 public class ConsumerLayout extends Layout implements TextWatcher {
 
@@ -36,15 +37,14 @@ public class ConsumerLayout extends Layout implements TextWatcher {
     public ConsumerLayout(Context context) {
         super(context);
 
-        List<Loan> typeOfTheLoans = getSpinnerValues("Type of the loan", R.raw.consumer_loans_type_of_the_loan);
-        List<Loan> currency = getSpinnerValues("Currency", R.raw.consumer_loans_sp_currency);
-        List<Loan> loanTermInMonths = getSpinnerValues("Loan Term in months", R.raw.consumer_loans_loan_term);
+        Resources resources = getResources();
+        List<Loan> typeOfTheLoans = XMLParser.parse(resources, "Type of the loan", R.raw.consumer_loans_type_of_the_loan);
+        List<Loan> currency = XMLParser.parse(resources, "Currency", R.raw.consumer_loans_sp_currency);
+        List<Loan> loanTermInMonths = XMLParser.parse(resources, "Loan Term in months", R.raw.consumer_loans_loan_term);
 
         ViewGroup.LayoutParams layoutParams = new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        List<View> views = new ArrayList<>();
 
         setOrientation(VERTICAL);
         setLayoutParams(new ViewGroup.LayoutParams(
@@ -74,6 +74,7 @@ public class ConsumerLayout extends Layout implements TextWatcher {
         currencySpinner.setTag("SP_Currency");
         currencySpinner.setLayoutParams(layoutParams);
         currencySpinner.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         adapter.clear();
         adapter.addAll(loanTermInMonths);
@@ -82,8 +83,7 @@ public class ConsumerLayout extends Layout implements TextWatcher {
         loanTermInMonthsSpinner.setTag("SP_LoanTerm");
         loanTermInMonthsSpinner.setLayoutParams(layoutParams);
         loanTermInMonthsSpinner.setAdapter(adapter);
-
-        views.addAll(Arrays.asList(loanAmountText, typeOfLoanSpinner, currencySpinner, loanTermInMonthsSpinner));
+        adapter.notifyDataSetChanged();
 
         addViews(loanAmountText, typeOfLoanSpinner, currencySpinner, loanTermInMonthsSpinner);
     }
@@ -94,51 +94,29 @@ public class ConsumerLayout extends Layout implements TextWatcher {
         }
     }
 
-    private List<Loan> getSpinnerValues(String defaultValue, int fileId) {
-        List<Loan> loans = new ArrayList<Loan>();
-        loans.add(new Loan(-1, defaultValue));
-
-        try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(getResources().openRawResource(fileId));
-
-            doc.getDocumentElement().normalize();
-
-            NodeList nList = doc.getElementsByTagName("option");
-
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node node = nList.item(temp);
-
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element = (Element) node;
-                    loans.add(new Loan(
-                            Integer.parseInt(element.getAttribute("value")),
-                            element.getTextContent()));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("Exception", e.getMessage());
-        }
-
-        return loans;
-    }
-
     @Override
     public List<NameValuePair> getAllViews() {
         List<NameValuePair> params = new ArrayList<>();
         final int SIZE = this.getChildCount();
+
         for (int i = 0; i < SIZE; i++) {
             View view = this.getChildAt(i);
             if (view instanceof Spinner) {
                 Spinner spinner = (Spinner) view;
                 Loan loan = (Loan) spinner.getSelectedItem();
-                params.add(new BasicNameValuePair((String) spinner.getTag(), (String.valueOf(loan.id))));
+                if (loan.id != -1) {
+                    params.add(new BasicNameValuePair((String) spinner.getTag(), (String.valueOf(loan.id))));
+                }
             } else if (view instanceof EditText) {
                 EditText text = (EditText) view;
-                params.add(new BasicNameValuePair((String) text.getTag(), text.getText().toString()));
+                if (!text.getText().toString().isEmpty()) {
+                    params.add(new BasicNameValuePair((String) text.getTag(), text.getText().toString()));
+                }
             }
+        }
+
+        if (params.size() < SIZE) {
+            return null;
         }
 
         return params;

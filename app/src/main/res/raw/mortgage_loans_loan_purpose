@@ -1,0 +1,8 @@
+<select name="sp_loan_purpose">
+    <option value="1">Home Acquisition</option>
+    <option value="2">Construction</option>
+    <option value="4">Refurbishment</option>
+    <option value="8">Land Acquisition</option>
+    <option value="16">Refinance</option>
+    <option value="32">Personal Needs</option>
+</select>
