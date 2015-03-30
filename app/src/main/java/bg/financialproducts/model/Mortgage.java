@@ -1,4 +1,4 @@
 package bg.financialproducts.model;
 
-public class Mortage {
+public class Mortgage {
 }

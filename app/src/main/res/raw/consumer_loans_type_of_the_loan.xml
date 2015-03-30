@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sp_loan_type>
+	<option value="32">Personal Needs Loan Without Guarantee</option>
+	<option value="128">Personal Needs Loan with Guarantee (non-mortgage)</option>
+	<option value="1">Personal Needs Loan With Mortgage</option>
+	<option value="2">Durable Goods Loan</option>
+	<option value="4">Vacation Loan</option>
+	<option value="8">Student Loan</option>
+	<option value="16">Health Loan</option>
+	<option value="64">Seminar Participation Loan</option>
+	<option value="256">Refinance</option>
+	<option value="512">Refinance Personal Needs With Mortgage</option>
+</sp_loan_type>

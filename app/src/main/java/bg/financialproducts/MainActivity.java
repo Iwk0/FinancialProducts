@@ -16,7 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import bg.financialproducts.fragment.MortageFragment;
+import bg.financialproducts.fragment.SearchFragment;
 
 public class MainActivity extends FragmentActivity {
 
@@ -50,7 +50,7 @@ public class MainActivity extends FragmentActivity {
         drawerLayout.setDrawerListener(drawerToggle);
 
         drawerList.setVisibility(View.VISIBLE);
-        drawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, barTitle));
+        drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, barTitle));
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -112,12 +112,12 @@ public class MainActivity extends FragmentActivity {
 
         switch (position) {
             case 0:
-                fragment = new MortageFragment();
+                fragment = new SearchFragment();
                 break;
-            /*case 1:
-                fragment = new Rates();
-                break;
-            case 2:
+/*            case 1:
+                fragment = new MortgageFragment();
+                break;*/
+            /*case 2:
                 fragment = new LocalRates();
                 break;
             case 3:

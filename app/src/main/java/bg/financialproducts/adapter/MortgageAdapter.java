@@ -7,10 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import bg.financialproducts.R;
-import bg.financialproducts.model.Mortage;
+import bg.financialproducts.model.Mortgage;
 import bg.financialproducts.util.AutoResizeTextView;
 
-public class MortageAdapter extends ArrayAdapter<Mortage> {
+public class MortgageAdapter extends ArrayAdapter<Mortgage> {
 
     private Context context;
 
@@ -18,7 +18,7 @@ public class MortageAdapter extends ArrayAdapter<Mortage> {
         AutoResizeTextView product;
     }
 
-    public MortageAdapter(Context context, int resource) {
+    public MortgageAdapter(Context context, int resource) {
         super(context, resource);
         this.context = context;
     }
@@ -29,7 +29,7 @@ public class MortageAdapter extends ArrayAdapter<Mortage> {
     }
 
     @Override
-    public Mortage getItem(int position) {
+    public Mortgage getItem(int position) {
         return super.getItem(position);
     }
 

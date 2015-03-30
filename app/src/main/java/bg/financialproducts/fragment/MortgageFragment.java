@@ -2,7 +2,6 @@ package bg.financialproducts.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,21 +10,21 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import bg.financialproducts.R;
-import bg.financialproducts.adapter.MortageAdapter;
+import bg.financialproducts.adapter.MortgageAdapter;
 
-public class MortageFragment extends Fragment {
+public class MortgageFragment extends Fragment {
 
     private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_mortage, container, false);
+        view = inflater.inflate(R.layout.fragment_mortgage, container, false);
 
         Activity activity = getActivity();
 
         ListView listView = (ListView) view.findViewById(R.id.mortageList);
         listView.addHeaderView(View.inflate(activity, R.layout.header_mortage, null), null, false);
-        listView.setAdapter(new MortageAdapter(activity, R.layout.item));
+        listView.setAdapter(new MortgageAdapter(activity, R.layout.item));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override

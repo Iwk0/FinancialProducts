@@ -2,22 +2,22 @@ package bg.financialproducts.layout;
 
 import android.content.Context;
 import android.text.InputType;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MortageLayout extends LinearLayout implements Layout {
+public class MortgageLayout extends Layout {
 
-    private List<TextView> views;
+    private List<View> views;
 
-    public MortageLayout(Context context) {
+    public MortgageLayout(Context context) {
         super(context);
-        views = new ArrayList<>();
+
+        views = new ArrayList<View>();
 
         setOrientation(VERTICAL);
         setLayoutParams(new ViewGroup.LayoutParams(

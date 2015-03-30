@@ -1,11 +1,17 @@
 package bg.financialproducts.layout;
 
+import android.content.Context;
+import android.widget.LinearLayout;
+
+import org.apache.http.NameValuePair;
+
 import java.util.List;
 
-/**
- * Created by Iwk0 on 18/03/2015.
- */
-public interface Layout {
+public abstract class Layout extends LinearLayout {
 
-    public List getAllViews();
+    protected Layout(Context context) {
+        super(context);
+    }
+
+    public abstract List<NameValuePair> getAllViews();
 }
