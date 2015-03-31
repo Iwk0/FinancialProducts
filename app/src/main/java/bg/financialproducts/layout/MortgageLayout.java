@@ -12,12 +12,10 @@ import android.widget.EditText;
 
 import org.apache.http.NameValuePair;
 
-import java.util.Arrays;
 import java.util.List;
 
 import bg.financialproducts.R;
 import bg.financialproducts.model.Loan;
-import bg.financialproducts.util.XMLParser;
 
 public class MortgageLayout extends Layout implements TextWatcher {
 
