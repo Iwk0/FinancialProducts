@@ -6,4 +6,6 @@
     <string name="mortage_loans">Ипотечен кредит</string>
     <string name="credit_cards">Кредитни карти</string>
     <string name="deposits">Депозити</string>
+    <string name="empty_fields">Всички полета са задължителни</string>
+    <string name="no_internet">Възникна проблем при създаване на връзка със сървиса</string>
 </resources>

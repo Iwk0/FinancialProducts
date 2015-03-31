@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="sp_al_loan_type">
+    <option value="2">Leasing</option>
+    <option value="1">Loan</option>
+</select>

@@ -1,7 +1,12 @@
 package bg.financialproducts.model;
 
-/**
- * Created by Iwk0 on 28/03/2015.
- */
 public class Auto {
+
+    public String product;
+    public String APR;
+    public String currency;
+    public String monthlyPayment;
+    public String totalPayed;
+    public String bank;
+    public String minSelfParticipation;
 }

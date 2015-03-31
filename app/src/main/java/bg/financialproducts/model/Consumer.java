@@ -1,12 +1,12 @@
 package bg.financialproducts.model;
 
-public class Mortgage {
+public class Consumer {
 
     public String product;
-    public String APR;
+    public String apr;
     public String currency;
     public String monthlyPayment;
     public String totalPayed;
-    public String downPayment;
+    public String interestRateType;
     public String bank;
 }

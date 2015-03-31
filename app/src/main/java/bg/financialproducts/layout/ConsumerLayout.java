@@ -58,8 +58,9 @@ public class ConsumerLayout extends Layout implements TextWatcher {
         typeOfLoanSpinner.setLayoutParams(layoutParams);
         typeOfLoanSpinner.setAdapter(adapter);
 
-        adapter.clear();
-        adapter.addAll(currency);
+        adapter = new ArrayAdapter<>(context,
+                R.layout.spinner_item, currency);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         Spinner currencySpinner = new Spinner(context);
         currencySpinner.setTag("SP_Currency");
@@ -67,8 +68,9 @@ public class ConsumerLayout extends Layout implements TextWatcher {
         currencySpinner.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        adapter.clear();
-        adapter.addAll(loanTermInMonths);
+        adapter = new ArrayAdapter<>(context,
+                R.layout.spinner_item, loanTermInMonths);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         Spinner loanTermInMonthsSpinner = new Spinner(context);
         loanTermInMonthsSpinner.setTag("SP_LoanTerm");

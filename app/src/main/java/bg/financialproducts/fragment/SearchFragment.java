@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
 
@@ -23,8 +24,9 @@ import java.util.List;
 import bg.financialproducts.R;
 import bg.financialproducts.layout.Layout;
 import bg.financialproducts.model.Loan;
+import bg.financialproducts.util.Factories;
 import bg.financialproducts.util.HttpUtil;
-import bg.financialproducts.util.ViewFactory;
+import bg.financialproducts.util.KeyBoard;
 
 public class SearchFragment extends Fragment {
 
@@ -32,6 +34,7 @@ public class SearchFragment extends Fragment {
     private View view;
     private Spinner loansSpinner;
     private Layout oldLayout;
+    private int loansId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,10 +63,13 @@ public class SearchFragment extends Fragment {
                 }
 
                 Loan loan = (Loan) loansSpinner.getSelectedItem();
-                ViewFactory viewFactory = new ViewFactory();
-                Layout layout = viewFactory.createView(/*loan.id*/2, activity);
+                Factories factories = new Factories();
+                Layout layout = factories.createView(/*loan.id*/2, activity);
                 oldLayout = layout;
+                loansId = loan.id;
                 ((LinearLayout) view).addView(oldLayout);
+
+                KeyBoard.hide(oldLayout, getActivity());
             }
 
             @Override
@@ -81,30 +87,38 @@ public class SearchFragment extends Fragment {
                 final List<NameValuePair> pairs = oldLayout.getAllViews();
 
                 if (pairs != null) {
-                    Log.i("SIZE", String.valueOf(pairs.size()));
-
-                    new AsyncTask<Void, Void, Void>() {
+                    new AsyncTask<Void, Void, Integer>() {
 
                         @Override
-                        protected Void doInBackground(Void... params) {
+                        protected Integer doInBackground(Void... params) {
+                            int code = 0;
+
                             try {
-                                HttpUtil.sendGetRequest(pairs);
+                                code = HttpUtil.sendGetRequest(pairs, loansId);
                             } catch (IOException e) {
-                                e.printStackTrace();
+                                Log.e("IOException", e.getMessage());
                             }
-                            return null;
+
+                            return code;
                         }
-                    };
+
+                        @Override
+                        protected void onPostExecute(Integer code) {
+                            super.onPostExecute(code);
+                            if (code == 200) {
+                                Loan loan = (Loan) loansSpinner.getSelectedItem();
+                                Fragment newFragment = Factories.createFragment(loan.id, activity);
+                                getFragmentManager().beginTransaction().replace(R.id.content_frame, newFragment).commit();
+                            } else {
+                                Toast.makeText(activity, getResources().getString(R.string.no_internet),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }.execute();
                 } else {
-                    /*empty fields message*/
+                    Toast.makeText(activity, getResources().getString(R.string.empty_fields),
+                            Toast.LENGTH_SHORT).show();
                 }
-
-
-                /*
-                * create build factory fragment
-                * open some fragment
-                *
-                * */
             }
         });
 

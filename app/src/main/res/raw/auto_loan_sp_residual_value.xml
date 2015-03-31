@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="sp_residual_value_input">
+    <option value="INCLUDED">Included within the installment</option>
+    <option value="AT_THE_END">At the end of the contract</option>
+</select>

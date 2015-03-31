@@ -1,7 +1,12 @@
 package bg.financialproducts.model;
 
-/**
- * Created by Iwk0 on 28/03/2015.
- */
 public class CreditCard {
+
+    public String product;
+    public String cashRate;
+    public String purchaseRate;
+    public String cashAPR;
+    public String creditCardLimit;
+    public String bank;
+    public String annualFeeMain;
 }

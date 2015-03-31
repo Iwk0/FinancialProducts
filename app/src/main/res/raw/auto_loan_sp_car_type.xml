@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="sp_car_type">
+    <option value="2">Second</option>
+    <option value="1">New</option>
+</select>

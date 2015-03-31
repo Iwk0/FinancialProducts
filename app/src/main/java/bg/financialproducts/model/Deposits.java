@@ -1,7 +1,10 @@
 package bg.financialproducts.model;
 
-/**
- * Created by Iwk0 on 28/03/2015.
- */
 public class Deposits {
+
+    public String product;
+    public String AER;
+    public String interestRateType;
+    public String afterRevenueTaxAmount;
+    public String bank;
 }
