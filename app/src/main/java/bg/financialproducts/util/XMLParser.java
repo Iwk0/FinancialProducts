@@ -57,7 +57,7 @@ public class XMLParser {
     }
 
     public static List<Consumer> parseConsumers(InputStream content) throws ParserConfigurationException, IOException, SAXException {
-        String rawXml = IOUtils.toString(content, "UTF-8");
+        String rawXml = IOUtils.toString(content, "UTF-8").replaceAll("&", "&amp;");
 
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
