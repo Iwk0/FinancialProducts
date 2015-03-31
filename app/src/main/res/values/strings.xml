@@ -8,6 +8,8 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="search">Search</string>
+    <string name="empty_fields">All fields are required</string>
+    <string name="no_internet">There was a problem while creating a connection to the remote service</string>
 
     <string-array name="fragments_names">
         <item>Обмени</item>

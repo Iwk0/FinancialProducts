@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -15,16 +14,9 @@ import android.widget.Spinner;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import bg.financialproducts.R;
 import bg.financialproducts.model.Loan;
@@ -67,8 +59,9 @@ public class ConsumerLayout extends Layout implements TextWatcher {
         typeOfLoanSpinner.setLayoutParams(layoutParams);
         typeOfLoanSpinner.setAdapter(adapter);
 
-        adapter.clear();
-        adapter.addAll(currency);
+        adapter = new ArrayAdapter<>(context,
+                R.layout.spinner_item, currency);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         Spinner currencySpinner = new Spinner(context);
         currencySpinner.setTag("SP_Currency");
@@ -76,8 +69,9 @@ public class ConsumerLayout extends Layout implements TextWatcher {
         currencySpinner.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        adapter.clear();
-        adapter.addAll(loanTermInMonths);
+        adapter = new ArrayAdapter<>(context,
+                R.layout.spinner_item, loanTermInMonths);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         Spinner loanTermInMonthsSpinner = new Spinner(context);
         loanTermInMonthsSpinner.setTag("SP_LoanTerm");
