@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="sp_ml_loan_type">
+    <option value="16">Personal Needs Loan with Mortgage</option>
+    <option value="1">Mortgage</option>
+    <option value="4">Bridge</option>
+    <option value="8">Saving-Lending</option>
+    <option value="32">Mortgage leasing</option>
+</select>

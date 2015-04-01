@@ -1,10 +1,8 @@
 package bg.financialproducts.model;
 
-public class Deposits {
+public class Deposits extends BaseLoan {
 
-    public String product;
     public String AER;
     public String interestRateType;
     public String afterRevenueTaxAmount;
-    public String bank;
 }

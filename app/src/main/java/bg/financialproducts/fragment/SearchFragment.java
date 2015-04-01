@@ -16,14 +16,18 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
+import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import bg.financialproducts.R;
 import bg.financialproducts.layout.Layout;
 import bg.financialproducts.model.Loan;
+import bg.financialproducts.util.Constants;
 import bg.financialproducts.util.Factories;
 import bg.financialproducts.util.HttpUtil;
 import bg.financialproducts.util.KeyBoard;
@@ -34,18 +38,17 @@ public class SearchFragment extends Fragment {
     private View view;
     private Spinner loansSpinner;
     private Layout oldLayout;
-    private int loansId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search, container, false);
 
         List<Loan> searchValues = new ArrayList<>();
-        searchValues.add(new Loan(1, "Auto"));
-        searchValues.add(new Loan(2, "Consumer"));
-        searchValues.add(new Loan(3, "Credit card"));
-        searchValues.add(new Loan(4, "Deposits"));
-        searchValues.add(new Loan(5, "Mortgage"));
+        searchValues.add(new Loan("1", Constants.AUTO));
+        searchValues.add(new Loan("2", Constants.CONSUMER));
+        searchValues.add(new Loan("3", Constants.CREDIT_CARDS));
+        searchValues.add(new Loan("4", Constants.DEPOSITS));
+        searchValues.add(new Loan("5", Constants.MORTGAGE));
 
         activity = getActivity();
         loansSpinner = (Spinner) view.findViewById(R.id.loans);
@@ -64,8 +67,7 @@ public class SearchFragment extends Fragment {
 
                 Loan loan = (Loan) loansSpinner.getSelectedItem();
                 Factories factories = new Factories();
-                oldLayout = factories.createView(/*loan.id*/2, activity);
-                loansId = loan.id;
+                oldLayout = factories.createView(Integer.parseInt(loan.id), activity);
                 ((LinearLayout) view).addView(oldLayout);
 
                 KeyBoard.hide(oldLayout, getActivity());
@@ -93,9 +95,13 @@ public class SearchFragment extends Fragment {
                             int code = 0;
 
                             try {
-                                code = HttpUtil.sendGetRequest(pairs, loansId);
+                                code = HttpUtil.sendGetRequest(pairs, ((Loan) loansSpinner.getSelectedItem()).value);
                             } catch (IOException e) {
                                 Log.e("IOException", e.getMessage());
+                            } catch (ParserConfigurationException e) {
+                                Log.e("ParserConfiguration", e.getMessage());
+                            } catch (SAXException e) {
+                                Log.e("SAXException", e.getMessage());
                             }
 
                             return code;
@@ -106,7 +112,7 @@ public class SearchFragment extends Fragment {
                             super.onPostExecute(code);
                             if (code == 200) {
                                 Loan loan = (Loan) loansSpinner.getSelectedItem();
-                                Fragment newFragment = Factories.createFragment(loan.id, activity);
+                                Fragment newFragment = Factories.createFragment(Integer.valueOf(loan.id), activity);
                                 getFragmentManager().beginTransaction().replace(R.id.content_frame, newFragment).commit();
                             } else {
                                 Toast.makeText(activity, getResources().getString(R.string.no_internet),

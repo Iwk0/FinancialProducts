@@ -1,14 +1,13 @@
 package bg.financialproducts.layout;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.content.res.Resources;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import org.apache.http.NameValuePair;
 
@@ -16,16 +15,21 @@ import java.util.List;
 
 import bg.financialproducts.R;
 import bg.financialproducts.model.Loan;
+import bg.financialproducts.util.CreateView;
 import bg.financialproducts.util.XMLParser;
 
 public class MortgageLayout extends Layout implements TextWatcher {
 
-    private EditText loanAmountText;
+    private EditText loanAmountText, propertyValueText;
 
     public MortgageLayout(Context context) {
         super(context);
 
-        List<Loan> loanPurposes = XMLParser.parse(getResources(), "Type of the loan", R.raw.consumer_loans_type_of_the_loan);
+        Resources resources = getResources();
+        List<Loan> loanPurposes = XMLParser.parse(resources, resources.getString(R.string.loan_purpose), R.raw.mortgage_loans_loan_purpose);
+        List<Loan> currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.consumer_loans_sp_currency);
+        List<Loan> loanTerm = XMLParser.parse(resources, resources.getString(R.string.loan_term), R.raw.mortgage_loans_loan_term);
+        List<Loan> loanType = XMLParser.parse(resources, resources.getString(R.string.loan_type), R.raw.mortage_loans_loan_type);
 
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -36,18 +40,16 @@ public class MortgageLayout extends Layout implements TextWatcher {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
 
-        loanAmountText = new EditText(context);
-        loanAmountText.setHint("Loan amount");
-        loanAmountText.setTag("SP_LoanAmount");
-        loanAmountText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        loanAmountText.addTextChangedListener(this);
-        loanAmountText.setLayoutParams(layoutParams);
+        loanAmountText = CreateView.editText(context, "SP_LoanAmount", resources.getString(R.string.loan_amount), layoutParams, this);
+        propertyValueText = CreateView.editText(context, "SP_PropertyValue", resources.getString(R.string.property_value), layoutParams, this);
 
-        ArrayAdapter<Loan> adapter = new ArrayAdapter<>(context,
-                R.layout.spinner_item, loanPurposes);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner loanPurposesSpinner = CreateView.spinner(context, "SP_LoanPurpose", layoutParams, loanPurposes);
+        Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);
+        Spinner loanTermSpinner = CreateView.spinner(context, "SP_LoanTerm", layoutParams, loanTerm);
+        Spinner loanTypeSpinner = CreateView.spinner(context, "SP_MLLoanType", layoutParams, loanType);
 
-        addViews(loanAmountText);
+        addViews(loanAmountText, loanPurposesSpinner, propertyValueText,
+                currencySpinner, loanTermSpinner, loanTypeSpinner);
     }
 
     private void addViews(View... localViews) {
@@ -58,12 +60,13 @@ public class MortgageLayout extends Layout implements TextWatcher {
 
     @Override
     public List<NameValuePair> getAllViews() {
-        return null;
+        return CreateView.allFieldsAreRequired(this);
     }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        loanAmountText.setBackgroundColor(Color.WHITE);
+        loanAmountText.setBackgroundColor(android.R.attr.editTextColor);
+        propertyValueText.setBackgroundColor(android.R.attr.editTextColor);
     }
 
     @Override
@@ -73,12 +76,7 @@ public class MortgageLayout extends Layout implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-        String text = loanAmountText.getText().toString();
-        if (!text.isEmpty()) {
-            double loanAmount = Double.valueOf(text);
-            if (loanAmount < 1000 || loanAmount > 100000000) {
-                loanAmountText.setBackgroundColor(Color.RED);
-            }
-        }
+        CreateView.editTextValidation(loanAmountText, 1000, 100000000);
+        CreateView.editTextValidation(propertyValueText, 1000, 100000000);
     }
 }

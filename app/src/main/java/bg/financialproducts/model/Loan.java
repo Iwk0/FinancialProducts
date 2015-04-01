@@ -2,13 +2,13 @@ package bg.financialproducts.model;
 
 public class Loan {
 
-    public int id;
+    public String id;
     public String value;
 
     public Loan() {
     }
 
-    public Loan(int id, String value) {
+    public Loan(String id, String value) {
         this.id = id;
         this.value = value;
     }

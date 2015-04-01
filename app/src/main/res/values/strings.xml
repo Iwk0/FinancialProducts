@@ -10,14 +10,25 @@
     <string name="search">Search</string>
     <string name="empty_fields">All fields are required</string>
     <string name="no_internet">There was a problem while creating a connection to the remote service</string>
+    <string name="product">Product</string>
+    <string name="no_result">No results</string>
 
-    <string-array name="fragments_names">
-        <item>Обмени</item>
-        <item>Курсове</item>
-        <item>Локални курсове</item>
-        <item>Логове</item>
-        <item>Наличност</item>
-    </string-array>
+    <!--Labels-->
+    <string name="car_type">Car type</string>
+    <string name="loan_or_a_leasing">Loan or a leasing</string>
+    <string name="car_age">Age of cars</string>
+    <string name="residual_value">Residual value</string>
+    <string name="currency">Currency</string>
+    <string name="loan_term">Loan Term</string>
+    <string name="loan_amount">Loan amount</string>
+    <string name="car_price">Car price</string>
+    <string name="loan_type">Loan type</string>
+    <string name="card_providers">Card providers</string>
+    <string name="card_type">Card type</string>
+    <string name="deposit_term_month">Deposit term in months</string>
+    <string name="interest_capitalization">With or without interest capitalization</string>
+    <string name="loan_purpose">Loan purpose</string>
+    <string name="property_value">Property value</string>
 
     <string-array name="loans">
         <item>Auto</item>
@@ -25,5 +36,6 @@
         <item>Credit cards</item>
         <item>Deposits</item>
         <item>Mortgage</item>
+        <item>Search</item>
     </string-array>
 </resources>
