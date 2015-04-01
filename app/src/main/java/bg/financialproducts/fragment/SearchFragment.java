@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
+import org.json.JSONException;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
@@ -103,6 +104,8 @@ public class SearchFragment extends Fragment {
                                 Log.e("ParserConfiguration", e.getMessage());
                             } catch (SAXException e) {
                                 Log.e("SAXException", e.getMessage());
+                            } catch (JSONException e) {
+                                Log.e("JSONException", e.getMessage());
                             }
 
                             return code;
