@@ -24,6 +24,7 @@ import java.util.List;
 import bg.financialproducts.R;
 import bg.financialproducts.layout.Layout;
 import bg.financialproducts.model.Loan;
+import bg.financialproducts.util.Constants;
 import bg.financialproducts.util.Factories;
 import bg.financialproducts.util.HttpUtil;
 import bg.financialproducts.util.KeyBoard;
@@ -34,18 +35,17 @@ public class SearchFragment extends Fragment {
     private View view;
     private Spinner loansSpinner;
     private Layout oldLayout;
-    private int loansId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search, container, false);
 
         List<Loan> searchValues = new ArrayList<>();
-        searchValues.add(new Loan("1", "Auto"));
-        searchValues.add(new Loan("2", "Consumer"));
-        searchValues.add(new Loan("3", "Credit card"));
-        searchValues.add(new Loan("4", "Deposits"));
-        searchValues.add(new Loan("5", "Mortgage"));
+        searchValues.add(new Loan("1", Constants.AUTO));
+        searchValues.add(new Loan("2", Constants.CONSUMER));
+        searchValues.add(new Loan("3", Constants.CREDIT_CARDS));
+        searchValues.add(new Loan("4", Constants.DEPOSITS));
+        searchValues.add(new Loan("5", Constants.MORTGAGE));
 
         activity = getActivity();
         loansSpinner = (Spinner) view.findViewById(R.id.loans);
@@ -65,7 +65,6 @@ public class SearchFragment extends Fragment {
                 Loan loan = (Loan) loansSpinner.getSelectedItem();
                 Factories factories = new Factories();
                 oldLayout = factories.createView(Integer.parseInt(loan.id), activity);
-                loansId = Integer.parseInt(loan.id);
                 ((LinearLayout) view).addView(oldLayout);
 
                 KeyBoard.hide(oldLayout, getActivity());
@@ -93,7 +92,7 @@ public class SearchFragment extends Fragment {
                             int code = 0;
 
                             try {
-                                code = HttpUtil.sendGetRequest(pairs, loansId);
+                                code = HttpUtil.sendGetRequest(pairs, ((Loan) loansSpinner.getSelectedItem()).value);
                             } catch (IOException e) {
                                 Log.e("IOException", e.getMessage());
                             }

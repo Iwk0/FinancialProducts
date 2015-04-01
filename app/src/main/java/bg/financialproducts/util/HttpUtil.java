@@ -11,13 +11,16 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import bg.financialproducts.model.BaseLoan;
+
 public class HttpUtil {
 
-    public static int sendGetRequest(List<NameValuePair> params, int loansId) throws IOException {
+    public static int sendGetRequest(List<NameValuePair> params, String loan) throws IOException {
         String paramString = URLEncodedUtils.format(params, "utf-8");
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet("http://affiliate.finzoom.ro/default.aspx?u_=demo&c_=en-US&id_=cl-sr-xml" + paramString);
@@ -40,5 +43,19 @@ public class HttpUtil {
         //}
 
         return response.getStatusLine().getStatusCode();
+    }
+
+    private static List<BaseLoan> chooseLoanByName(String loan) throws IOException, SAXException, ParserConfigurationException {
+        List<BaseLoan> loans = new ArrayList<>();
+
+        switch (loan) {
+            case Constants.AUTO:
+                break;
+            case Constants.CONSUMER:
+                loans.addAll(XMLParser.parseConsumers(null));
+                break;
+        }
+
+        return loans;
     }
 }
