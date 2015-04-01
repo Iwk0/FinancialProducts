@@ -3,6 +3,7 @@ package bg.financialproducts.util;
 public interface Constants {
 
     /*General*/
+    public String LOAN = "Loan";
     public String PRODUCT = "Product";
 
     /*Consumer loans variables*/
@@ -19,4 +20,13 @@ public interface Constants {
     public String CREDIT_CARDS = "Credit cards";
     public String DEPOSITS = "Deposits";
     public String MORTGAGE = "Mortgage";
+
+    /*Database*/
+    public int DATABASE_VERSION = 1;
+    public String DATABASE_NAME = "Change";
+    public String TABLE_LOAN = "CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT);";
+    public String TABLE_NAME_LOAN = "loan";
+    public String ID = "id";
+    public String CONTENT = "content";
+    public String TYPE = "type";
 }

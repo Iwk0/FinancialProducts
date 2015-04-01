@@ -95,7 +95,8 @@ public class SearchFragment extends Fragment {
                             int code = 0;
 
                             try {
-                                code = HttpUtil.sendGetRequest(pairs, ((Loan) loansSpinner.getSelectedItem()).value);
+                                code = HttpUtil.sendGetRequest(activity, pairs,
+                                        ((Loan) loansSpinner.getSelectedItem()).value);
                             } catch (IOException e) {
                                 Log.e("IOException", e.getMessage());
                             } catch (ParserConfigurationException e) {
@@ -112,8 +113,11 @@ public class SearchFragment extends Fragment {
                             super.onPostExecute(code);
                             if (code == 200) {
                                 Loan loan = (Loan) loansSpinner.getSelectedItem();
-                                Fragment newFragment = Factories.createFragment(Integer.valueOf(loan.id), activity);
-                                getFragmentManager().beginTransaction().replace(R.id.content_frame, newFragment).commit();
+                                Fragment newFragment =
+                                        Factories.createFragment(Integer.valueOf(loan.id), activity);
+                                getFragmentManager().
+                                        beginTransaction().
+                                        replace(R.id.content_frame, newFragment).commit();
                             } else {
                                 Toast.makeText(activity, getResources().getString(R.string.no_internet),
                                         Toast.LENGTH_SHORT).show();
