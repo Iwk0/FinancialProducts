@@ -16,10 +16,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.apache.http.NameValuePair;
+import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import bg.financialproducts.R;
 import bg.financialproducts.layout.Layout;
@@ -95,6 +98,10 @@ public class SearchFragment extends Fragment {
                                 code = HttpUtil.sendGetRequest(pairs, ((Loan) loansSpinner.getSelectedItem()).value);
                             } catch (IOException e) {
                                 Log.e("IOException", e.getMessage());
+                            } catch (ParserConfigurationException e) {
+                                Log.e("ParserConfiguration", e.getMessage());
+                            } catch (SAXException e) {
+                                Log.e("SAXException", e.getMessage());
                             }
 
                             return code;

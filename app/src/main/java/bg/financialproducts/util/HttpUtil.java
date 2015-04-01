@@ -1,7 +1,5 @@
 package bg.financialproducts.util;
 
-import android.util.Log;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -11,6 +9,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +19,7 @@ import bg.financialproducts.model.BaseLoan;
 
 public class HttpUtil {
 
-    public static int sendGetRequest(List<NameValuePair> params, String loan) throws IOException {
+    public static int sendGetRequest(List<NameValuePair> params, String loan) throws IOException, ParserConfigurationException, SAXException {
         String paramString = URLEncodedUtils.format(params, "utf-8");
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet("http://affiliate.finzoom.ro/default.aspx?u_=demo&c_=en-US&id_=cl-sr-xml" + paramString);
@@ -32,20 +31,13 @@ public class HttpUtil {
         String arrayList = json.toString();
         JSONObject json = new JSONObject(stringreadfromsqlite);
         ArrayList items = json.optJSONArray("uniqueArrays");*/
-       // if (loansId == 1) {
-            try {
-                XMLParser.parseConsumers(response.getEntity().getContent());
-            } catch (ParserConfigurationException e) {
-                Log.e("ParserException", e.getMessage());
-            } catch (SAXException e) {
-                Log.e("SAXException", e.getMessage());
-            }
-        //}
+        chooseLoanByName(loan, response.getEntity().getContent());
+
 
         return response.getStatusLine().getStatusCode();
     }
 
-    private static List<BaseLoan> chooseLoanByName(String loan) throws IOException, SAXException, ParserConfigurationException {
+    private static List<BaseLoan> chooseLoanByName(String loan, InputStream stream) throws IOException, SAXException, ParserConfigurationException {
         List<BaseLoan> loans = new ArrayList<>();
 
         switch (loan) {
@@ -53,6 +45,12 @@ public class HttpUtil {
                 break;
             case Constants.CONSUMER:
                 loans.addAll(XMLParser.parseConsumers(null));
+                break;
+            case Constants.CREDIT_CARDS:
+                break;
+            case Constants.DEPOSITS:
+                break;
+            default:
                 break;
         }
 
