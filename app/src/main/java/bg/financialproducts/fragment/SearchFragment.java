@@ -64,8 +64,7 @@ public class SearchFragment extends Fragment {
 
                 Loan loan = (Loan) loansSpinner.getSelectedItem();
                 Factories factories = new Factories();
-                Layout layout = factories.createView(/*loan.id*/2, activity);
-                oldLayout = layout;
+                oldLayout = factories.createView(/*loan.id*/2, activity);
                 loansId = loan.id;
                 ((LinearLayout) view).addView(oldLayout);
 

@@ -20,6 +20,7 @@ import java.util.List;
 
 import bg.financialproducts.R;
 import bg.financialproducts.model.Loan;
+import bg.financialproducts.util.XMLParser;
 
 public class ConsumerLayout extends Layout implements TextWatcher {
 
