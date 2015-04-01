@@ -28,7 +28,7 @@ public class XMLParser {
 
     public static List<Loan> parse(Resources resources, String defaultValue, int fileId) {
         List<Loan> loans = new ArrayList<>();
-        loans.add(new Loan(-1, defaultValue));
+        loans.add(new Loan("-1", defaultValue));
 
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -45,7 +45,7 @@ public class XMLParser {
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) node;
                     loans.add(new Loan(
-                            Integer.parseInt(element.getAttribute("value")),
+                            element.getAttribute("value"),
                             element.getTextContent()));
                 }
             }

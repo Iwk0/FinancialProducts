@@ -23,6 +23,12 @@ public class HttpUtil {
         HttpGet request = new HttpGet("http://affiliate.finzoom.ro/default.aspx?u_=demo&c_=en-US&id_=cl-sr-xml" + paramString);
         HttpResponse response = client.execute(request);
         /*save results in database*/
+        //TODO да запазя информацията в бази от данни и след това да я визуализирам в различнит фрагменти
+/*        JSONObject json = new JSONObject();
+        json.put("uniqueArrays", new JSONArray(items));
+        String arrayList = json.toString();
+        JSONObject json = new JSONObject(stringreadfromsqlite);
+        ArrayList items = json.optJSONArray("uniqueArrays");*/
        // if (loansId == 1) {
             try {
                 XMLParser.parseConsumers(response.getEntity().getContent());

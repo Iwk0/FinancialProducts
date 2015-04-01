@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="sp_currency">
+    <option value="32">RON</option>
+    <option value="4">EUR</option>
+    <option value="8">USD</option>
+    <option value="1">GBP</option>
+</select>

@@ -41,11 +41,11 @@ public class SearchFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_search, container, false);
 
         List<Loan> searchValues = new ArrayList<>();
-        searchValues.add(new Loan(1, "Auto"));
-        searchValues.add(new Loan(2, "Consumer"));
-        searchValues.add(new Loan(3, "Credit card"));
-        searchValues.add(new Loan(4, "Deposits"));
-        searchValues.add(new Loan(5, "Mortgage"));
+        searchValues.add(new Loan("1", "Auto"));
+        searchValues.add(new Loan("2", "Consumer"));
+        searchValues.add(new Loan("3", "Credit card"));
+        searchValues.add(new Loan("4", "Deposits"));
+        searchValues.add(new Loan("5", "Mortgage"));
 
         activity = getActivity();
         loansSpinner = (Spinner) view.findViewById(R.id.loans);
@@ -64,9 +64,8 @@ public class SearchFragment extends Fragment {
 
                 Loan loan = (Loan) loansSpinner.getSelectedItem();
                 Factories factories = new Factories();
-                Layout layout = factories.createView(/*loan.id*/2, activity);
-                oldLayout = layout;
-                loansId = loan.id;
+                oldLayout = factories.createView(Integer.parseInt(loan.id), activity);
+                loansId = Integer.parseInt(loan.id);
                 ((LinearLayout) view).addView(oldLayout);
 
                 KeyBoard.hide(oldLayout, getActivity());
@@ -107,7 +106,7 @@ public class SearchFragment extends Fragment {
                             super.onPostExecute(code);
                             if (code == 200) {
                                 Loan loan = (Loan) loansSpinner.getSelectedItem();
-                                Fragment newFragment = Factories.createFragment(loan.id, activity);
+                                Fragment newFragment = Factories.createFragment(Integer.valueOf(loan.id), activity);
                                 getFragmentManager().beginTransaction().replace(R.id.content_frame, newFragment).commit();
                             } else {
                                 Toast.makeText(activity, getResources().getString(R.string.no_internet),

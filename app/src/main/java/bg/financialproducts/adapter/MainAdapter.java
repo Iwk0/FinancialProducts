@@ -6,43 +6,47 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+import java.util.List;
+
 import bg.financialproducts.R;
-import bg.financialproducts.model.Mortgage;
+import bg.financialproducts.model.BaseLoan;
 import bg.financialproducts.util.AutoResizeTextView;
 
-public class MortgageAdapter extends ArrayAdapter<Mortgage> {
+public class MainAdapter extends ArrayAdapter<BaseLoan> {
 
     private Context context;
+    private List<BaseLoan> loans;
 
     public static class ViewHolder {
         AutoResizeTextView product;
     }
 
-    public MortgageAdapter(Context context, int resource) {
+    public MainAdapter(Context context, int resource, List<BaseLoan> loans) {
         super(context, resource);
         this.context = context;
+        this.loans = loans;
     }
 
     @Override
     public int getCount() {
-        return super.getCount();
+        return loans.size();
     }
 
     @Override
-    public Mortgage getItem(int position) {
-        return super.getItem(position);
+    public BaseLoan getItem(int position) {
+        return loans.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return super.getItemId(position);
+        return -1;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
 
-        if (convertView != null) {
+        if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.item, parent, false);
@@ -55,6 +59,15 @@ public class MortgageAdapter extends ArrayAdapter<Mortgage> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        return super.getView(position, convertView, parent);
+        if (position % 2 == 0) {
+            convertView.setBackgroundResource(R.color.DarkSlateGray);
+        } else {
+            convertView.setBackgroundResource(R.color.LightSlateGray);
+        }
+
+        BaseLoan baseLoan = loans.get(position);
+        viewHolder.product.setText(baseLoan.product);
+
+        return convertView;
     }
 }

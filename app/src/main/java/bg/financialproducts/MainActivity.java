@@ -16,6 +16,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import bg.financialproducts.fragment.AutoFragment;
+import bg.financialproducts.fragment.ConsumerFragment;
+import bg.financialproducts.fragment.CreditCardFragment;
+import bg.financialproducts.fragment.DepositsFragment;
+import bg.financialproducts.fragment.MortgageFragment;
 import bg.financialproducts.fragment.SearchFragment;
 
 public class MainActivity extends FragmentActivity {
@@ -36,7 +41,7 @@ public class MainActivity extends FragmentActivity {
 
         actionBar = getActionBar();
         fragmentTitle = drawerTitle = getTitle();
-        barTitle = getResources().getStringArray(R.array.fragments_names);
+        barTitle = getResources().getStringArray(R.array.loans);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
@@ -50,7 +55,7 @@ public class MainActivity extends FragmentActivity {
         drawerLayout.setDrawerListener(drawerToggle);
 
         drawerList.setVisibility(View.VISIBLE);
-        drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, barTitle));
+        drawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, barTitle));
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -112,22 +117,22 @@ public class MainActivity extends FragmentActivity {
 
         switch (position) {
             case 0:
-                fragment = new SearchFragment();
+                fragment = new AutoFragment();
                 break;
-/*            case 1:
-                fragment = new MortgageFragment();
-                break;*/
-            /*case 2:
-                fragment = new LocalRates();
+            case 1:
+                fragment = new ConsumerFragment();
+                break;
+            case 2:
+                fragment = new CreditCardFragment();
                 break;
             case 3:
-                fragment = new Logs();
+                fragment = new DepositsFragment();
                 break;
             case 4:
-                fragment = new Stocks();
-                break;*/
+                fragment = new MortgageFragment();
+                break;
             default:
-                fragment = null;
+                fragment = new SearchFragment();
                 break;
         }
 

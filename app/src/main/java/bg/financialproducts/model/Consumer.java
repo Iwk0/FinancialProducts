@@ -1,12 +1,10 @@
 package bg.financialproducts.model;
 
-public class Consumer {
+public class Consumer extends BaseLoan {
 
-    public String product;
     public String apr;
     public String currency;
     public String monthlyPayment;
     public String totalPayed;
     public String interestRateType;
-    public String bank;
 }

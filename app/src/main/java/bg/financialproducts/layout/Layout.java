@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class Layout extends LinearLayout {
 
-    protected Layout(Context context) {
+    public Layout(Context context) {
         super(context);
     }
 

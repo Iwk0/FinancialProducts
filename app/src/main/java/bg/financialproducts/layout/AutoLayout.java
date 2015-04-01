@@ -2,13 +2,11 @@ package bg.financialproducts.layout;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -18,22 +16,23 @@ import java.util.List;
 
 import bg.financialproducts.R;
 import bg.financialproducts.model.Loan;
+import bg.financialproducts.util.CreateView;
 import bg.financialproducts.util.XMLParser;
 
 public class AutoLayout extends Layout implements TextWatcher {
 
     private EditText loanAmountText, carPriceText;
 
-    protected AutoLayout(Context context) {
+    public AutoLayout(Context context) {
         super(context);
 
         Resources resources = getResources();
-        List<Loan> carType = XMLParser.parse(resources, "Car type", R.raw.auto_loan_sp_car_type);
-        List<Loan> aLLoanTypes = XMLParser.parse(resources, "Loan or a leasing", R.raw.auto_loan_sp_alloan_type);
-        List<Loan> ageOfCars = XMLParser.parse(resources, "Age of cars", R.raw.auto_loan_sp_age_of_car);
-        List<Loan> residualValue = XMLParser.parse(resources, "Residual value", R.raw.auto_loan_sp_residual_value);
-        List<Loan> currency = XMLParser.parse(resources, "Currency", R.raw.consumer_loans_sp_currency);
-        List<Loan> loanTerm = XMLParser.parse(resources, "Loan Term in months", R.raw.auto_loan_sp_loan_term);
+        List<Loan> carType = XMLParser.parse(resources, resources.getString(R.string.car_type), R.raw.auto_loan_sp_car_type);
+        List<Loan> aLLoanTypes = XMLParser.parse(resources, resources.getString(R.string.loan_or_a_leasing), R.raw.auto_loan_sp_alloan_type);
+        List<Loan> ageOfCars = XMLParser.parse(resources, resources.getString(R.string.car_age), R.raw.auto_loan_sp_age_of_car);
+        List<Loan> residualValue = XMLParser.parse(resources, resources.getString(R.string.residual_value), R.raw.auto_loan_sp_residual_value);
+        List<Loan> currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.consumer_loans_sp_currency);
+        List<Loan> loanTerm = XMLParser.parse(resources, resources.getString(R.string.loan_term), R.raw.auto_loan_sp_loan_term);
 
         ViewGroup.LayoutParams layoutParams = new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -44,61 +43,56 @@ public class AutoLayout extends Layout implements TextWatcher {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
 
-        loanAmountText = fieldInitialization(context, "SP_SelfParticipationAmount", "Loan amount", layoutParams);
-        carPriceText = fieldInitialization(context, "SP_CarPrice", "Car price", layoutParams);
+        loanAmountText = CreateView.editText(context, "SP_SelfParticipationAmount", resources.getString(R.string.loan_amount), layoutParams, this);
+        carPriceText = CreateView.editText(context, "SP_CarPrice", resources.getString(R.string.car_price), layoutParams, this);
 
-        //TODO да оправя всички dropdown-и
-        ArrayAdapter<Loan> adapter = new ArrayAdapter<>(context,
-                R.layout.spinner_item, carType);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner carTypeSpinner = CreateView.spinner(context, "SP_LoanType", layoutParams, carType);
+        Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);
+        Spinner loanTermInMonthsSpinner = CreateView.spinner(context, "SP_LoanTerm", layoutParams, loanTerm);
+        Spinner aLLoanTypeSpinner = CreateView.spinner(context, "SP_ALLoanType", layoutParams, aLLoanTypes);
+        final Spinner ageOfCarsSpinner = CreateView.spinner(context, "SP_AgeOfCar", layoutParams, ageOfCars);
+        final Spinner residualValueSpinner = CreateView.spinner(context, "SP_ResidualValue_Input", layoutParams, residualValue);
 
-        Spinner typeOfLoanSpinner = new Spinner(context);
-        typeOfLoanSpinner.setTag("SP_LoanType");
-        typeOfLoanSpinner.setLayoutParams(layoutParams);
-        typeOfLoanSpinner.setAdapter(adapter);
+        aLLoanTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-        adapter = new ArrayAdapter<>(context,
-                R.layout.spinner_item, currency);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Loan loan = (Loan) parent.getSelectedItem();
+                if (loan.id.equals("1")) {
+                    residualValueSpinner.setEnabled(false);
+                    residualValueSpinner.setSelection(0);
+                } else {
+                    residualValueSpinner.setEnabled(true);
+                }
+            }
 
-        Spinner currencySpinner = new Spinner(context);
-        currencySpinner.setTag("SP_Currency");
-        currencySpinner.setLayoutParams(layoutParams);
-        currencySpinner.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-        adapter = new ArrayAdapter<>(context,
-                R.layout.spinner_item, currency);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            }
+        });
 
-        Spinner loanTermInMonthsSpinner = new Spinner(context);
-        loanTermInMonthsSpinner.setTag("SP_LoanTerm");
-        loanTermInMonthsSpinner.setLayoutParams(layoutParams);
-        loanTermInMonthsSpinner.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        carTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-        addViews(loanAmountText, typeOfLoanSpinner, currencySpinner, loanTermInMonthsSpinner);
-    }
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Loan loan = (Loan) parent.getSelectedItem();
+                if (loan.id.equals("1")) {
+                    ageOfCarsSpinner.setEnabled(false);
+                    ageOfCarsSpinner.setSelection(0);
+                } else {
+                    ageOfCarsSpinner.setEnabled(true);
+                }
+            }
 
-    private Spinner spinnerInitialization(Context context, String tag, ViewGroup.LayoutParams layoutParams, ArrayAdapter<Loan> loan) {
-        Spinner spinner = new Spinner(context);
-        spinner.setTag(tag);
-        spinner.setLayoutParams(layoutParams);
-        spinner.setAdapter(loan);
-        loan.notifyDataSetChanged();
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-        return spinner;
-    }
+            }
+        });
 
-    private EditText fieldInitialization(Context context, String tag, String hint, ViewGroup.LayoutParams layoutParams) {
-        EditText editText = new EditText(context);
-        editText.setHint(hint);
-        editText.setTag(tag);
-        editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        editText.addTextChangedListener(this);
-        editText.setLayoutParams(layoutParams);
-
-        return editText;
+        addViews(loanAmountText, carPriceText, carTypeSpinner, currencySpinner,
+                loanTermInMonthsSpinner, aLLoanTypeSpinner, ageOfCarsSpinner, residualValueSpinner);
     }
 
     private void addViews(View... localViews) {
@@ -109,13 +103,13 @@ public class AutoLayout extends Layout implements TextWatcher {
 
     @Override
     public List<NameValuePair> getAllViews() {
-        return null;
+        return CreateView.allFieldsAreRequired(this);
     }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        loanAmountText.setBackgroundColor(Color.WHITE);
-        carPriceText.setBackgroundColor(Color.WHITE);
+        loanAmountText.setBackgroundColor(android.R.attr.editTextColor);
+        carPriceText.setBackgroundColor(android.R.attr.editTextColor);
     }
 
     @Override
@@ -125,17 +119,7 @@ public class AutoLayout extends Layout implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-        fieldValidation(loanAmountText);
-        fieldValidation(carPriceText);
-    }
-
-    private void fieldValidation(EditText textField) {
-        String text = textField.getText().toString();
-        if (!text.isEmpty()) {
-            double loanAmount = Double.valueOf(text);
-            if (loanAmount < 500 || loanAmount > 5000000) {
-                textField.setBackgroundColor(Color.RED);
-            }
-        }
+        CreateView.editTextValidation(loanAmountText, 500, 5000000);
+        CreateView.editTextValidation(carPriceText, 500, 5000000);
     }
 }
