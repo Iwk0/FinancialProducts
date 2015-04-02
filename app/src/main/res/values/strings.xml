@@ -29,6 +29,7 @@
     <string name="interest_capitalization">With or without interest capitalization</string>
     <string name="loan_purpose">Loan purpose</string>
     <string name="property_value">Property value</string>
+    <string name="title_activity_settings">Settings</string>
 
     <string-array name="loans">
         <item>Auto</item>
@@ -38,4 +39,6 @@
         <item>Mortgage</item>
         <item>Search</item>
     </string-array>
+
+    <string name="hello_world">Hello world!</string>
 </resources>

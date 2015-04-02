@@ -10,6 +10,7 @@
     <string name="no_internet">Възникна проблем при създаване на връзка със сървиса</string>
     <string name="product">Продукт</string>
     <string name="no_result">Няма резултати</string>
+    <string name="title_activity_settings">Настройки</string>
 
     <string-array name="loans">
         <item>Авто</item>
