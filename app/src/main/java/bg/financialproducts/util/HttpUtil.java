@@ -2,15 +2,15 @@ package bg.financialproducts.util;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
@@ -21,42 +21,43 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class HttpUtil {
 
-    public static int sendGetRequest(Context context, List<NameValuePair> params, String loan)
+    public static int sendGetRequest(Context context, List<NameValuePair> params, String loanType)
             throws IOException, ParserConfigurationException, SAXException, JSONException {
         String paramString = URLEncodedUtils.format(params, "utf-8");
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet(
                 "http://affiliate.finzoom.ro/default.aspx?u_=demo&c_=en-US&id_=cl-sr-xml" + paramString);
         HttpResponse response = client.execute(request);
-        /*save results in database*/
-        //TODO да запазя информацията в бази от данни и след това да я визуализирам в различнит фрагменти
-/*        JSONObject json = new JSONObject();
-        json.put("uniqueArrays", new JSONArray(items));
-        String arrayList = json.toString();
-        JSONObject json = new JSONObject(stringreadfromsqlite);
-        ArrayList items = json.optJSONArray("uniqueArrays");*/
-        chooseLoanByName(context, loan, response.getEntity().getContent());
+
+        chooseLoanByType(context, loanType, response.getEntity().getContent());
 
         return response.getStatusLine().getStatusCode();
     }
 
-    private static void chooseLoanByName(Context context, String loan, InputStream stream)
+    private static void chooseLoanByType(Context context, String loanType, InputStream stream)
             throws IOException, SAXException, ParserConfigurationException, JSONException {
         LoansDAO loansDAO = new LoansDAO(context);
-        JSONObject json = new JSONObject();
 
-        switch (loan) {
+        switch (loanType) {
             case Constants.AUTO:
+                loansDAO.insertLoan(new Gson().
+                        toJson(XMLParser.parseConsumers(stream)), Constants.AUTO);
                 break;
             case Constants.CONSUMER:
-                json.put(Constants.LOAN, new JSONArray(XMLParser.parseConsumers(stream)));
-                loansDAO.insertLoan(json.toString(), Constants.CONSUMER);
+                loansDAO.insertLoan(new Gson().
+                        toJson(XMLParser.parseConsumers(stream)), Constants.CONSUMER);
                 break;
             case Constants.CREDIT_CARDS:
+                loansDAO.insertLoan(new Gson().
+                        toJson(XMLParser.parseConsumers(stream)), Constants.CREDIT_CARDS);
                 break;
             case Constants.DEPOSITS:
+                loansDAO.insertLoan(new Gson().
+                        toJson(XMLParser.parseConsumers(stream)), Constants.DEPOSITS);
                 break;
             default:
+                loansDAO.insertLoan(new Gson().
+                        toJson(XMLParser.parseConsumers(stream)), Constants.MORTGAGE);
                 break;
         }
     }
