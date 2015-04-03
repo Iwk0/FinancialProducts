@@ -67,7 +67,7 @@ public class MainActivity extends FragmentActivity {
         });
 
         if (savedInstanceState == null) {
-            selectItem(0);
+            selectItem(5);
         }
     }
 
