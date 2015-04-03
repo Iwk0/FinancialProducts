@@ -19,10 +19,13 @@ import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import bg.financialproducts.model.Settings;
+
 public class HttpUtil {
 
     public static int sendGetRequest(Context context, List<NameValuePair> params, String loanType)
             throws IOException, ParserConfigurationException, SAXException, JSONException {
+        Settings settings = null; /*Getting from database*/
         String paramString = URLEncodedUtils.format(params, "utf-8");
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet(
