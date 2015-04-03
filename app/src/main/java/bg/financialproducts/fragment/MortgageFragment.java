@@ -28,10 +28,9 @@ public class MortgageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         Activity activity = getActivity();
-        LoansDAO loansDAO = new LoansDAO(activity);
 
         List<BaseLoan> mortgageList = new Gson().
-                fromJson(loansDAO.findLoanByType(Constants.TABLE_NAME_LOAN, Constants.MORTGAGE),
+                fromJson(new LoansDAO(activity).findLoanByType(Constants.TABLE_NAME_LOAN, Constants.MORTGAGE),
                         new TypeToken<List<BaseLoan>>() {}.getType());
 
         if (mortgageList != null && !mortgageList.isEmpty()) {
