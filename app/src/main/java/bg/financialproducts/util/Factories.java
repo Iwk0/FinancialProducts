@@ -38,7 +38,7 @@ public class Factories {
         return layout;
     }
 
-    public static Fragment createFragment(int fragmentId, Context context) {
+    public static Fragment createFragment(int fragmentId) {
         Fragment fragment;
 
         switch (fragmentId) {

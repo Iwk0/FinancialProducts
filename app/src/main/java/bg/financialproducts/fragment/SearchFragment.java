@@ -118,7 +118,7 @@ public class SearchFragment extends Fragment {
                             if (code == 200) {
                                 Loan loan = (Loan) loansSpinner.getSelectedItem();
                                 Fragment newFragment =
-                                        Factories.createFragment(Integer.valueOf(loan.id), activity);
+                                        Factories.createFragment(Integer.valueOf(loan.id));
                                 getFragmentManager().
                                         beginTransaction().
                                         replace(R.id.content_frame, newFragment).commit();
