@@ -66,7 +66,10 @@ public class MortgageLayout extends Layout implements TextWatcher {
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         loanAmountText.setBackgroundColor(android.R.attr.editTextColor);
+        loanAmountText.setTag("SP_LoanAmount");
+
         propertyValueText.setBackgroundColor(android.R.attr.editTextColor);
+        propertyValueText.setTag("SP_PropertyValue");
     }
 
     @Override

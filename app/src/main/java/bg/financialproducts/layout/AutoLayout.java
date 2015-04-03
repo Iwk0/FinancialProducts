@@ -109,7 +109,10 @@ public class AutoLayout extends Layout implements TextWatcher {
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         loanAmountText.setBackgroundColor(android.R.attr.editTextColor);
+        loanAmountText.setTag("SP_SelfParticipationAmount");
+
         carPriceText.setBackgroundColor(android.R.attr.editTextColor);
+        carPriceText.setTag("SP_CarPrice");
     }
 
     @Override

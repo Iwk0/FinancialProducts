@@ -2,6 +2,7 @@ package bg.financialproducts.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,7 +29,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import bg.financialproducts.R;
 import bg.financialproducts.layout.Layout;
 import bg.financialproducts.model.Loan;
-import bg.financialproducts.util.Constants;
 import bg.financialproducts.util.Factories;
 import bg.financialproducts.util.HttpUtil;
 import bg.financialproducts.util.KeyBoard;
@@ -44,12 +44,13 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search, container, false);
 
+        Resources resources = getResources();
         List<Loan> searchValues = new ArrayList<>();
-        searchValues.add(new Loan("1", Constants.AUTO));
-        searchValues.add(new Loan("2", Constants.CONSUMER));
-        searchValues.add(new Loan("3", Constants.CREDIT_CARDS));
-        searchValues.add(new Loan("4", Constants.DEPOSITS));
-        searchValues.add(new Loan("5", Constants.MORTGAGE));
+        searchValues.add(new Loan("1", resources.getString(R.string.auto)));
+        searchValues.add(new Loan("2", resources.getString(R.string.consumer)));
+        searchValues.add(new Loan("3", resources.getString(R.string.credit_cards)));
+        searchValues.add(new Loan("4", resources.getString(R.string.deposits)));
+        searchValues.add(new Loan("5", resources.getString(R.string.mortgage)));
 
         activity = getActivity();
         loansSpinner = (Spinner) view.findViewById(R.id.loans);
@@ -97,7 +98,7 @@ public class SearchFragment extends Fragment {
 
                             try {
                                 code = HttpUtil.sendGetRequest(activity, pairs,
-                                        ((Loan) loansSpinner.getSelectedItem()).value);
+                                        Integer.valueOf(((Loan) loansSpinner.getSelectedItem()).id));
                             } catch (IOException e) {
                                 Log.e("IOException", e.getMessage());
                             } catch (ParserConfigurationException e) {
@@ -117,7 +118,7 @@ public class SearchFragment extends Fragment {
                             if (code == 200) {
                                 Loan loan = (Loan) loansSpinner.getSelectedItem();
                                 Fragment newFragment =
-                                        Factories.createFragment(Integer.valueOf(loan.id), activity);
+                                        Factories.createFragment(Integer.valueOf(loan.id));
                                 getFragmentManager().
                                         beginTransaction().
                                         replace(R.id.content_frame, newFragment).commit();

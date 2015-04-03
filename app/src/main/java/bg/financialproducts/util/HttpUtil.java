@@ -23,7 +23,7 @@ import bg.financialproducts.model.Settings;
 
 public class HttpUtil {
 
-    public static int sendGetRequest(Context context, List<NameValuePair> params, String loanType)
+    public static int sendGetRequest(Context context, List<NameValuePair> params, int loanType)
             throws IOException, ParserConfigurationException, SAXException, JSONException {
         Settings settings = null; /*Getting from database*/
         String paramString = URLEncodedUtils.format(params, "utf-8");
@@ -37,30 +37,26 @@ public class HttpUtil {
         return response.getStatusLine().getStatusCode();
     }
 
-    private static void chooseLoanByType(Context context, String loanType, InputStream stream)
+    private static void chooseLoanByType(Context context, int loanType, InputStream stream)
             throws IOException, SAXException, ParserConfigurationException, JSONException {
         LoansDAO loansDAO = new LoansDAO(context);
+        Gson gson = new Gson();
 
         switch (loanType) {
             case Constants.AUTO:
-                loansDAO.insertLoan(new Gson().
-                        toJson(XMLParser.parseConsumers(stream)), Constants.AUTO);
+                loansDAO.insertLoan(gson.toJson(XMLParser.parseConsumers(stream)), Constants.AUTO);
                 break;
             case Constants.CONSUMER:
-                loansDAO.insertLoan(new Gson().
-                        toJson(XMLParser.parseConsumers(stream)), Constants.CONSUMER);
+                loansDAO.insertLoan(gson.toJson(XMLParser.parseConsumers(stream)), Constants.CONSUMER);
                 break;
             case Constants.CREDIT_CARDS:
-                loansDAO.insertLoan(new Gson().
-                        toJson(XMLParser.parseConsumers(stream)), Constants.CREDIT_CARDS);
+                loansDAO.insertLoan(gson.toJson(XMLParser.parseConsumers(stream)), Constants.CREDIT_CARDS);
                 break;
             case Constants.DEPOSITS:
-                loansDAO.insertLoan(new Gson().
-                        toJson(XMLParser.parseConsumers(stream)), Constants.DEPOSITS);
+                loansDAO.insertLoan(gson.toJson(XMLParser.parseConsumers(stream)), Constants.DEPOSITS);
                 break;
             default:
-                loansDAO.insertLoan(new Gson().
-                        toJson(XMLParser.parseConsumers(stream)), Constants.MORTGAGE);
+                loansDAO.insertLoan(gson.toJson(XMLParser.parseConsumers(stream)), Constants.MORTGAGE);
                 break;
         }
     }
