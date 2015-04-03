@@ -35,6 +35,7 @@ public class CreateView {
     }
 
     public static EditText editText(Context context, String tag, String hint, ViewGroup.LayoutParams layoutParams, TextWatcher textWatcher) {
+        //TODO да оправя цветовете
         EditText editText = new EditText(context);
         editText.setHint(hint);
         editText.setTag(tag);
@@ -49,7 +50,6 @@ public class CreateView {
     public static List<NameValuePair> allFieldsAreRequired(ViewGroup viewGroup) {
         List<NameValuePair> params = new ArrayList<>();
         final int SIZE = viewGroup.getChildCount();
-        //TODO да оправя цветовете
         int disabledSpinner = 0;
         for (int i = 0; i < SIZE; i++) {
             View view = viewGroup.getChildAt(i);
