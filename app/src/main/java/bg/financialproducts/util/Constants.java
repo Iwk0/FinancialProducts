@@ -29,4 +29,6 @@ public interface Constants {
     public String ID = "id";
     public String CONTENT = "content";
     public String TYPE = "type";
+
+    public String INVALID = "Invalid";
 }

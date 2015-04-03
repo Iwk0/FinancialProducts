@@ -2,7 +2,6 @@ package bg.financialproducts.util;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
@@ -34,7 +33,8 @@ public class CreateView {
         return spinner;
     }
 
-    public static EditText editText(Context context, String tag, String hint, ViewGroup.LayoutParams layoutParams, TextWatcher textWatcher) {
+    public static EditText editText(Context context, String tag, String hint,
+                                    ViewGroup.LayoutParams layoutParams, TextWatcher textWatcher) {
         //TODO да оправя цветовете
         EditText editText = new EditText(context);
         editText.setHint(hint);
@@ -50,7 +50,8 @@ public class CreateView {
     public static List<NameValuePair> allFieldsAreRequired(ViewGroup viewGroup) {
         List<NameValuePair> params = new ArrayList<>();
         final int SIZE = viewGroup.getChildCount();
-        int disabledSpinner = 0;
+        int disabledView = 0;
+
         for (int i = 0; i < SIZE; i++) {
             View view = viewGroup.getChildAt(i);
             if (view instanceof Spinner) {
@@ -60,21 +61,20 @@ public class CreateView {
                 if (!loan.id.equals("-1")) {
                     params.add(new BasicNameValuePair((String) spinner.getTag(), (String.valueOf(loan.id))));
                 }
-
-                if (!spinner.isEnabled()) {
-                    disabledSpinner++;
-                }
             } else if (view instanceof EditText) {
                 EditText text = (EditText) view;
-                ColorDrawable backgroundColor = (ColorDrawable) text.getBackground();
 
-                if (backgroundColor.getColor() != Color.RED && !text.getText().toString().isEmpty()) {
+                if (!text.getTag().equals(Constants.INVALID) && !text.getText().toString().isEmpty()) {
                     params.add(new BasicNameValuePair(text.getTag().toString(), text.getText().toString()));
                 }
             }
+
+            if (!view.isEnabled()) {
+                disabledView++;
+            }
         }
 
-        if (params.size() < SIZE - disabledSpinner) {
+        if (params.size() < SIZE - disabledView) {
             return null;
         }
 
@@ -87,6 +87,7 @@ public class CreateView {
             double loanAmount = Double.valueOf(text);
             if (loanAmount < min || loanAmount > max) {
                 textField.setBackgroundColor(Color.RED);
+                textField.setTag(Constants.INVALID);
             }
         }
     }

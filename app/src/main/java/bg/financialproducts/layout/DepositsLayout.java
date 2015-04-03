@@ -62,6 +62,7 @@ public class DepositsLayout extends Layout implements TextWatcher {
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         loanAmountText.setBackgroundColor(android.R.attr.editTextColor);
+        loanAmountText.setTag("SP_DepositAmount");
     }
 
     @Override
