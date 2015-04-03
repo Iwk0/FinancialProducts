@@ -21,7 +21,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class HttpUtil {
 
-    public static int sendGetRequest(Context context, List<NameValuePair> params, String loanType)
+    public static int sendGetRequest(Context context, List<NameValuePair> params, int loanType)
             throws IOException, ParserConfigurationException, SAXException, JSONException {
         String paramString = URLEncodedUtils.format(params, "utf-8");
         HttpClient client = new DefaultHttpClient();
@@ -34,7 +34,7 @@ public class HttpUtil {
         return response.getStatusLine().getStatusCode();
     }
 
-    private static void chooseLoanByType(Context context, String loanType, InputStream stream)
+    private static void chooseLoanByType(Context context, int loanType, InputStream stream)
             throws IOException, SAXException, ParserConfigurationException, JSONException {
         LoansDAO loansDAO = new LoansDAO(context);
         Gson gson = new Gson();

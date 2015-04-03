@@ -29,7 +29,7 @@ public class LoansDAO extends SQLiteOpenHelper {
         onCreate(database);
     }
 
-    public void insertLoan(String loan, String type) {
+    public void insertLoan(String loan, int type) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -41,10 +41,10 @@ public class LoansDAO extends SQLiteOpenHelper {
         db.close();
     }
 
-    public String findLoanByType(String table, String type) {
+    public String findLoanByType(String table, int type) {
         Cursor cursor = getWritableDatabase().
                 rawQuery(String.format("SELECT * FROM %s where type = ?", table),
-                        new String[] { type });
+                        new String[] { String.valueOf(type) });
 
         String loan = null;
         if (cursor.moveToFirst()) {
