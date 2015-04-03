@@ -42,6 +42,7 @@ public class AutoFragment extends Fragment {
 
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    //TODO down cast на обекта за да мога да взема всичко за него
 /*                Intent intent = new Intent(activity, LogActivity.class);
                 intent.putExtra(Constants.LOG, (Log) adapterView.getItemAtPosition(i));
 
