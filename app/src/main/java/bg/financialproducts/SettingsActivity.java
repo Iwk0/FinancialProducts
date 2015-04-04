@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import bg.financialproducts.model.Settings;
 import bg.financialproducts.util.Database;
 
 public class SettingsActivity extends Activity {
@@ -18,6 +19,12 @@ public class SettingsActivity extends Activity {
         final EditText urlText = (EditText) findViewById(R.id.urlText);
         final EditText userIdText = (EditText) findViewById(R.id.idText);
         final EditText usernameText = (EditText) findViewById(R.id.usernameText);
+
+        Settings settings = new Database(this).findLastSettingsRecord();
+
+        urlText.setText(settings.url);
+        userIdText.setText(settings.id);
+        usernameText.setText(settings.username);
 
         Button save = (Button) findViewById(R.id.saveButton);
         save.setOnClickListener(new View.OnClickListener() {

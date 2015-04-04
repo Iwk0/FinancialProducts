@@ -5,12 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.util.List;
 
 import bg.financialproducts.R;
 import bg.financialproducts.model.BaseLoan;
-import bg.financialproducts.util.AutoResizeTextView;
 
 public class MainAdapter extends ArrayAdapter<BaseLoan> {
 
@@ -18,7 +18,7 @@ public class MainAdapter extends ArrayAdapter<BaseLoan> {
     private List<BaseLoan> loans;
 
     public static class ViewHolder {
-        AutoResizeTextView product;
+        TextView product;
     }
 
     public MainAdapter(Context context, int resource, List<BaseLoan> loans) {
@@ -52,7 +52,7 @@ public class MainAdapter extends ArrayAdapter<BaseLoan> {
             convertView = inflater.inflate(R.layout.item, parent, false);
 
             viewHolder = new ViewHolder();
-            viewHolder.product = (AutoResizeTextView) convertView.findViewById(R.id.product);
+            viewHolder.product = (TextView) convertView.findViewById(R.id.product);
 
             convertView.setTag(viewHolder);
         } else {

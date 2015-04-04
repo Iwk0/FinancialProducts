@@ -127,7 +127,7 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    private void selectItem(int position) {
+    public void selectItem(int position) {
         Fragment fragment;
 
         switch (position) {

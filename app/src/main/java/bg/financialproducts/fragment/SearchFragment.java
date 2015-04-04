@@ -26,6 +26,7 @@ import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import bg.financialproducts.MainActivity;
 import bg.financialproducts.R;
 import bg.financialproducts.layout.Layout;
 import bg.financialproducts.model.Loan;
@@ -34,6 +35,8 @@ import bg.financialproducts.util.HttpUtil;
 import bg.financialproducts.util.KeyBoard;
 
 public class SearchFragment extends Fragment {
+
+    private String[] barTitle;
 
     private Activity activity;
     private View view;
@@ -44,6 +47,9 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search, container, false);
 
+        activity = getActivity();
+        barTitle = getResources().getStringArray(R.array.loans);
+
         Resources resources = getResources();
         List<Loan> searchValues = new ArrayList<>();
         searchValues.add(new Loan("1", resources.getString(R.string.auto)));
@@ -52,7 +58,6 @@ public class SearchFragment extends Fragment {
         searchValues.add(new Loan("4", resources.getString(R.string.deposits)));
         searchValues.add(new Loan("5", resources.getString(R.string.mortgage)));
 
-        activity = getActivity();
         loansSpinner = (Spinner) view.findViewById(R.id.loans);
         ArrayAdapter<Loan> adapter = new ArrayAdapter<>(activity,
                 R.layout.spinner_item, searchValues);
@@ -122,6 +127,7 @@ public class SearchFragment extends Fragment {
                                 getFragmentManager().
                                         beginTransaction().
                                         replace(R.id.content_frame, newFragment).commit();
+                                ((MainActivity) activity).selectItem(Integer.valueOf(loan.id) - 1);
                             } else if (code == -1) {
                                 Toast.makeText(activity, getResources().getString(R.string.no_url_or_username),
                                         Toast.LENGTH_SHORT).show();

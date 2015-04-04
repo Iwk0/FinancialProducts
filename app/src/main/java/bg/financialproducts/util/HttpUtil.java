@@ -27,7 +27,11 @@ public class HttpUtil {
             throws IOException, ParserConfigurationException, SAXException, JSONException {
         Settings settings = new Database(context).findLastSettingsRecord();
 
-        if (settings == null) {
+        if (settings != null) {
+            if (settings.isEmpty()) {
+                return -1;
+            }
+        } else {
             return -1;
         }
 
@@ -35,7 +39,7 @@ public class HttpUtil {
         HttpClient client = new DefaultHttpClient();
 
         HttpGet request = new HttpGet(
-                String.format("%s?u_=%s&c_=en-US&id_=%s", settings.url, settings.username, settings.id) + paramString);
+                String.format("%s?u_=%s&c_=en-US&id_=%s&", settings.url, settings.username, settings.id) + paramString);
 
         HttpResponse response = client.execute(request);
 
