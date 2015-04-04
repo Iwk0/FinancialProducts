@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:theme="@android:style/Theme.Holo.Light.Dialog"
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>

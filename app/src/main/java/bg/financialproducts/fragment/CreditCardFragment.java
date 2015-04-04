@@ -19,7 +19,7 @@ import bg.financialproducts.R;
 import bg.financialproducts.adapter.MainAdapter;
 import bg.financialproducts.model.BaseLoan;
 import bg.financialproducts.util.Constants;
-import bg.financialproducts.util.LoansDAO;
+import bg.financialproducts.util.Database;
 
 public class CreditCardFragment extends Fragment {
 
@@ -30,7 +30,7 @@ public class CreditCardFragment extends Fragment {
         Activity activity = getActivity();
 
         List<BaseLoan> creditCardList = new Gson().
-                fromJson(new LoansDAO(activity).findLoanByType(Constants.TABLE_NAME_LOAN, Constants.CREDIT_CARDS),
+                fromJson(new Database(activity).findLoanByType(Constants.TABLE_NAME_LOAN, Constants.CREDIT_CARDS),
                         new TypeToken<List<BaseLoan>>() {}.getType());
 
         if (creditCardList != null && !creditCardList.isEmpty()) {

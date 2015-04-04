@@ -13,6 +13,7 @@
     <string name="no_internet">There was a problem while creating a connection to the remote service</string>
     <string name="product">Product</string>
     <string name="no_result">No results</string>
+    <string name="no_url_or_username">Setting up your url and username</string>
 
     <!--Labels-->
     <string name="car_type">Car type</string>
@@ -34,6 +35,8 @@
     <string name="auto">Auto</string>
     <string name="consumer">Consumer</string>
     <string name="mortgage">Mortgage</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 
     <string-array name="loans">
         <item>Auto</item>

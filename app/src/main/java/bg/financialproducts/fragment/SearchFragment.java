@@ -122,6 +122,9 @@ public class SearchFragment extends Fragment {
                                 getFragmentManager().
                                         beginTransaction().
                                         replace(R.id.content_frame, newFragment).commit();
+                            } else if (code == -1) {
+                                Toast.makeText(activity, getResources().getString(R.string.no_url_or_username),
+                                        Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(activity, getResources().getString(R.string.no_internet),
                                         Toast.LENGTH_SHORT).show();

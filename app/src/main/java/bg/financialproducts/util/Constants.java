@@ -21,14 +21,23 @@ public interface Constants {
     public int DEPOSITS = 4;
     public int MORTGAGE = 5;
 
-    /*Database*/
-    public int DATABASE_VERSION = 1;
-    public String DATABASE_NAME = "Change";
+    /*Database main*/
+    public int DATABASE_VERSION = 2;
+    public String DATABASE_NAME = "FinancialProducts";
+
+    /*Database loan*/
     public String TABLE_LOAN = "CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s INTEGER);";
     public String TABLE_NAME_LOAN = "loan";
     public String ID = "id";
     public String CONTENT = "content";
     public String TYPE = "type";
+
+    /*Database settings*/
+    public String TABLE_SETTINGS = "CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT);";
+    public String TABLE_NAME_SETTINGS = "settings";
+    public String URL = "url";
+    public String USER_ID = "userId";
+    public String USERNAME = "username";
 
     public String INVALID = "Invalid";
 }
