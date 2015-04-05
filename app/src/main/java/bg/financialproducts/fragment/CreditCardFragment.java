@@ -28,15 +28,21 @@ public class CreditCardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         Activity activity = getActivity();
+        Database database = new Database(activity);
 
         List<BaseLoan> creditCardList = new Gson().
-                fromJson(new Database(activity).findLoanByType(Constants.TABLE_NAME_LOAN, Constants.CREDIT_CARDS),
+                fromJson(database.findLoanByType(Constants.TABLE_NAME_LOAN, Constants.CREDIT_CARDS),
                         new TypeToken<List<BaseLoan>>() {}.getType());
 
         if (creditCardList != null && !creditCardList.isEmpty()) {
+            View linearLayout = View.inflate(activity, R.layout.header, null);
+
+            TextView textView = (TextView) linearLayout.findViewById(R.id.header);
+            textView.setText(textView.getText() + "\n" + database.getCreatedAtDate(Constants.CREDIT_CARDS));
+
             ListView listView = (ListView) view.findViewById(R.id.list);
             listView.setVisibility(View.VISIBLE);
-            listView.addHeaderView(View.inflate(activity, R.layout.header, null), null, false);
+            listView.addHeaderView(linearLayout, null, false);
             listView.setAdapter(new MainAdapter(activity, R.layout.item, creditCardList));
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

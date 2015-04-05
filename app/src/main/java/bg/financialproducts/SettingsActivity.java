@@ -22,9 +22,11 @@ public class SettingsActivity extends Activity {
 
         Settings settings = new Database(this).findLastSettingsRecord();
 
-        urlText.setText(settings.url);
-        userIdText.setText(settings.id);
-        usernameText.setText(settings.username);
+        if (settings != null) {
+            urlText.setText(settings.url);
+            userIdText.setText(settings.id);
+            usernameText.setText(settings.username);
+        }
 
         Button save = (Button) findViewById(R.id.saveButton);
         save.setOnClickListener(new View.OnClickListener() {

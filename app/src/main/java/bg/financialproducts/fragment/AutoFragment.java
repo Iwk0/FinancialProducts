@@ -28,13 +28,17 @@ public class AutoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         Activity activity = getActivity();
+        Database database = new Database(activity);
 
         List<BaseLoan> autoList = new Gson().
-                fromJson(new Database(activity).findLoanByType(Constants.TABLE_NAME_LOAN, Constants.AUTO),
+                fromJson(database.findLoanByType(Constants.TABLE_NAME_LOAN, Constants.AUTO),
                         new TypeToken<List<BaseLoan>>() {}.getType());
 
         if (autoList != null && !autoList.isEmpty()) {
             View linearLayout = View.inflate(activity, R.layout.header, null);
+
+            TextView textView = (TextView) linearLayout.findViewById(R.id.header);
+            textView.setText(textView.getText() + "\n" + database.getCreatedAtDate(Constants.AUTO));
 
             ListView listView = (ListView) view.findViewById(R.id.list);
             listView.setVisibility(View.VISIBLE);
@@ -52,9 +56,6 @@ public class AutoFragment extends Fragment {
                 activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);*/
                 }
             });
-
-            TextView textView = (TextView) linearLayout.findViewById(R.id.date);
-            textView.setText(/*new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault()).format(new Date())*/"Test");
         } else {
             TextView noResultsView = (TextView) view.findViewById(R.id.noResult);
             noResultsView.setVisibility(View.VISIBLE);

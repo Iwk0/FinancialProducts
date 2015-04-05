@@ -28,15 +28,21 @@ public class MortgageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         Activity activity = getActivity();
+        Database database = new Database(activity);
 
         List<BaseLoan> mortgageList = new Gson().
-                fromJson(new Database(activity).findLoanByType(Constants.TABLE_NAME_LOAN, Constants.MORTGAGE),
+                fromJson(database.findLoanByType(Constants.TABLE_NAME_LOAN, Constants.MORTGAGE),
                         new TypeToken<List<BaseLoan>>() {}.getType());
 
         if (mortgageList != null && !mortgageList.isEmpty()) {
+            View linearLayout = View.inflate(activity, R.layout.header, null);
+
+            TextView textView = (TextView) linearLayout.findViewById(R.id.header);
+            textView.setText(textView.getText() + "\n" + database.getCreatedAtDate(Constants.MORTGAGE));
+
             ListView listView = (ListView) view.findViewById(R.id.list);
             listView.setVisibility(View.VISIBLE);
-            listView.addHeaderView(View.inflate(activity, R.layout.header, null), null, false);
+            listView.addHeaderView(linearLayout, null, false);
             listView.setAdapter(new MainAdapter(activity, R.layout.item, mortgageList));
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

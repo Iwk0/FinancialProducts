@@ -28,15 +28,21 @@ public class ConsumerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         Activity activity = getActivity();
+        Database database = new Database(activity);
 
         List<BaseLoan> consumerList = new Gson().
-                fromJson(new Database(activity).findLoanByType(Constants.TABLE_NAME_LOAN, Constants.CONSUMER),
+                fromJson(database.findLoanByType(Constants.TABLE_NAME_LOAN, Constants.CONSUMER),
                         new TypeToken<List<BaseLoan>>() {}.getType());
 
         if (consumerList != null && !consumerList.isEmpty()) {
+            View linearLayout = View.inflate(activity, R.layout.header, null);
+
+            TextView textView = (TextView) linearLayout.findViewById(R.id.header);
+            textView.setText(textView.getText() + "\n" + database.getCreatedAtDate(Constants.CONSUMER));
+
             ListView listView = (ListView) view.findViewById(R.id.list);
             listView.setVisibility(View.VISIBLE);
-            listView.addHeaderView(View.inflate(activity, R.layout.header, null), null, false);
+            listView.addHeaderView(linearLayout, null, false);
             listView.setAdapter(new MainAdapter(activity, R.layout.item, consumerList));
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

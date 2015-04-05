@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import bg.financialproducts.model.Settings;
 
 public class Database extends SQLiteOpenHelper {
@@ -21,7 +25,8 @@ public class Database extends SQLiteOpenHelper {
                 Constants.TABLE_NAME_LOAN,
                 Constants.ID,
                 Constants.CONTENT,
-                Constants.TYPE);
+                Constants.TYPE,
+                Constants.CREATED_AT);
 
         String createTableSettings = String.format(Constants.TABLE_SETTINGS,
                 Constants.TABLE_NAME_SETTINGS,
@@ -45,8 +50,11 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault());
+
         values.put(Constants.CONTENT, loan);
         values.put(Constants.TYPE, type);
+        values.put(Constants.CREATED_AT, dateFormat.format(new Date()));
 
         db.delete(Constants.TABLE_NAME_LOAN, Constants.TYPE + "=" + type, null);
         db.insert(Constants.TABLE_NAME_LOAN, null, values);
@@ -88,6 +96,21 @@ public class Database extends SQLiteOpenHelper {
         }
 
         return settings;
+    }
+
+    public String getCreatedAtDate(int type) {
+        Cursor cursor = getWritableDatabase().
+                rawQuery(String.format("SELECT * FROM %s WHERE type = ? ORDER BY %s DESC LIMIT 1;",
+                        Constants.TABLE_NAME_LOAN, Constants.ID), new String[]{ String.valueOf(type) });
+
+        String date = null;
+        if (cursor.moveToFirst()) {
+            do {
+                date = cursor.getString(3);
+            } while (cursor.moveToNext());
+        }
+
+        return date;
     }
 
     public String findLoanByType(String table, int type) {
