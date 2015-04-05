@@ -23,6 +23,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import bg.financialproducts.model.Consumer;
 import bg.financialproducts.model.Loan;
+import bg.financialproducts.model.Mortgage;
 
 public class XMLParser {
 
@@ -56,7 +57,8 @@ public class XMLParser {
         return loans;
     }
 
-    public static List<Consumer> parseConsumers(InputStream content) throws ParserConfigurationException, IOException, SAXException {
+    private static NodeList getElementByTagName(InputStream content) throws ParserConfigurationException,
+            IOException, SAXException {
         String rawXml = IOUtils.toString(content, "UTF-8").replaceAll("&", "&amp;");
 
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -65,7 +67,12 @@ public class XMLParser {
 
         doc.getDocumentElement().normalize();
 
-        NodeList nodeList = doc.getElementsByTagName("row");
+        return doc.getElementsByTagName("row");
+    }
+
+    public static List<Consumer> parseConsumers(InputStream content) throws ParserConfigurationException,
+            IOException, SAXException {
+        NodeList nodeList = getElementByTagName(content);
         List<Consumer> consumers = new ArrayList<>();
 
         int NODE_LIST_SIZE = nodeList.getLength();
@@ -112,5 +119,58 @@ public class XMLParser {
         }
 
         return consumers;
+    }
+
+    public static List<Mortgage> parseMortgage(InputStream content) throws IOException, ParserConfigurationException, SAXException {
+        NodeList nodeList = getElementByTagName(content);
+        List<Mortgage> mortgages = new ArrayList<>();
+
+        int NODE_LIST_SIZE = nodeList.getLength();
+        for (int temp = 0; temp < NODE_LIST_SIZE; temp++) {
+            Node node = nodeList.item(temp);
+
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                Mortgage mortgage = new Mortgage();
+
+                final int ELEMENTS_SIZE = element.getElementsByTagName("val").getLength();
+                for (int i = 0; i < ELEMENTS_SIZE; i++) {
+                    Node tmp = element.getElementsByTagName("val").item(i);
+                    String attribute = tmp.getAttributes().item(0).getTextContent();
+                    String text = tmp.getTextContent();
+
+                    switch (attribute) {
+                        case Constants.PRODUCT:
+                            mortgage.product = text;
+                            break;
+                        case Constants.APR:
+                            mortgage.apr = text;
+                            break;
+                        case Constants.BANK:
+                            mortgage.bank = text;
+                            break;
+                        case Constants.CURRENCY:
+                            mortgage.currency = text;
+                            break;
+                        case Constants.MONTHLY_PAYMENT:
+                            mortgage.monthlyPayment = text;
+                            break;
+                        case Constants.TOTAL_PAYED:
+                            mortgage.totalPayed = text;
+                            break;
+                        case Constants.ML_INTEREST_TYPE:
+                            mortgage.interestType = text;
+                            break;
+                        case Constants.DOWN_PAYMENT:
+                            mortgage.downPayment = text;
+                            break;
+                    }
+                }
+
+                mortgages.add(mortgage);
+            }
+        }
+
+        return mortgages;
     }
 }

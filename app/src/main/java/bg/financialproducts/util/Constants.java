@@ -3,16 +3,21 @@ package bg.financialproducts.util;
 public interface Constants {
 
     /*General*/
-    public String LOAN = "Loan";
     public String PRODUCT = "Product";
+    public String MONTHLY_PAYMENT = "MonthlyPayment";
+    public String CURRENCY = "Currency";
+    public String BANK = "Bank";
+    public String TOTAL_PAYED = "TotalPayed";
 
     /*Consumer loans variables*/
     public String APR = "APR";
-    public String CURRENCY = "Currency";
-    public String MONTHLY_PAYMENT = "MonthlyPayment";
-    public String TOTAL_PAYED = "TotalPayed";
     public String INTEREST_RATE_TYPE = "InterestRateType";
-    public String BANK = "Bank";
+
+    /*Mortgage loans variables*/
+    public String ML_INTEREST_TYPE = "MLInterestType";
+    public String DOWN_PAYMENT = "DownPayment";
+
+    /*Credit cards variables*/
 
     /*Database loan types*/
     public int AUTO = 1;
