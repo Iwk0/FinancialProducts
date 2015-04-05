@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -72,7 +73,7 @@ public class Database extends SQLiteOpenHelper {
         try {
             db.delete(Constants.TABLE_NAME_SETTINGS, Constants.USERNAME + "=" + username, null);
         } catch (SQLiteException e) {
-
+            Log.e("SQLiteException", "No item to delete");
         } finally {
             db.insert(Constants.TABLE_NAME_SETTINGS, null, values);
         }
@@ -83,7 +84,7 @@ public class Database extends SQLiteOpenHelper {
     public Settings findLastSettingsRecord() {
         Cursor cursor = getWritableDatabase().
                 rawQuery(String.format("SELECT * FROM %s ORDER BY %s DESC LIMIT 1;",
-                        Constants.TABLE_NAME_SETTINGS, Constants.ID), new String[]{});
+                        Constants.TABLE_NAME_SETTINGS, Constants.ID), new String[] {});
 
         Settings settings = null;
         if (cursor.moveToFirst()) {
@@ -101,7 +102,7 @@ public class Database extends SQLiteOpenHelper {
     public String getCreatedAtDate(int type) {
         Cursor cursor = getWritableDatabase().
                 rawQuery(String.format("SELECT * FROM %s WHERE type = ? ORDER BY %s DESC LIMIT 1;",
-                        Constants.TABLE_NAME_LOAN, Constants.ID), new String[]{ String.valueOf(type) });
+                        Constants.TABLE_NAME_LOAN, Constants.ID), new String[] { String.valueOf(type) });
 
         String date = null;
         if (cursor.moveToFirst()) {
@@ -127,9 +128,4 @@ public class Database extends SQLiteOpenHelper {
 
         return loan;
     }
-
-/*    public boolean deleteLoan(String type) {
-        return getWritableDatabase().
-                delete(Constants.TABLE_NAME_LOAN, Constants.TYPE + "=" + type, null) > 0;
-    }*/
 }

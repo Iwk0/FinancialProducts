@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -40,6 +41,8 @@ public class SearchFragment extends Fragment {
     private View view;
     private Spinner loansSpinner;
     private Layout oldLayout;
+    private ProgressBar progressBar;
+    private Button searchButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
@@ -84,7 +87,7 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        Button searchButton = (Button) view.findViewById(R.id.search);
+        searchButton = (Button) view.findViewById(R.id.search);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
 
@@ -94,6 +97,14 @@ public class SearchFragment extends Fragment {
 
                 if (pairs != null) {
                     new AsyncTask<Void, Void, Integer>() {
+
+                        @Override
+                        protected void onPreExecute() {
+                            super.onPreExecute();
+                            progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+                            progressBar.setVisibility(View.VISIBLE);
+                            searchButton.setEnabled(false);
+                        }
 
                         @Override
                         protected Integer doInBackground(Void... params) {
@@ -118,6 +129,7 @@ public class SearchFragment extends Fragment {
                         @Override
                         protected void onPostExecute(Integer code) {
                             super.onPostExecute(code);
+
                             if (code == 200) {
                                 Loan loan = (Loan) loansSpinner.getSelectedItem();
                                 Fragment newFragment =
@@ -133,6 +145,8 @@ public class SearchFragment extends Fragment {
                                 Toast.makeText(activity, getResources().getString(R.string.no_internet),
                                         Toast.LENGTH_SHORT).show();
                             }
+
+                            progressBar.setVisibility(View.GONE);
                         }
                     }.execute();
                 } else {
