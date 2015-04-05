@@ -34,9 +34,11 @@ public class AutoFragment extends Fragment {
                         new TypeToken<List<BaseLoan>>() {}.getType());
 
         if (autoList != null && !autoList.isEmpty()) {
+            View linearLayout = View.inflate(activity, R.layout.header, null);
+
             ListView listView = (ListView) view.findViewById(R.id.list);
             listView.setVisibility(View.VISIBLE);
-            listView.addHeaderView(View.inflate(activity, R.layout.header, null), null, false);
+            listView.addHeaderView(linearLayout, null, false);
             listView.setAdapter(new MainAdapter(activity, R.layout.item, autoList));
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -50,6 +52,9 @@ public class AutoFragment extends Fragment {
                 activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);*/
                 }
             });
+
+            TextView textView = (TextView) linearLayout.findViewById(R.id.date);
+            textView.setText(/*new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault()).format(new Date())*/"Test");
         } else {
             TextView noResultsView = (TextView) view.findViewById(R.id.noResult);
             noResultsView.setVisibility(View.VISIBLE);
