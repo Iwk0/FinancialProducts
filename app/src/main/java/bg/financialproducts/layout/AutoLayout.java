@@ -2,6 +2,7 @@ package bg.financialproducts.layout;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -45,6 +46,9 @@ public class AutoLayout extends Layout implements TextWatcher {
 
         loanAmountText = CreateView.editText(context, "SP_SelfParticipationAmount", resources.getString(R.string.loan_amount), layoutParams, this);
         carPriceText = CreateView.editText(context, "SP_CarPrice", resources.getString(R.string.car_price), layoutParams, this);
+
+        loanAmountText.setBackground(resources.getDrawable(R.drawable.rounded_edit_text));
+        carPriceText.setBackground(resources.getDrawable(R.drawable.rounded_edit_text));
 
         Spinner carTypeSpinner = CreateView.spinner(context, "SP_LoanType", layoutParams, carType);
         Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);
@@ -108,10 +112,10 @@ public class AutoLayout extends Layout implements TextWatcher {
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        loanAmountText.setBackgroundColor(android.R.attr.editTextColor);
+        loanAmountText.setTextColor(Color.BLACK);
         loanAmountText.setTag("SP_SelfParticipationAmount");
 
-        carPriceText.setBackgroundColor(android.R.attr.editTextColor);
+        carPriceText.setTextColor(Color.BLACK);
         carPriceText.setTag("SP_CarPrice");
     }
 
@@ -122,7 +126,8 @@ public class AutoLayout extends Layout implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-        CreateView.editTextValidation(loanAmountText, 500, 5000000);
-        CreateView.editTextValidation(carPriceText, 500, 5000000);
+        Resources resources = getResources();
+        CreateView.editTextValidation(loanAmountText, resources, 500, 5000000);
+        CreateView.editTextValidation(carPriceText, resources, 500, 5000000);
     }
 }

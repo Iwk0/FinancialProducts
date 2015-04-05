@@ -2,6 +2,7 @@ package bg.financialproducts.layout;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -40,6 +41,7 @@ public class DepositsLayout extends Layout implements TextWatcher {
                 ViewGroup.LayoutParams.MATCH_PARENT));
 
         loanAmountText = CreateView.editText(context, "SP_DepositAmount", resources.getString(R.string.loan_amount), layoutParams, this);
+        loanAmountText.setBackground(resources.getDrawable(R.drawable.rounded_edit_text));
 
         Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);
         Spinner depositsTermSpinner = CreateView.spinner(context, "SP_DepositTerm", layoutParams, depositsTerm);
@@ -61,7 +63,7 @@ public class DepositsLayout extends Layout implements TextWatcher {
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        loanAmountText.setBackgroundColor(android.R.attr.editTextColor);
+        loanAmountText.setTextColor(Color.BLACK);
         loanAmountText.setTag("SP_DepositAmount");
     }
 
@@ -72,6 +74,6 @@ public class DepositsLayout extends Layout implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-        CreateView.editTextValidation(loanAmountText, 100, 100000);
+        CreateView.editTextValidation(loanAmountText, getResources(), 100, 100000);
     }
 }

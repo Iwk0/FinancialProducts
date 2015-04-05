@@ -1,6 +1,7 @@
 package bg.financialproducts.util;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -29,13 +30,13 @@ public class CreateView {
         spinner.setTag(tag);
         spinner.setLayoutParams(layoutParams);
         spinner.setAdapter(adapter);
+        spinner.setBackground(context.getResources().getDrawable(R.drawable.gradient_spinner));
 
         return spinner;
     }
 
     public static EditText editText(Context context, String tag, String hint,
                                     ViewGroup.LayoutParams layoutParams, TextWatcher textWatcher) {
-        //TODO да оправя цветовете
         EditText editText = new EditText(context);
         editText.setHint(hint);
         editText.setTag(tag);
@@ -81,13 +82,14 @@ public class CreateView {
         return params;
     }
 
-    public static void editTextValidation(EditText textField, int min, int max) {
+    public static void editTextValidation(EditText textField, Resources resources, int min, int max) {
         String text = textField.getText().toString();
         if (!text.isEmpty()) {
             double loanAmount = Double.valueOf(text);
             if (loanAmount < min || loanAmount > max) {
-                textField.setBackgroundColor(Color.RED);
+                textField.setTextColor(Color.RED);
                 textField.setTag(Constants.INVALID);
+                textField.setError(resources.getString(R.string.error) + " " + min + " and " + max);
             }
         }
     }

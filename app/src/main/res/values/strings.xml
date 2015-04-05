@@ -37,6 +37,7 @@
     <string name="mortgage">Mortgage</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="error">Size must be between</string>
 
     <string-array name="loans">
         <item>Auto</item>

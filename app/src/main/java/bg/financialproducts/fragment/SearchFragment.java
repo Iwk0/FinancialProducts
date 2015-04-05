@@ -36,21 +36,18 @@ import bg.financialproducts.util.KeyBoard;
 
 public class SearchFragment extends Fragment {
 
-    private String[] barTitle;
-
     private Activity activity;
     private View view;
     private Spinner loansSpinner;
     private Layout oldLayout;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search, container, false);
 
         activity = getActivity();
-        barTitle = getResources().getStringArray(R.array.loans);
 
-        Resources resources = getResources();
+        final Resources resources = getResources();
         List<Loan> searchValues = new ArrayList<>();
         searchValues.add(new Loan("1", resources.getString(R.string.auto)));
         searchValues.add(new Loan("2", resources.getString(R.string.consumer)));
@@ -59,6 +56,7 @@ public class SearchFragment extends Fragment {
         searchValues.add(new Loan("5", resources.getString(R.string.mortgage)));
 
         loansSpinner = (Spinner) view.findViewById(R.id.loans);
+        loansSpinner.setBackground(resources.getDrawable(R.drawable.gradient_spinner));
         ArrayAdapter<Loan> adapter = new ArrayAdapter<>(activity,
                 R.layout.spinner_item, searchValues);
 
@@ -77,7 +75,7 @@ public class SearchFragment extends Fragment {
                 oldLayout = factories.createView(Integer.parseInt(loan.id), activity);
                 ((LinearLayout) view).addView(oldLayout);
 
-                KeyBoard.hide(oldLayout, getActivity());
+                KeyBoard.hide(oldLayout, activity);
             }
 
             @Override

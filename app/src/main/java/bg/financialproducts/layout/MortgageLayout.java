@@ -2,6 +2,7 @@ package bg.financialproducts.layout;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -43,12 +44,15 @@ public class MortgageLayout extends Layout implements TextWatcher {
         loanAmountText = CreateView.editText(context, "SP_LoanAmount", resources.getString(R.string.loan_amount), layoutParams, this);
         propertyValueText = CreateView.editText(context, "SP_PropertyValue", resources.getString(R.string.property_value), layoutParams, this);
 
+        loanAmountText.setBackground(resources.getDrawable(R.drawable.rounded_edit_text));
+        propertyValueText.setBackground(resources.getDrawable(R.drawable.rounded_edit_text));
+
         Spinner loanPurposesSpinner = CreateView.spinner(context, "SP_LoanPurpose", layoutParams, loanPurposes);
         Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);
         Spinner loanTermSpinner = CreateView.spinner(context, "SP_LoanTerm", layoutParams, loanTerm);
         Spinner loanTypeSpinner = CreateView.spinner(context, "SP_MLLoanType", layoutParams, loanType);
 
-        addViews(loanAmountText, loanPurposesSpinner, propertyValueText,
+        addViews(loanAmountText, propertyValueText, loanPurposesSpinner,
                 currencySpinner, loanTermSpinner, loanTypeSpinner);
     }
 
@@ -65,10 +69,10 @@ public class MortgageLayout extends Layout implements TextWatcher {
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        loanAmountText.setBackgroundColor(android.R.attr.editTextColor);
+        loanAmountText.setTextColor(Color.BLACK);
         loanAmountText.setTag("SP_LoanAmount");
 
-        propertyValueText.setBackgroundColor(android.R.attr.editTextColor);
+        propertyValueText.setTextColor(Color.BLACK);
         propertyValueText.setTag("SP_PropertyValue");
     }
 
@@ -79,7 +83,8 @@ public class MortgageLayout extends Layout implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-        CreateView.editTextValidation(loanAmountText, 1000, 100000000);
-        CreateView.editTextValidation(propertyValueText, 1000, 100000000);
+        Resources resources = getResources();
+        CreateView.editTextValidation(loanAmountText, resources, 1000, 100000000);
+        CreateView.editTextValidation(propertyValueText, resources, 1000, 100000000);
     }
 }
