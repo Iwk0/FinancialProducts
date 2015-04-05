@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <item name="DarkSlateGray" type="color">#2F4F4F</item>
-    <item name="LightSlateGray" type="color">#778899</item>
+    <item name="LightSlateGray" type="color">#F8F8FF</item>
+    <item name="DarkSlateGray" type="color">#DCDCDC</item>
 </resources>
