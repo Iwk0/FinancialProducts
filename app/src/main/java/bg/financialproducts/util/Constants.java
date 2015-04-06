@@ -8,16 +8,28 @@ public interface Constants {
     public String CURRENCY = "Currency";
     public String BANK = "Bank";
     public String TOTAL_PAYED = "TotalPayed";
+    public String INTEREST_RATE_TYPE = "InterestRateType";
 
     /*Consumer loans variables*/
     public String APR = "APR";
-    public String INTEREST_RATE_TYPE = "InterestRateType";
 
     /*Mortgage loans variables*/
     public String ML_INTEREST_TYPE = "MLInterestType";
     public String DOWN_PAYMENT = "DownPayment";
 
+    /*Auto loans variables*/
+    public String MIN_SELF_PARTICIPATION = "MinSelfParticipation";
+
     /*Credit cards variables*/
+    public String CASH_RATE = "CashRate";
+    public String PURCHASE_RATE = "PurchaseRate";
+    public String CASH_APR = "CashAPR";
+    public String CREDIT_CARD_LIMIT = "CreditCardLimit";
+    public String ANNUAL_FEE_MAIN = "AnnualFeeMain";
+
+    /*Deposits variables*/
+    public String AER = "AER";
+    public String AFTER_REVENUE_TAX_AMOUNT = "AfterRevenueTaxAmount";
 
     /*Database loan types*/
     public int AUTO = 1;

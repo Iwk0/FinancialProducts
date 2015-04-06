@@ -55,19 +55,16 @@ public class HttpUtil {
 
         switch (loanType) {
             case Constants.AUTO:
-                //TODO няма парсване
-                database.insertLoan(gson.toJson(XMLParser.parseConsumers(stream)), Constants.AUTO);
+                database.insertLoan(gson.toJson(XMLParser.parseAuto(stream)), Constants.AUTO);
                 break;
             case Constants.CONSUMER:
                 database.insertLoan(gson.toJson(XMLParser.parseConsumers(stream)), Constants.CONSUMER);
                 break;
             case Constants.CREDIT_CARDS:
-                //TODO няма парсване
-                database.insertLoan(gson.toJson(XMLParser.parseConsumers(stream)), Constants.CREDIT_CARDS);
+                database.insertLoan(gson.toJson(XMLParser.parseCreditCards(stream)), Constants.CREDIT_CARDS);
                 break;
             case Constants.DEPOSITS:
-                //TODO няма парсване
-                database.insertLoan(gson.toJson(XMLParser.parseConsumers(stream)), Constants.DEPOSITS);
+                database.insertLoan(gson.toJson(XMLParser.parseDeposits(stream)), Constants.DEPOSITS);
                 break;
             default:
                 database.insertLoan(gson.toJson(XMLParser.parseMortgage(stream)), Constants.MORTGAGE);
