@@ -57,7 +57,7 @@ public class DepositsFragment extends Fragment {
                     intent.putExtra(Constants.DEPOSITS_ARRAY, (Deposits) adapterView.getItemAtPosition(i));
 
                     activity.startActivity(intent);
-                    //activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }
             });
         } else {

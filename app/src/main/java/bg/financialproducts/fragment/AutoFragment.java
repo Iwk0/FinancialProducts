@@ -57,7 +57,7 @@ public class AutoFragment extends Fragment {
                 intent.putExtra(Constants.AUTO_ARRAY, (Auto) adapterView.getItemAtPosition(i));
 
                 activity.startActivity(intent);
-                //activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }
             });
         } else {

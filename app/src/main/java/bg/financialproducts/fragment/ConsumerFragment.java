@@ -57,7 +57,7 @@ public class ConsumerFragment extends Fragment {
                     intent.putExtra(Constants.CONSUMER_ARRAY, (Consumer) adapterView.getItemAtPosition(i));
 
                     activity.startActivity(intent);
-                    //activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }
             });
         } else {
