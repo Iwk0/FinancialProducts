@@ -2,8 +2,6 @@ package bg.financialproducts.info;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -44,22 +42,5 @@ public class MortgageInfoActivity extends Activity {
             downPaymentView.setText(mortgage.downPayment);
             interestRateTypeView.setText(mortgage.interestType);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_mortgage_info, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-/*        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }*/
-
-        return super.onOptionsItemSelected(item);
     }
 }

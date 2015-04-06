@@ -2,8 +2,6 @@ package bg.financialproducts.info;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -42,24 +40,5 @@ public class ConsumerInfoActivity extends Activity {
             totalPayedView.setText(consumer.totalPayed);
             interestRateType.setText(consumer.interestRateType);
         }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_consumer_info, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-/*        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }*/
-
-        return super.onOptionsItemSelected(item);
     }
 }
