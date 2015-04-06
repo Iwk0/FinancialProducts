@@ -14,6 +14,7 @@
     <string name="product">Product</string>
     <string name="no_result">No results</string>
     <string name="no_url_or_username">Setting up your url and username</string>
+    <string name="back">Back</string>
 
     <!--Labels-->
     <string name="car_type">Car type</string>
@@ -38,6 +39,26 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="error">Size must be between</string>
+
+    <string name="apr">APR</string>
+    <string name="monthly_payment">Monthly payment</string>
+    <string name="total_payed">Total payed</string>
+    <string name="min_self_participation">Min self participation</string>
+    <string name="interest_rate_type">Interest rate type</string>
+    <string name="cash_rate">Cash rate</string>
+    <string name="purchase_rate">Purchase rate</string>
+    <string name="cash_apr">Cash APR</string>
+    <string name="credit_card_limit">Credit card limit</string>
+    <string name="annual_fee_main">Annual fee main</string>
+    <string name="aer">AER</string>
+    <string name="after_revenue_tax_amount">After revenue tax amount</string>
+    <string name="down_payment">Down payment</string>
+
+    <string name="title_activity_auto_info">Auto info</string>
+    <string name="title_activity_consumer_info">Consumer info</string>
+    <string name="title_activity_credit_card">Credit card info</string>
+    <string name="title_activity_deposits_info">Deposits info</string>
+    <string name="title_activity_mortgage_info">Mortgage info</string>
 
     <string-array name="loans">
         <item>Auto</item>

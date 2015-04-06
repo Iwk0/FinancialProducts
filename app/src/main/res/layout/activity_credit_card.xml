@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="bg.financialproducts.info.ConsumerInfoActivity">
+
+    <TextView
+        android:id="@+id/cashRateLabel"
+        android:text="@string/cash_rate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/cashRate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cashRateLabel" />
+
+    <TextView
+        android:id="@+id/purchaseRateLabel"
+        android:text="@string/purchase_rate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cashRate" />
+
+    <TextView
+        android:id="@+id/purchaseRate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/purchaseRateLabel" />
+
+    <TextView
+        android:id="@+id/cashAPRLabel"
+        android:text="@string/cash_apr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/purchaseRate" />
+
+    <TextView
+        android:id="@+id/cashAPR"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cashAPRLabel" />
+
+    <TextView
+        android:id="@+id/creditCardLimitLabel"
+        android:text="@string/credit_card_limit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cashAPR" />
+
+    <TextView
+        android:id="@+id/creditCardLimit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/creditCardLimitLabel" />
+
+    <TextView
+        android:id="@+id/annualFeeMainLabel"
+        android:text="@string/annual_fee_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/creditCardLimit" />
+
+    <TextView
+        android:id="@+id/annualFeeMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/annualFeeMainLabel" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:text="@string/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

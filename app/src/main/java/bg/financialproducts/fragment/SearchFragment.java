@@ -141,6 +141,7 @@ public class SearchFragment extends Fragment {
                             } else if (code == -1) {
                                 Toast.makeText(activity, getResources().getString(R.string.no_url_or_username),
                                         Toast.LENGTH_SHORT).show();
+                                searchButton.setEnabled(true);
                             } else {
                                 Toast.makeText(activity, getResources().getString(R.string.no_internet),
                                         Toast.LENGTH_SHORT).show();

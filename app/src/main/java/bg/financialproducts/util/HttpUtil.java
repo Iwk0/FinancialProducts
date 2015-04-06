@@ -66,7 +66,7 @@ public class HttpUtil {
             case Constants.DEPOSITS:
                 database.insertLoan(gson.toJson(XMLParser.parseDeposits(stream)), Constants.DEPOSITS);
                 break;
-            default:
+            case Constants.MORTGAGE:
                 database.insertLoan(gson.toJson(XMLParser.parseMortgage(stream)), Constants.MORTGAGE);
                 break;
         }

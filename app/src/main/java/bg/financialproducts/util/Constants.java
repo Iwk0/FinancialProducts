@@ -38,6 +38,13 @@ public interface Constants {
     public int DEPOSITS = 4;
     public int MORTGAGE = 5;
 
+    /*Arrays*/
+    public String AUTO_ARRAY = "Auto";
+    public String CONSUMER_ARRAY = "Consumer";
+    public String CREDIT_CARDS_ARRAY = "Credit_cards";
+    public String DEPOSITS_ARRAY = "Deposits";
+    public String MORTGAGE_ARRAY = "Mortgage";
+
     /*Database main*/
     public int DATABASE_VERSION = 3;
     public String DATABASE_NAME = "FinancialProducts";

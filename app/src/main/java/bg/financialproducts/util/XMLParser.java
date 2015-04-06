@@ -201,7 +201,7 @@ public class XMLParser {
                             auto.product = text;
                             break;
                         case Constants.APR:
-                            auto.APR = text;
+                            auto.apr = text;
                             break;
                         case Constants.BANK:
                             auto.bank = text;
