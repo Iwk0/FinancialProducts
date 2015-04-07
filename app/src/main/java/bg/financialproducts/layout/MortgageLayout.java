@@ -32,9 +32,10 @@ public class MortgageLayout extends Layout implements TextWatcher {
         List<Loan> loanTerm = XMLParser.parse(resources, resources.getString(R.string.loan_term), R.raw.mortgage_loans_loan_term);
         List<Loan> loanType = XMLParser.parse(resources, resources.getString(R.string.loan_type), R.raw.mortage_loans_loan_type);
 
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+        LayoutParams layoutParams = new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(20, 10, 20, 0);
 
         setOrientation(VERTICAL);
         setLayoutParams(new ViewGroup.LayoutParams(
@@ -43,9 +44,6 @@ public class MortgageLayout extends Layout implements TextWatcher {
 
         loanAmountText = CreateView.editText(context, "SP_LoanAmount", resources.getString(R.string.loan_amount), layoutParams, this);
         propertyValueText = CreateView.editText(context, "SP_PropertyValue", resources.getString(R.string.property_value), layoutParams, this);
-
-        loanAmountText.setBackground(resources.getDrawable(R.drawable.rounded_edit_text));
-        propertyValueText.setBackground(resources.getDrawable(R.drawable.rounded_edit_text));
 
         Spinner loanPurposesSpinner = CreateView.spinner(context, "SP_LoanPurpose", layoutParams, loanPurposes);
         Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);

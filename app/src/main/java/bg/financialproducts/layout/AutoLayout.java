@@ -35,9 +35,10 @@ public class AutoLayout extends Layout implements TextWatcher {
         List<Loan> currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.consumer_loans_sp_currency);
         List<Loan> loanTerm = XMLParser.parse(resources, resources.getString(R.string.loan_term), R.raw.auto_loan_sp_loan_term);
 
-        ViewGroup.LayoutParams layoutParams = new LayoutParams(
+        LayoutParams layoutParams = new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(20, 10, 20, 0);
 
         setOrientation(VERTICAL);
         setLayoutParams(new ViewGroup.LayoutParams(
@@ -46,9 +47,6 @@ public class AutoLayout extends Layout implements TextWatcher {
 
         loanAmountText = CreateView.editText(context, "SP_SelfParticipationAmount", resources.getString(R.string.loan_amount), layoutParams, this);
         carPriceText = CreateView.editText(context, "SP_CarPrice", resources.getString(R.string.car_price), layoutParams, this);
-
-        loanAmountText.setBackground(resources.getDrawable(R.drawable.rounded_edit_text));
-        carPriceText.setBackground(resources.getDrawable(R.drawable.rounded_edit_text));
 
         Spinner carTypeSpinner = CreateView.spinner(context, "SP_LoanType", layoutParams, carType);
         Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);

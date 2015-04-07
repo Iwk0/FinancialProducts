@@ -25,9 +25,10 @@ public class CreditCardLayout extends Layout {
         List<Loan> cardProviders = XMLParser.parse(resources, resources.getString(R.string.card_providers), R.raw.auto_loan_sp_car_type);
         List<Loan> cardTypes = XMLParser.parse(resources, resources.getString(R.string.card_type), R.raw.auto_loan_sp_alloan_type);
 
-        ViewGroup.LayoutParams layoutParams = new LayoutParams(
+        LayoutParams layoutParams = new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(20, 10, 20, 0);
 
         setOrientation(VERTICAL);
         setLayoutParams(new ViewGroup.LayoutParams(

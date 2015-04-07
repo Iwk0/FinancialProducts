@@ -3,18 +3,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="10dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="40dp">
 
         <Spinner
             android:id="@+id/loans"
             android:layout_weight="1.9"
             android:layout_width="0dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp" />
 
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"
@@ -30,6 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:textColor="#fff"
+            android:background="@drawable/shadow"
             android:text="@string/search" />
 
     </LinearLayout>

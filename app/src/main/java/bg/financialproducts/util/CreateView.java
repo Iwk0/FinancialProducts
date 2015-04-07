@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import org.apache.http.NameValuePair;
@@ -22,7 +23,7 @@ import bg.financialproducts.model.Loan;
 
 public class CreateView {
 
-    public static Spinner spinner(Context context, String tag, ViewGroup.LayoutParams layoutParams, List<Loan> loans) {
+    public static Spinner spinner(Context context, String tag, LinearLayout.LayoutParams layoutParams, List<Loan> loans) {
         ArrayAdapter<Loan> adapter = new ArrayAdapter<>(context, R.layout.spinner_item, loans);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -31,12 +32,13 @@ public class CreateView {
         spinner.setLayoutParams(layoutParams);
         spinner.setAdapter(adapter);
         spinner.setBackground(context.getResources().getDrawable(R.drawable.gradient_spinner));
+        spinner.getBackground().setAlpha(180);
 
         return spinner;
     }
 
     public static EditText editText(Context context, String tag, String hint,
-                                    ViewGroup.LayoutParams layoutParams, TextWatcher textWatcher) {
+                                    LinearLayout.LayoutParams layoutParams, TextWatcher textWatcher) {
         EditText editText = new EditText(context);
         editText.setHint(hint);
         editText.setTag(tag);
@@ -44,6 +46,7 @@ public class CreateView {
         editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         editText.addTextChangedListener(textWatcher);
         editText.setLayoutParams(layoutParams);
+        editText.setBackground(context.getResources().getDrawable(R.drawable.rounded_edit_text));
 
         return editText;
     }

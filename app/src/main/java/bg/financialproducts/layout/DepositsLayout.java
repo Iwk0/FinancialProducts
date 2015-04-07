@@ -31,9 +31,10 @@ public class DepositsLayout extends Layout implements TextWatcher {
         List<Loan> depositsTerm = XMLParser.parse(resources, resources.getString(R.string.deposit_term_month), R.raw.deposits_sp_deposit_term);
         List<Loan> interestCapitalization = XMLParser.parse(resources, resources.getString(R.string.interest_capitalization), R.raw.deposits_interest_capitalization);
 
-        ViewGroup.LayoutParams layoutParams = new LayoutParams(
+        LayoutParams layoutParams = new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(20, 10, 20, 0);
 
         setOrientation(VERTICAL);
         setLayoutParams(new ViewGroup.LayoutParams(
@@ -41,7 +42,6 @@ public class DepositsLayout extends Layout implements TextWatcher {
                 ViewGroup.LayoutParams.MATCH_PARENT));
 
         loanAmountText = CreateView.editText(context, "SP_DepositAmount", resources.getString(R.string.loan_amount), layoutParams, this);
-        loanAmountText.setBackground(resources.getDrawable(R.drawable.rounded_edit_text));
 
         Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);
         Spinner depositsTermSpinner = CreateView.spinner(context, "SP_DepositTerm", layoutParams, depositsTerm);

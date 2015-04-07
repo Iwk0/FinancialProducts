@@ -3,4 +3,5 @@
 <resources>
     <item name="LightSlateGray" type="color">#F8F8FF</item>
     <item name="DarkSlateGray" type="color">#DCDCDC</item>
+    <item name="DarkBlue" type="color">#004455</item>
 </resources>

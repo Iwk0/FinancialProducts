@@ -60,6 +60,7 @@ public class SearchFragment extends Fragment {
 
         loansSpinner = (Spinner) view.findViewById(R.id.loans);
         loansSpinner.setBackground(resources.getDrawable(R.drawable.gradient_spinner));
+        loansSpinner.getBackground().setAlpha(180);
         ArrayAdapter<Loan> adapter = new ArrayAdapter<>(activity,
                 R.layout.spinner_item, searchValues);
 
@@ -156,6 +157,8 @@ public class SearchFragment extends Fragment {
                 }
             }
         });
+
+        KeyBoard.hide(view, activity);
 
         return view;
     }

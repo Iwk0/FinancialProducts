@@ -31,9 +31,10 @@ public class ConsumerLayout extends Layout implements TextWatcher {
         List<Loan> currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.consumer_loans_sp_currency);
         List<Loan> loanTermInMonths = XMLParser.parse(resources, resources.getString(R.string.loan_term), R.raw.consumer_loans_loan_term);
 
-        ViewGroup.LayoutParams layoutParams = new LayoutParams(
+        LayoutParams layoutParams = new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(20, 10, 20, 0);
 
         setOrientation(VERTICAL);
         setLayoutParams(new ViewGroup.LayoutParams(
@@ -41,8 +42,6 @@ public class ConsumerLayout extends Layout implements TextWatcher {
                 ViewGroup.LayoutParams.MATCH_PARENT));
 
         loanAmountText = CreateView.editText(context, "SP_LoanAmount", resources.getString(R.string.loan_amount), layoutParams, this);
-
-        loanAmountText.setBackground(resources.getDrawable(R.drawable.rounded_edit_text));
 
         Spinner typeOfLoanSpinner = CreateView.spinner(context, "SP_LoanType", layoutParams, typeOfTheLoans);
         Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);
