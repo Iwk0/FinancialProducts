@@ -16,6 +16,8 @@ public class MainAdapter extends ArrayAdapter<BaseLoan> {
 
     private Context context;
     private List<BaseLoan> loans;
+    private LayoutInflater inflater = (LayoutInflater) context.getSystemService(
+            Context.LAYOUT_INFLATER_SERVICE);
 
     public static class ViewHolder {
         TextView product;
@@ -47,8 +49,6 @@ public class MainAdapter extends ArrayAdapter<BaseLoan> {
         ViewHolder viewHolder;
 
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.item, parent, false);
 
             viewHolder = new ViewHolder();
