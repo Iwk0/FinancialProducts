@@ -27,22 +27,27 @@
             android:theme="@android:style/Theme.Holo.Light.Dialog" >
         </activity>
         <activity
+            android:icon="@mipmap/info"
             android:name=".info.AutoInfoActivity"
             android:label="@string/title_activity_auto_info" >
         </activity>
         <activity
+            android:icon="@mipmap/info"
             android:name=".info.ConsumerInfoActivity"
             android:label="@string/title_activity_consumer_info" >
         </activity>
         <activity
+            android:icon="@mipmap/info"
             android:name=".info.CreditCardInfoActivity"
             android:label="@string/title_activity_credit_card" >
         </activity>
         <activity
+            android:icon="@mipmap/info"
             android:name=".info.DepositsInfoActivity"
             android:label="@string/title_activity_deposits_info" >
         </activity>
         <activity
+            android:icon="@mipmap/info"
             android:name=".info.MortgageInfoActivity"
             android:label="@string/title_activity_mortgage_info" >
         </activity>

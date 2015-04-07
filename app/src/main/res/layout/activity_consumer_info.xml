@@ -1,22 +1,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/BasicInfo"
     tools:context="bg.financialproducts.info.ConsumerInfoActivity">
 
     <TextView
+        style="@style/Labels"
         android:id="@+id/aprLabel"
         android:text="@string/apr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
+        style="@style/Info"
         android:id="@+id/apr"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@id/aprLabel" />
 
     <TextView
+        style="@style/Labels"
         android:id="@+id/currencyLabel"
         android:text="@string/currency"
         android:layout_width="match_parent"
@@ -24,12 +25,13 @@
         android:layout_below="@+id/apr" />
 
     <TextView
+        style="@style/Info"
         android:id="@+id/currency"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/currencyLabel" />
 
     <TextView
+        style="@style/Labels"
         android:id="@+id/monthlyPaymentLabel"
         android:text="@string/monthly_payment"
         android:layout_width="match_parent"
@@ -37,12 +39,13 @@
         android:layout_below="@+id/currency" />
 
     <TextView
+        style="@style/Info"
         android:id="@+id/monthlyPayment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/monthlyPaymentLabel" />
 
     <TextView
+        style="@style/Labels"
         android:id="@+id/totalPayedLabel"
         android:text="@string/total_payed"
         android:layout_width="match_parent"
@@ -50,12 +53,13 @@
         android:layout_below="@+id/monthlyPayment" />
 
     <TextView
+        style="@style/Info"
         android:id="@+id/totalPayed"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/totalPayedLabel" />
 
     <TextView
+        style="@style/Labels"
         android:id="@+id/interestRateTypeLabel"
         android:text="@string/interest_rate_type"
         android:layout_width="match_parent"
@@ -63,15 +67,17 @@
         android:layout_below="@+id/totalPayed" />
 
     <TextView
+        style="@style/Info"
         android:id="@+id/interestRateType"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/interestRateTypeLabel" />
 
     <Button
         android:id="@+id/backButton"
         android:text="@string/back"
-        android:layout_width="wrap_content"
+        android:textColor="#fff"
+        android:background="@drawable/shadow"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />

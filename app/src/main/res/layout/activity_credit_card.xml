@@ -1,22 +1,24 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="bg.financialproducts.info.ConsumerInfoActivity">
+    style="@style/BasicInfo"
+    tools:context="bg.financialproducts.info.CreditCardInfoActivity">
 
     <TextView
+        style="@style/Labels"
         android:id="@+id/cashRateLabel"
         android:text="@string/cash_rate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
+        style="@style/Info"
         android:id="@+id/cashRate"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/cashRateLabel" />
 
     <TextView
+        style="@style/Labels"
         android:id="@+id/purchaseRateLabel"
         android:text="@string/purchase_rate"
         android:layout_width="match_parent"
@@ -24,12 +26,13 @@
         android:layout_below="@+id/cashRate" />
 
     <TextView
+        style="@style/Info"
         android:id="@+id/purchaseRate"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/purchaseRateLabel" />
 
     <TextView
+        style="@style/Labels"
         android:id="@+id/cashAPRLabel"
         android:text="@string/cash_apr"
         android:layout_width="match_parent"
@@ -37,12 +40,13 @@
         android:layout_below="@+id/purchaseRate" />
 
     <TextView
+        style="@style/Info"
         android:id="@+id/cashAPR"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/cashAPRLabel" />
 
     <TextView
+        style="@style/Labels"
         android:id="@+id/creditCardLimitLabel"
         android:text="@string/credit_card_limit"
         android:layout_width="match_parent"
@@ -50,12 +54,13 @@
         android:layout_below="@+id/cashAPR" />
 
     <TextView
+        style="@style/Info"
         android:id="@+id/creditCardLimit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/creditCardLimitLabel" />
 
     <TextView
+        style="@style/Labels"
         android:id="@+id/annualFeeMainLabel"
         android:text="@string/annual_fee_main"
         android:layout_width="match_parent"
@@ -63,15 +68,17 @@
         android:layout_below="@+id/creditCardLimit" />
 
     <TextView
+        style="@style/Info"
         android:id="@+id/annualFeeMain"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/annualFeeMainLabel" />
 
     <Button
         android:id="@+id/backButton"
         android:text="@string/back"
-        android:layout_width="wrap_content"
+        android:textColor="#fff"
+        android:background="@drawable/shadow"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />

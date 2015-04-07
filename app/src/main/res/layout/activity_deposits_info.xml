@@ -1,22 +1,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="bg.financialproducts.info.ConsumerInfoActivity">
+    style="@style/BasicInfo"
+    tools:context="bg.financialproducts.info.DepositsInfoActivity">
 
     <TextView
+        style="@style/Labels"
         android:id="@+id/AERLabel"
         android:text="@string/aer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
+        style="@style/Info"
         android:id="@+id/AER"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/AERLabel" />
 
     <TextView
+        style="@style/Labels"
         android:id="@+id/interestRateTypeLabel"
         android:text="@string/interest_rate_type"
         android:layout_width="match_parent"
@@ -24,12 +25,13 @@
         android:layout_below="@+id/AER" />
 
     <TextView
+        style="@style/Info"
         android:id="@+id/interestRateType"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/interestRateTypeLabel" />
 
     <TextView
+        style="@style/Labels"
         android:id="@+id/afterRevenueTaxAmountLabel"
         android:text="@string/after_revenue_tax_amount"
         android:layout_width="match_parent"
@@ -37,15 +39,17 @@
         android:layout_below="@+id/interestRateType" />
 
     <TextView
+        style="@style/Info"
         android:id="@+id/afterRevenueTaxAmount"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/afterRevenueTaxAmountLabel" />
 
     <Button
         android:id="@+id/backButton"
         android:text="@string/back"
-        android:layout_width="wrap_content"
+        android:textColor="#fff"
+        android:background="@drawable/shadow"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />

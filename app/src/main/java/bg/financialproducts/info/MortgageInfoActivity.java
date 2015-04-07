@@ -1,9 +1,11 @@
 package bg.financialproducts.info;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import bg.financialproducts.R;
@@ -16,6 +18,19 @@ public class MortgageInfoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mortgage_info);
+
+        View linearLayout = View.inflate(this, R.layout.abs_layout, null);
+        TextView header = (TextView) linearLayout.findViewById(R.id.header);
+        ImageView icon = (ImageView) linearLayout.findViewById(R.id.icon);
+
+        header.setText(getResources().getString(R.string.title_activity_mortgage_info));
+        icon.setImageResource(R.mipmap.info);
+
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            actionBar.setCustomView(linearLayout);
+        }
 
         TextView aprView = (TextView) findViewById(R.id.apr);
         TextView currencyView = (TextView) findViewById(R.id.currency);

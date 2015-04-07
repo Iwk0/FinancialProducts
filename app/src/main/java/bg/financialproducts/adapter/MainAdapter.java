@@ -14,9 +14,8 @@ import bg.financialproducts.model.BaseLoan;
 
 public class MainAdapter extends ArrayAdapter<BaseLoan> {
 
-    private Context context;
     private List<BaseLoan> loans;
-    private LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    private LayoutInflater inflater;
 
     public static class ViewHolder {
         TextView product;
@@ -24,8 +23,8 @@ public class MainAdapter extends ArrayAdapter<BaseLoan> {
 
     public MainAdapter(Context context, int resource, List<BaseLoan> loans) {
         super(context, resource);
-        this.context = context;
         this.loans = loans;
+        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
