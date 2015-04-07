@@ -1,8 +1,10 @@
 package bg.financialproducts.layout;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -17,6 +19,7 @@ import java.util.List;
 import bg.financialproducts.R;
 import bg.financialproducts.model.Loan;
 import bg.financialproducts.util.CreateView;
+import bg.financialproducts.util.KeyBoard;
 import bg.financialproducts.util.XMLParser;
 
 public class DepositsLayout extends Layout implements TextWatcher {
@@ -25,11 +28,6 @@ public class DepositsLayout extends Layout implements TextWatcher {
 
     public DepositsLayout(Context context) {
         super(context);
-
-        Resources resources = getResources();
-        List<Loan> currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.consumer_loans_sp_currency);
-        List<Loan> depositsTerm = XMLParser.parse(resources, resources.getString(R.string.deposit_term_month), R.raw.deposits_sp_deposit_term);
-        List<Loan> interestCapitalization = XMLParser.parse(resources, resources.getString(R.string.interest_capitalization), R.raw.deposits_interest_capitalization);
 
         LayoutParams layoutParams = new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -41,13 +39,46 @@ public class DepositsLayout extends Layout implements TextWatcher {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
 
-        loanAmountText = CreateView.editText(context, "SP_DepositAmount", resources.getString(R.string.loan_amount), layoutParams, this);
+        new ParseInformation(context, layoutParams, getResources()).execute();
+    }
 
-        Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);
-        Spinner depositsTermSpinner = CreateView.spinner(context, "SP_DepositTerm", layoutParams, depositsTerm);
-        Spinner interestCapitalizationSpinner = CreateView.spinner(context, "SP_CapitalizationOfInterest", layoutParams, interestCapitalization);
+    private class ParseInformation extends AsyncTask<Void, Void, Void> {
 
-        addViews(loanAmountText, currencySpinner, depositsTermSpinner, interestCapitalizationSpinner);
+        private Context context;
+        private LayoutParams layoutParams;
+        private Resources resources;
+
+        private List<Loan> currency, depositsTerm, interestCapitalization;
+
+        public ParseInformation(Context context, LayoutParams layoutParams, Resources resources) {
+            this.context = context;
+            this.layoutParams = layoutParams;
+            this.resources = resources;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.consumer_loans_sp_currency);
+            depositsTerm = XMLParser.parse(resources, resources.getString(R.string.deposit_term_month), R.raw.deposits_sp_deposit_term);
+            interestCapitalization = XMLParser.parse(resources, resources.getString(R.string.interest_capitalization), R.raw.deposits_interest_capitalization);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);
+            Spinner depositsTermSpinner = CreateView.spinner(context, "SP_DepositTerm", layoutParams, depositsTerm);
+            Spinner interestCapitalizationSpinner = CreateView.spinner(context, "SP_CapitalizationOfInterest", layoutParams, interestCapitalization);
+
+            loanAmountText = CreateView.editText(context, "SP_DepositAmount", resources.getString(R.string.loan_amount), layoutParams, DepositsLayout.this);
+
+            addViews(loanAmountText, currencySpinner, depositsTermSpinner, interestCapitalizationSpinner);
+
+            KeyBoard.hide(DepositsLayout.this, (Activity) context);
+        }
     }
 
     private void addViews(View... localViews) {

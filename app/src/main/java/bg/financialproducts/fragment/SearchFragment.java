@@ -78,8 +78,6 @@ public class SearchFragment extends Fragment {
                 Factories factories = new Factories();
                 oldLayout = factories.createView(Integer.parseInt(loan.id), activity);
                 ((LinearLayout) view).addView(oldLayout);
-
-                KeyBoard.hide(oldLayout, activity);
             }
 
             @Override
@@ -146,6 +144,7 @@ public class SearchFragment extends Fragment {
                             } else {
                                 Toast.makeText(activity, getResources().getString(R.string.no_internet),
                                         Toast.LENGTH_SHORT).show();
+                                searchButton.setEnabled(true);
                             }
 
                             progressBar.setVisibility(View.GONE);

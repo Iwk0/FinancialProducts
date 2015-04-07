@@ -1,8 +1,10 @@
 package bg.financialproducts.layout;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -17,6 +19,7 @@ import java.util.List;
 import bg.financialproducts.R;
 import bg.financialproducts.model.Loan;
 import bg.financialproducts.util.CreateView;
+import bg.financialproducts.util.KeyBoard;
 import bg.financialproducts.util.XMLParser;
 
 public class MortgageLayout extends Layout implements TextWatcher {
@@ -25,12 +28,6 @@ public class MortgageLayout extends Layout implements TextWatcher {
 
     public MortgageLayout(Context context) {
         super(context);
-
-        Resources resources = getResources();
-        List<Loan> loanPurposes = XMLParser.parse(resources, resources.getString(R.string.loan_purpose), R.raw.mortgage_loans_loan_purpose);
-        List<Loan> currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.consumer_loans_sp_currency);
-        List<Loan> loanTerm = XMLParser.parse(resources, resources.getString(R.string.loan_term), R.raw.mortgage_loans_loan_term);
-        List<Loan> loanType = XMLParser.parse(resources, resources.getString(R.string.loan_type), R.raw.mortage_loans_loan_type);
 
         LayoutParams layoutParams = new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -42,16 +39,52 @@ public class MortgageLayout extends Layout implements TextWatcher {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
 
-        loanAmountText = CreateView.editText(context, "SP_LoanAmount", resources.getString(R.string.loan_amount), layoutParams, this);
-        propertyValueText = CreateView.editText(context, "SP_PropertyValue", resources.getString(R.string.property_value), layoutParams, this);
+        new ParseInformation(context, layoutParams, getResources()).execute();
+    }
 
-        Spinner loanPurposesSpinner = CreateView.spinner(context, "SP_LoanPurpose", layoutParams, loanPurposes);
-        Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);
-        Spinner loanTermSpinner = CreateView.spinner(context, "SP_LoanTerm", layoutParams, loanTerm);
-        Spinner loanTypeSpinner = CreateView.spinner(context, "SP_MLLoanType", layoutParams, loanType);
+    private class ParseInformation extends AsyncTask<Void, Void, Void> {
 
-        addViews(loanAmountText, propertyValueText, loanPurposesSpinner,
-                currencySpinner, loanTermSpinner, loanTypeSpinner);
+        private Context context;
+        private LayoutParams layoutParams;
+        private Resources resources;
+
+        private List<Loan> loanPurposes, currency, loanTerm, loanType;
+
+        private ParseInformation(Context context, LayoutParams layoutParams, Resources resources) {
+            this.context = context;
+            this.layoutParams = layoutParams;
+            this.resources = resources;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            loanPurposes = XMLParser.parse(resources, resources.getString(R.string.loan_purpose), R.raw.mortgage_loans_loan_purpose);
+            currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.consumer_loans_sp_currency);
+            loanTerm = XMLParser.parse(resources, resources.getString(R.string.loan_term), R.raw.mortgage_loans_loan_term);
+            loanType = XMLParser.parse(resources, resources.getString(R.string.loan_type), R.raw.mortage_loans_loan_type);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            Spinner loanPurposesSpinner = CreateView.spinner(context, "SP_LoanPurpose", layoutParams, loanPurposes);
+            Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);
+            Spinner loanTermSpinner = CreateView.spinner(context, "SP_LoanTerm", layoutParams, loanTerm);
+            Spinner loanTypeSpinner = CreateView.spinner(context, "SP_MLLoanType", layoutParams, loanType);
+
+            loanAmountText = CreateView.editText(context, "SP_LoanAmount",
+                    resources.getString(R.string.loan_amount), layoutParams, MortgageLayout.this);
+            propertyValueText = CreateView.editText(context, "SP_PropertyValue",
+                    resources.getString(R.string.property_value), layoutParams, MortgageLayout.this);
+
+            addViews(loanAmountText, propertyValueText, loanPurposesSpinner,
+                    currencySpinner, loanTermSpinner, loanTypeSpinner);
+
+            KeyBoard.hide(MortgageLayout.this, (Activity) context);
+        }
     }
 
     private void addViews(View... localViews) {

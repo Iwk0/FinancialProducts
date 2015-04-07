@@ -1,8 +1,10 @@
 package bg.financialproducts.layout;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -17,6 +19,7 @@ import java.util.List;
 import bg.financialproducts.R;
 import bg.financialproducts.model.Loan;
 import bg.financialproducts.util.CreateView;
+import bg.financialproducts.util.KeyBoard;
 import bg.financialproducts.util.XMLParser;
 
 public class ConsumerLayout extends Layout implements TextWatcher {
@@ -25,11 +28,6 @@ public class ConsumerLayout extends Layout implements TextWatcher {
 
     public ConsumerLayout(Context context) {
         super(context);
-
-        Resources resources = getResources();
-        List<Loan> typeOfTheLoans = XMLParser.parse(resources, resources.getString(R.string.loan_type), R.raw.consumer_loans_type_of_the_loan);
-        List<Loan> currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.consumer_loans_sp_currency);
-        List<Loan> loanTermInMonths = XMLParser.parse(resources, resources.getString(R.string.loan_term), R.raw.consumer_loans_loan_term);
 
         LayoutParams layoutParams = new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -41,13 +39,46 @@ public class ConsumerLayout extends Layout implements TextWatcher {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
 
-        loanAmountText = CreateView.editText(context, "SP_LoanAmount", resources.getString(R.string.loan_amount), layoutParams, this);
+        new ParseInformation(context, getResources(), layoutParams).execute();
+    }
 
-        Spinner typeOfLoanSpinner = CreateView.spinner(context, "SP_LoanType", layoutParams, typeOfTheLoans);
-        Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);
-        Spinner loanTermInMonthsSpinner = CreateView.spinner(context, "SP_LoanTerm", layoutParams, loanTermInMonths);
+    private class ParseInformation extends AsyncTask<Void, Void, Void> {
 
-        addViews(loanAmountText, typeOfLoanSpinner, currencySpinner, loanTermInMonthsSpinner);
+        private Context context;
+        private LayoutParams layoutParams;
+        private Resources resources;
+
+        private List<Loan> typeOfTheLoans, currency, loanTermInMonths;
+
+        public ParseInformation(Context context, Resources resources, LayoutParams layoutParams) {
+            this.context = context;
+            this.layoutParams = layoutParams;
+            this.resources = resources;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            typeOfTheLoans = XMLParser.parse(resources, resources.getString(R.string.loan_type), R.raw.consumer_loans_type_of_the_loan);
+            currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.consumer_loans_sp_currency);
+            loanTermInMonths = XMLParser.parse(resources, resources.getString(R.string.loan_term), R.raw.consumer_loans_loan_term);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            Spinner typeOfLoanSpinner = CreateView.spinner(context, "SP_LoanType", layoutParams, typeOfTheLoans);
+            Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);
+            Spinner loanTermInMonthsSpinner = CreateView.spinner(context, "SP_LoanTerm", layoutParams, loanTermInMonths);
+
+            loanAmountText = CreateView.editText(context, "SP_SelfParticipationAmount", resources.getString(R.string.loan_amount), layoutParams, ConsumerLayout.this);
+
+            addViews(loanAmountText, typeOfLoanSpinner, currencySpinner, loanTermInMonthsSpinner);
+
+            KeyBoard.hide(ConsumerLayout.this, (Activity) context);
+        }
     }
 
     private void addViews(View... localViews) {
