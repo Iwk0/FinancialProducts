@@ -73,46 +73,11 @@ public class AutoLayout extends Layout implements TextWatcher {
             Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);
             Spinner loanTermInMonthsSpinner = CreateView.spinner(context, "SP_LoanTerm", layoutParams, loanTerm);
             Spinner aLLoanTypeSpinner = CreateView.spinner(context, "SP_ALLoanType", layoutParams, aLLoanTypes);
-            final Spinner ageOfCarsSpinner = CreateView.spinner(context, "SP_AgeOfCar", layoutParams, ageOfCars);
-            final Spinner residualValueSpinner = CreateView.spinner(context, "SP_ResidualValue_Input", layoutParams, residualValue);
+            Spinner ageOfCarsSpinner = CreateView.spinner(context, "SP_AgeOfCar", layoutParams, ageOfCars);
+            Spinner residualValueSpinner = CreateView.spinner(context, "SP_ResidualValue_Input", layoutParams, residualValue);
 
-            aLLoanTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    Loan loan = (Loan) parent.getSelectedItem();
-                    if (loan.id.equals("1")) {
-                        residualValueSpinner.setEnabled(false);
-                        residualValueSpinner.setSelection(0);
-                    } else {
-                        residualValueSpinner.setEnabled(true);
-                    }
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-
-            carTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    Loan loan = (Loan) parent.getSelectedItem();
-                    if (loan.id.equals("1")) {
-                        ageOfCarsSpinner.setEnabled(false);
-                        ageOfCarsSpinner.setSelection(0);
-                    } else {
-                        ageOfCarsSpinner.setEnabled(true);
-                    }
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
+            aLLoanTypeSpinner.setOnItemSelectedListener(new DisableSpinner(residualValueSpinner));
+            carTypeSpinner.setOnItemSelectedListener(new DisableSpinner(ageOfCarsSpinner));
 
             loanAmountText = CreateView.editText(context, "SP_SelfParticipationAmount", resources.getString(R.string.loan_amount), layoutParams, AutoLayout.this);
             carPriceText = CreateView.editText(context, "SP_CarPrice", resources.getString(R.string.car_price), layoutParams, AutoLayout.this);
@@ -121,6 +86,31 @@ public class AutoLayout extends Layout implements TextWatcher {
                     aLLoanTypeSpinner, ageOfCarsSpinner, residualValueSpinner);
 
             KeyBoard.hide(AutoLayout.this, (Activity) context);
+        }
+    }
+
+    private class DisableSpinner implements AdapterView.OnItemSelectedListener {
+
+        private Spinner spinner;
+
+        public DisableSpinner(Spinner spinner) {
+            this.spinner = spinner;
+        }
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            Loan loan = (Loan) parent.getSelectedItem();
+            if (loan.id.equals("1")) {
+                spinner.setEnabled(false);
+                spinner.setSelection(0);
+            } else {
+                spinner.setEnabled(true);
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
         }
     }
 
