@@ -46,7 +46,7 @@ public class CreateView {
         editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         editText.addTextChangedListener(textWatcher);
         editText.setLayoutParams(layoutParams);
-        editText.setBackground(context.getResources().getDrawable(R.drawable.rounded_edit_text));
+        editText.setBackground(context.getResources().getDrawable(R.drawable.edit_text));
 
         return editText;
     }
