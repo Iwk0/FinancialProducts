@@ -40,14 +40,12 @@ public class ConsumerFragment extends Fragment {
                         new TypeToken<List<Consumer>>() {}.getType());
 
         if (consumerList != null && !consumerList.isEmpty()) {
-            View linearLayout = View.inflate(activity, R.layout.header, null);
-
-            TextView textView = (TextView) linearLayout.findViewById(R.id.header);
+            TextView textView = (TextView) view.findViewById(R.id.header);
+            textView.setVisibility(View.VISIBLE);
             textView.setText(textView.getText() + "\n" + database.getCreatedAtDate(Constants.CONSUMER));
 
             ListView listView = (ListView) view.findViewById(R.id.list);
             listView.setVisibility(View.VISIBLE);
-            listView.addHeaderView(linearLayout, null, false);
             listView.setAdapter(new MainAdapter(activity, R.layout.item, consumerList));
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

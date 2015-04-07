@@ -40,14 +40,12 @@ public class CreditCardFragment extends Fragment {
                         new TypeToken<List<CreditCard>>() {}.getType());
 
         if (creditCardList != null && !creditCardList.isEmpty()) {
-            View linearLayout = View.inflate(activity, R.layout.header, null);
-
-            TextView textView = (TextView) linearLayout.findViewById(R.id.header);
+            TextView textView = (TextView) view.findViewById(R.id.header);
+            textView.setVisibility(View.VISIBLE);
             textView.setText(textView.getText() + "\n" + database.getCreatedAtDate(Constants.CREDIT_CARDS));
 
             ListView listView = (ListView) view.findViewById(R.id.list);
             listView.setVisibility(View.VISIBLE);
-            listView.addHeaderView(linearLayout, null, false);
             listView.setAdapter(new MainAdapter(activity, R.layout.item, creditCardList));
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

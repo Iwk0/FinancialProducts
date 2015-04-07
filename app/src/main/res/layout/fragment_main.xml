@@ -13,12 +13,25 @@
         android:visibility="gone"
         android:indeterminateDrawable="@drawable/progress" />
 
+    <TextView
+        android:id="@+id/header"
+        android:text="@string/product"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#fff"
+        android:ems="2"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        android:scrollingCache="false" />
+        android:scrollingCache="false"
+        android:layout_below="@+id/header" />
 
     <TextView
         android:id="@+id/noResult"

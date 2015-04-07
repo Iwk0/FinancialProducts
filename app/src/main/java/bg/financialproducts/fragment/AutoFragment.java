@@ -40,14 +40,12 @@ public class AutoFragment extends Fragment {
                         new TypeToken<List<Auto>>() {}.getType());
 
         if (autoList != null && !autoList.isEmpty()) {
-            View linearLayout = View.inflate(activity, R.layout.header, null);
-
-            TextView textView = (TextView) linearLayout.findViewById(R.id.header);
+            TextView textView = (TextView) view.findViewById(R.id.header);
+            textView.setVisibility(View.VISIBLE);
             textView.setText(textView.getText() + "\n" + database.getCreatedAtDate(Constants.AUTO));
 
             ListView listView = (ListView) view.findViewById(R.id.list);
             listView.setVisibility(View.VISIBLE);
-            listView.addHeaderView(linearLayout, null, false);
             listView.setAdapter(new MainAdapter(activity, R.layout.item, autoList));
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
