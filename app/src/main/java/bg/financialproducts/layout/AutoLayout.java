@@ -29,15 +29,11 @@ public class AutoLayout extends Layout implements TextWatcher {
     public AutoLayout(Context context) {
         super(context);
 
-        LayoutParams layoutParams = new LayoutParams(
-                LayoutParams.MATCH_PARENT,
-                LayoutParams.WRAP_CONTENT);
+        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(0, 10, 0, 0);
 
         setOrientation(VERTICAL);
-        setLayoutParams(new LayoutParams(
-                LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT));
+        setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         ParseInformation parseInformation = new ParseInformation(context, getResources(), layoutParams);
         parseInformation.execute();
@@ -121,8 +117,8 @@ public class AutoLayout extends Layout implements TextWatcher {
             loanAmountText = CreateView.editText(context, "SP_SelfParticipationAmount", resources.getString(R.string.loan_amount), layoutParams, AutoLayout.this);
             carPriceText = CreateView.editText(context, "SP_CarPrice", resources.getString(R.string.car_price), layoutParams, AutoLayout.this);
 
-            addViews(loanAmountText, carPriceText, carTypeSpinner, currencySpinner,
-                    loanTermInMonthsSpinner, aLLoanTypeSpinner, ageOfCarsSpinner, residualValueSpinner);
+            addViews(loanAmountText, carPriceText, carTypeSpinner, currencySpinner, loanTermInMonthsSpinner,
+                    aLLoanTypeSpinner, ageOfCarsSpinner, residualValueSpinner);
 
             KeyBoard.hide(AutoLayout.this, (Activity) context);
         }

@@ -37,8 +37,7 @@ public class CreateView {
         return spinner;
     }
 
-    public static EditText editText(Context context, String tag, String hint,
-                                    LinearLayout.LayoutParams layoutParams, TextWatcher textWatcher) {
+    public static EditText editText(Context context, String tag, String hint, LinearLayout.LayoutParams layoutParams, TextWatcher textWatcher) {
         EditText editText = new EditText(context);
         editText.setHint(hint);
         editText.setTag(tag);

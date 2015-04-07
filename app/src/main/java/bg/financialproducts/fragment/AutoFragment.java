@@ -35,9 +35,8 @@ public class AutoFragment extends Fragment {
         activity = getActivity();
         Database database = new Database(activity);
 
-        List<BaseLoan> autoList = new Gson().
-                fromJson(database.findLoanByType(Constants.TABLE_NAME_LOAN, Constants.AUTO),
-                        new TypeToken<List<Auto>>() {}.getType());
+        List<BaseLoan> autoList = new Gson().fromJson(database.findLoanByType(Constants.TABLE_NAME_LOAN, Constants.AUTO),
+                new TypeToken<List<Auto>>() {}.getType());
 
         if (autoList != null && !autoList.isEmpty()) {
             TextView textView = (TextView) view.findViewById(R.id.header);

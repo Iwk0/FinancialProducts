@@ -61,8 +61,7 @@ public class SearchFragment extends Fragment {
         loansSpinner = (Spinner) view.findViewById(R.id.loans);
         loansSpinner.setBackground(resources.getDrawable(R.drawable.gradient_spinner));
         loansSpinner.getBackground().setAlpha(180);
-        ArrayAdapter<Loan> adapter = new ArrayAdapter<>(activity,
-                R.layout.spinner_item, searchValues);
+        ArrayAdapter<Loan> adapter = new ArrayAdapter<>(activity, R.layout.spinner_item, searchValues);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         loansSpinner.setAdapter(adapter);
@@ -110,8 +109,7 @@ public class SearchFragment extends Fragment {
                             int code = 0;
 
                             try {
-                                code = HttpUtil.sendGetRequest(activity, pairs,
-                                        Integer.valueOf(((Loan) loansSpinner.getSelectedItem()).id));
+                                code = HttpUtil.sendGetRequest(activity, pairs, Integer.valueOf(((Loan) loansSpinner.getSelectedItem()).id));
                             } catch (IOException e) {
                                 Log.e("IOException", e.getMessage());
                             } catch (ParserConfigurationException e) {
@@ -131,11 +129,8 @@ public class SearchFragment extends Fragment {
 
                             if (code == 200) {
                                 Loan loan = (Loan) loansSpinner.getSelectedItem();
-                                Fragment newFragment =
-                                        Factories.createFragment(Integer.valueOf(loan.id));
-                                getFragmentManager().
-                                        beginTransaction().
-                                        replace(R.id.content_frame, newFragment).commit();
+                                Fragment newFragment = Factories.createFragment(Integer.valueOf(loan.id));
+                                getFragmentManager().beginTransaction().replace(R.id.content_frame, newFragment).commit();
                                 ((MainActivity) activity).selectItem(Integer.valueOf(loan.id) - 1);
                             } else if (code == -1) {
                                 Toast.makeText(activity, getResources().getString(R.string.no_url_or_username),

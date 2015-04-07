@@ -60,8 +60,7 @@ public class XMLParser {
         return loans;
     }
 
-    private static NodeList getElementByTagName(InputStream content) throws ParserConfigurationException,
-            IOException, SAXException {
+    private static NodeList getElementByTagName(InputStream content) throws ParserConfigurationException, IOException, SAXException {
         String rawXml = IOUtils.toString(content, "UTF-8").replaceAll("&", "&amp;");
 
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -73,8 +72,7 @@ public class XMLParser {
         return doc.getElementsByTagName("row");
     }
 
-    public static List<Consumer> parseConsumers(InputStream content) throws ParserConfigurationException,
-            IOException, SAXException {
+    public static List<Consumer> parseConsumers(InputStream content) throws ParserConfigurationException, IOException, SAXException {
         NodeList nodeList = getElementByTagName(content);
         List<Consumer> consumers = new ArrayList<>();
 
@@ -177,8 +175,7 @@ public class XMLParser {
         return mortgages;
     }
 
-    public static List<Auto> parseAuto(InputStream content) throws IOException,
-            ParserConfigurationException, SAXException {
+    public static List<Auto> parseAuto(InputStream content) throws IOException, ParserConfigurationException, SAXException {
         NodeList nodeList = getElementByTagName(content);
         List<Auto> autos = new ArrayList<>();
 
@@ -228,8 +225,7 @@ public class XMLParser {
         return autos;
     }
 
-    public static List<CreditCard> parseCreditCards(InputStream content) throws IOException,
-            ParserConfigurationException, SAXException {
+    public static List<CreditCard> parseCreditCards(InputStream content) throws IOException, ParserConfigurationException, SAXException {
         NodeList nodeList = getElementByTagName(content);
         List<CreditCard> creditCards = new ArrayList<>();
 
@@ -279,8 +275,7 @@ public class XMLParser {
         return creditCards;
     }
 
-    public static List<Deposits> parseDeposits(InputStream content) throws IOException,
-            ParserConfigurationException, SAXException {
+    public static List<Deposits> parseDeposits(InputStream content) throws IOException, ParserConfigurationException, SAXException {
         NodeList nodeList = getElementByTagName(content);
         List<Deposits> deposits = new ArrayList<>();
 

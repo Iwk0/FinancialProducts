@@ -35,8 +35,7 @@ public class CreditCardFragment extends Fragment {
         activity = getActivity();
         Database database = new Database(activity);
 
-        List<BaseLoan> creditCardList = new Gson().
-                fromJson(database.findLoanByType(Constants.TABLE_NAME_LOAN, Constants.CREDIT_CARDS),
+        List<BaseLoan> creditCardList = new Gson().fromJson(database.findLoanByType(Constants.TABLE_NAME_LOAN, Constants.CREDIT_CARDS),
                         new TypeToken<List<CreditCard>>() {}.getType());
 
         if (creditCardList != null && !creditCardList.isEmpty()) {

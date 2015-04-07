@@ -35,8 +35,7 @@ public class DepositsFragment extends Fragment {
         activity = getActivity();
         Database database = new Database(activity);
 
-        List<BaseLoan> depositsList = new Gson().
-                fromJson(database.findLoanByType(Constants.TABLE_NAME_LOAN, Constants.DEPOSITS),
+        List<BaseLoan> depositsList = new Gson().fromJson(database.findLoanByType(Constants.TABLE_NAME_LOAN, Constants.DEPOSITS),
                         new TypeToken<List<Deposits>>() {}.getType());
 
         if (depositsList != null && !depositsList.isEmpty()) {

@@ -29,15 +29,11 @@ public class DepositsLayout extends Layout implements TextWatcher {
     public DepositsLayout(Context context) {
         super(context);
 
-        LayoutParams layoutParams = new LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(0, 10, 0, 0);
 
         setOrientation(VERTICAL);
-        setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
+        setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         new ParseInformation(context, layoutParams, getResources()).execute();
     }

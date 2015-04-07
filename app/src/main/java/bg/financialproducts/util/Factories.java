@@ -21,15 +21,20 @@ public class Factories {
         Layout layout;
 
         switch (layoutId) {
-            case Constants.AUTO : layout = new AutoLayout(context);
+            case Constants.AUTO:
+                layout = new AutoLayout(context);
                 break;
-            case Constants.CONSUMER : layout = new ConsumerLayout(context);
+            case Constants.CONSUMER:
+                layout = new ConsumerLayout(context);
                 break;
-            case Constants.CREDIT_CARDS : layout = new CreditCardLayout(context);
+            case Constants.CREDIT_CARDS:
+                layout = new CreditCardLayout(context);
                 break;
-            case Constants.DEPOSITS : layout = new DepositsLayout(context);
+            case Constants.DEPOSITS:
+                layout = new DepositsLayout(context);
                 break;
-            case Constants.MORTGAGE : layout = new MortgageLayout(context);
+            case Constants.MORTGAGE:
+                layout = new MortgageLayout(context);
                 break;
             default: layout = null;
                 break;
@@ -42,15 +47,20 @@ public class Factories {
         Fragment fragment;
 
         switch (fragmentId) {
-            case Constants.AUTO : fragment = new AutoFragment();
+            case Constants.AUTO:
+                fragment = new AutoFragment();
                 break;
-            case Constants.CONSUMER : fragment = new ConsumerFragment();
+            case Constants.CONSUMER:
+                fragment = new ConsumerFragment();
                 break;
-            case Constants.CREDIT_CARDS : fragment = new CreditCardFragment();
+            case Constants.CREDIT_CARDS:
+                fragment = new CreditCardFragment();
                 break;
-            case Constants.DEPOSITS : fragment = new DepositsFragment();
+            case Constants.DEPOSITS:
+                fragment = new DepositsFragment();
                 break;
-            case Constants.MORTGAGE : fragment = new MortgageFragment();
+            case Constants.MORTGAGE:
+                fragment = new MortgageFragment();
                 break;
             default: fragment = null;
                 break;

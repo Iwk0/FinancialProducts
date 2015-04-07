@@ -35,9 +35,8 @@ public class ConsumerFragment extends Fragment {
         activity = getActivity();
         Database database = new Database(activity);
 
-        List<BaseLoan> consumerList = new Gson().
-                fromJson(database.findLoanByType(Constants.TABLE_NAME_LOAN, Constants.CONSUMER),
-                        new TypeToken<List<Consumer>>() {}.getType());
+        List<BaseLoan> consumerList = new Gson().fromJson(database.findLoanByType(Constants.TABLE_NAME_LOAN, Constants.CONSUMER),
+                new TypeToken<List<Consumer>>() {}.getType());
 
         if (consumerList != null && !consumerList.isEmpty()) {
             TextView textView = (TextView) view.findViewById(R.id.header);

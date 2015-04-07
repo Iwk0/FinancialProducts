@@ -35,8 +35,7 @@ public class MortgageFragment extends Fragment {
         activity = getActivity();
         Database database = new Database(activity);
 
-        List<BaseLoan> mortgageList = new Gson().
-                fromJson(database.findLoanByType(Constants.TABLE_NAME_LOAN, Constants.MORTGAGE),
+        List<BaseLoan> mortgageList = new Gson().fromJson(database.findLoanByType(Constants.TABLE_NAME_LOAN, Constants.MORTGAGE),
                         new TypeToken<List<Mortgage>>() {}.getType());
 
         if (mortgageList != null && !mortgageList.isEmpty()) {

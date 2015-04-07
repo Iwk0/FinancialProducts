@@ -51,11 +51,9 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault());
-
         values.put(Constants.CONTENT, loan);
         values.put(Constants.TYPE, type);
-        values.put(Constants.CREATED_AT, dateFormat.format(new Date()));
+        values.put(Constants.CREATED_AT, new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault()).format(new Date()));
 
         db.delete(Constants.TABLE_NAME_LOAN, Constants.TYPE + "=" + type, null);
         db.insert(Constants.TABLE_NAME_LOAN, null, values);
@@ -82,9 +80,8 @@ public class Database extends SQLiteOpenHelper {
     }
 
     public Settings findLastSettingsRecord() {
-        Cursor cursor = getWritableDatabase().
-                rawQuery(String.format("SELECT * FROM %s ORDER BY %s DESC LIMIT 1;",
-                        Constants.TABLE_NAME_SETTINGS, Constants.ID), new String[] {});
+        Cursor cursor = getWritableDatabase().rawQuery(String.format("SELECT * FROM %s ORDER BY %s DESC LIMIT 1;",
+                Constants.TABLE_NAME_SETTINGS, Constants.ID), new String[] {});
 
         Settings settings = null;
         if (cursor.moveToFirst()) {
@@ -100,9 +97,8 @@ public class Database extends SQLiteOpenHelper {
     }
 
     public String getCreatedAtDate(int type) {
-        Cursor cursor = getWritableDatabase().
-                rawQuery(String.format("SELECT * FROM %s WHERE type = ? ORDER BY %s DESC LIMIT 1;",
-                        Constants.TABLE_NAME_LOAN, Constants.ID), new String[] { String.valueOf(type) });
+        Cursor cursor = getWritableDatabase().rawQuery(String.format("SELECT * FROM %s WHERE type = ? ORDER BY %s DESC LIMIT 1;",
+                Constants.TABLE_NAME_LOAN, Constants.ID), new String[] { String.valueOf(type) });
 
         String date = null;
         if (cursor.moveToFirst()) {
@@ -115,9 +111,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
     public String findLoanByType(String table, int type) {
-        Cursor cursor = getWritableDatabase().
-                rawQuery(String.format("SELECT * FROM %s where type = ?", table),
-                        new String[] { String.valueOf(type) });
+        Cursor cursor = getWritableDatabase().rawQuery(String.format("SELECT * FROM %s where type = ?", table), new String[] { String.valueOf(type) });
 
         String loan = null;
         if (cursor.moveToFirst()) {

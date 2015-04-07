@@ -16,8 +16,7 @@ public class MainAdapter extends ArrayAdapter<BaseLoan> {
 
     private Context context;
     private List<BaseLoan> loans;
-    private LayoutInflater inflater = (LayoutInflater) context.getSystemService(
-            Context.LAYOUT_INFLATER_SERVICE);
+    private LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     public static class ViewHolder {
         TextView product;

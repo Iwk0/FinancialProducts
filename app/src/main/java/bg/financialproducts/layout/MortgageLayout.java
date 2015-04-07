@@ -29,15 +29,11 @@ public class MortgageLayout extends Layout implements TextWatcher {
     public MortgageLayout(Context context) {
         super(context);
 
-        LayoutParams layoutParams = new LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(0, 10, 0, 0);
 
         setOrientation(VERTICAL);
-        setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
+        setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         new ParseInformation(context, layoutParams, getResources()).execute();
     }
@@ -75,13 +71,10 @@ public class MortgageLayout extends Layout implements TextWatcher {
             Spinner loanTermSpinner = CreateView.spinner(context, "SP_LoanTerm", layoutParams, loanTerm);
             Spinner loanTypeSpinner = CreateView.spinner(context, "SP_MLLoanType", layoutParams, loanType);
 
-            loanAmountText = CreateView.editText(context, "SP_LoanAmount",
-                    resources.getString(R.string.loan_amount), layoutParams, MortgageLayout.this);
-            propertyValueText = CreateView.editText(context, "SP_PropertyValue",
-                    resources.getString(R.string.property_value), layoutParams, MortgageLayout.this);
+            loanAmountText = CreateView.editText(context, "SP_LoanAmount", resources.getString(R.string.loan_amount), layoutParams, MortgageLayout.this);
+            propertyValueText = CreateView.editText(context, "SP_PropertyValue", resources.getString(R.string.property_value), layoutParams, MortgageLayout.this);
 
-            addViews(loanAmountText, propertyValueText, loanPurposesSpinner,
-                    currencySpinner, loanTermSpinner, loanTypeSpinner);
+            addViews(loanAmountText, propertyValueText, loanPurposesSpinner, currencySpinner, loanTermSpinner, loanTypeSpinner);
 
             KeyBoard.hide(MortgageLayout.this, (Activity) context);
         }

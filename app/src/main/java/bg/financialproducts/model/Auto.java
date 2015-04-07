@@ -1,6 +1,9 @@
 package bg.financialproducts.model;
 
-public class Auto extends BaseLoan /*implements Parcelable */{
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Auto extends BaseLoan implements Parcelable {
 
     public String apr;
     public String currency;
@@ -8,7 +11,7 @@ public class Auto extends BaseLoan /*implements Parcelable */{
     public String totalPayed;
     public String minSelfParticipation;
 
-    /*public Auto() {}
+    public Auto() {}
 
     private Auto(Parcel in) {
         this.apr = in.readString();
@@ -41,5 +44,5 @@ public class Auto extends BaseLoan /*implements Parcelable */{
         public Auto[] newArray(int size) {
             return new Auto[size];
         }
-    };*/
+    };
 }

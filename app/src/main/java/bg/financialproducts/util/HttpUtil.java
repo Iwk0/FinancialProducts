@@ -23,8 +23,8 @@ import bg.financialproducts.model.Settings;
 
 public class HttpUtil {
 
-    public static int sendGetRequest(Context context, List<NameValuePair> params, int loanType)
-            throws IOException, ParserConfigurationException, SAXException, JSONException {
+    public static int sendGetRequest(Context context, List<NameValuePair> params, int loanType) throws IOException, ParserConfigurationException,
+            SAXException, JSONException {
         Settings settings = new Database(context).findLastSettingsRecord();
 
         if (settings != null) {
@@ -37,10 +37,7 @@ public class HttpUtil {
 
         String paramString = URLEncodedUtils.format(params, "utf-8");
         HttpClient client = new DefaultHttpClient();
-
-        HttpGet request = new HttpGet(
-                String.format("%s?u_=%s&c_=en-US&id_=%s&", settings.url, settings.username, settings.id) + paramString);
-
+        HttpGet request = new HttpGet(String.format("%s?u_=%s&c_=en-US&id_=%s&", settings.url, settings.username, settings.id) + paramString);
         HttpResponse response = client.execute(request);
 
         chooseLoanByType(context, loanType, response.getEntity().getContent());
@@ -48,8 +45,8 @@ public class HttpUtil {
         return response.getStatusLine().getStatusCode();
     }
 
-    private static void chooseLoanByType(Context context, int loanType, InputStream stream)
-            throws IOException, SAXException, ParserConfigurationException, JSONException {
+    private static void chooseLoanByType(Context context, int loanType, InputStream stream) throws IOException, SAXException,
+            ParserConfigurationException, JSONException {
         Database database = new Database(context);
         Gson gson = new Gson();
 
