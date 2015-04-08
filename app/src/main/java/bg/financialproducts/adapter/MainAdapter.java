@@ -15,7 +15,7 @@ import bg.financialproducts.model.BaseLoan;
 public class MainAdapter extends ArrayAdapter<BaseLoan> {
 
     private List<BaseLoan> loans;
-    private LayoutInflater inflater;
+    private Context context;
 
     public static class ViewHolder {
         TextView product;
@@ -24,7 +24,7 @@ public class MainAdapter extends ArrayAdapter<BaseLoan> {
     public MainAdapter(Context context, int resource, List<BaseLoan> loans) {
         super(context, resource);
         this.loans = loans;
-        this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.context = context;
     }
 
     @Override
@@ -47,6 +47,7 @@ public class MainAdapter extends ArrayAdapter<BaseLoan> {
         ViewHolder viewHolder;
 
         if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.item, parent, false);
 
             viewHolder = new ViewHolder();
