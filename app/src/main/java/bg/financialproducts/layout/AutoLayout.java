@@ -35,8 +35,7 @@ public class AutoLayout extends Layout implements TextWatcher {
         setOrientation(VERTICAL);
         setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
-        ParseInformation parseInformation = new ParseInformation(context, getResources(), layoutParams);
-        parseInformation.execute();
+        new ParseInformation(context, getResources(), layoutParams).execute();
     }
 
     private class ParseInformation extends AsyncTask<Void, Void, Void> {

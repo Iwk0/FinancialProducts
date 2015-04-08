@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -43,12 +43,14 @@ public class SearchFragment extends Fragment {
     private Layout oldLayout;
     private ProgressBar progressBar;
     private Button searchButton;
+    private ScrollView scrollView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search, container, false);
 
         activity = getActivity();
+        scrollView = (ScrollView) view.findViewById(R.id.scrollView);
 
         final Resources resources = getResources();
         List<Loan> searchValues = new ArrayList<>();
@@ -70,13 +72,13 @@ public class SearchFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View child, int position, long id) {
                 if (oldLayout != null) {
-                    ((LinearLayout) view).removeView(oldLayout);
+                    scrollView.removeView(oldLayout);
                 }
 
                 Loan loan = (Loan) loansSpinner.getSelectedItem();
                 Factories factories = new Factories();
                 oldLayout = factories.createView(Integer.parseInt(loan.id), activity);
-                ((LinearLayout) view).addView(oldLayout);
+                scrollView.addView(oldLayout);
             }
 
             @Override
