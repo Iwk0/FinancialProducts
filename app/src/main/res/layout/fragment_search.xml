@@ -21,22 +21,29 @@
             android:layout_height="match_parent"
             android:layout_marginRight="10dp" />
 
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:indeterminateDrawable="@drawable/progress" />
-
-        <Button
-            android:id="@+id/search"
+        <FrameLayout
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:textColor="#fff"
-            android:background="@drawable/shadow"
-            android:text="@string/search" />
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#fff"
+                android:background="@drawable/shadow"
+                android:text="@string/search" />
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:indeterminateDrawable="@drawable/progress" />
+
+        </FrameLayout>
 
     </LinearLayout>
 

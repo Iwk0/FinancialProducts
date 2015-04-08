@@ -46,7 +46,7 @@ public interface Constants {
     public String MORTGAGE_ARRAY = "Mortgage";
 
     /*Database main*/
-    public int DATABASE_VERSION = 3;
+    public int DATABASE_VERSION = 4;
     public String DATABASE_NAME = "FinancialProducts";
 
     /*Database loan*/

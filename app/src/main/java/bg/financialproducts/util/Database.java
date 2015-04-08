@@ -69,7 +69,7 @@ public class Database extends SQLiteOpenHelper {
         values.put(Constants.USERNAME, username);
 
         try {
-            db.delete(Constants.TABLE_NAME_SETTINGS, Constants.USERNAME + "=" + username, null);
+            db.delete(Constants.TABLE_NAME_SETTINGS, Constants.USERNAME + "='" + username + "'", null);
         } catch (SQLiteException e) {
             Log.e("SQLiteException", "No item to delete");
         } finally {

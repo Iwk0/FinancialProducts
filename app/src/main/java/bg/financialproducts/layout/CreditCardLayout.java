@@ -48,7 +48,7 @@ public class CreditCardLayout extends Layout {
 
         @Override
         protected Void doInBackground(Void... params) {
-            currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.auto_loan_sp_age_of_car);
+            currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.credit_cards_sp_currency);
             cardProviders = XMLParser.parse(resources, resources.getString(R.string.card_providers), R.raw.auto_loan_sp_car_type);
             cardTypes = XMLParser.parse(resources, resources.getString(R.string.card_type), R.raw.auto_loan_sp_alloan_type);
 
