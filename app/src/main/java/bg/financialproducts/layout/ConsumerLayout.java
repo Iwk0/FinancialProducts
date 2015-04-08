@@ -54,9 +54,9 @@ public class ConsumerLayout extends Layout implements TextWatcher {
 
         @Override
         protected Void doInBackground(Void... params) {
-            typeOfTheLoans = XMLParser.parse(resources, resources.getString(R.string.loan_type), R.raw.consumer_loans_type_of_the_loan);
+            typeOfTheLoans = XMLParser.parse(resources, resources.getString(R.string.loan_type), R.raw.consumer_loans_sp_type_of_the_loan);
             currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.consumer_loans_sp_currency);
-            loanTermInMonths = XMLParser.parse(resources, resources.getString(R.string.loan_term), R.raw.consumer_loans_loan_term);
+            loanTermInMonths = XMLParser.parse(resources, resources.getString(R.string.loan_term), R.raw.consumer_loans_sp_loan_term);
 
             return null;
         }
