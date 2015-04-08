@@ -76,8 +76,7 @@ public class SearchFragment extends Fragment {
                 }
 
                 Loan loan = (Loan) loansSpinner.getSelectedItem();
-                Factories factories = new Factories();
-                oldLayout = factories.createView(Integer.parseInt(loan.id), activity);
+                oldLayout = Factories.createView(Integer.parseInt(loan.id), activity);
                 scrollView.addView(oldLayout);
             }
 

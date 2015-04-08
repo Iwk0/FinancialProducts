@@ -17,7 +17,7 @@ import bg.financialproducts.layout.MortgageLayout;
 
 public class Factories {
 
-    public Layout createView(int layoutId, Context context) {
+    public static Layout createView(int layoutId, Context context) {
         Layout layout;
 
         switch (layoutId) {
