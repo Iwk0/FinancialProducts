@@ -12,6 +12,7 @@ public class Deposits extends BaseLoan implements Parcelable {
     public Deposits() {}
 
     private Deposits(Parcel in) {
+        this.product = in.readString();
         this.AER = in.readString();
         this.interestRateType = in.readString();
         this.afterRevenueTaxAmount = in.readString();
@@ -24,6 +25,7 @@ public class Deposits extends BaseLoan implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(product);
         parcel.writeString(AER);
         parcel.writeString(interestRateType);
         parcel.writeString(afterRevenueTaxAmount);

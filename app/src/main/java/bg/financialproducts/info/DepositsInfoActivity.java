@@ -23,7 +23,6 @@ public class DepositsInfoActivity extends Activity {
         TextView header = (TextView) linearLayout.findViewById(R.id.header);
         ImageView icon = (ImageView) linearLayout.findViewById(R.id.icon);
 
-        header.setText(getResources().getString(R.string.title_activity_deposits_info));
         icon.setImageResource(R.mipmap.info);
 
         ActionBar actionBar = getActionBar();
@@ -50,6 +49,8 @@ public class DepositsInfoActivity extends Activity {
             aer.setText(deposits.AER);
             interestRateType.setText(deposits.interestRateType);
             afterRevenueTaxAmount.setText(deposits.afterRevenueTaxAmount);
+
+            header.setText(getResources().getString(R.string.title_activity_deposits_info) + "\n" + deposits.product);
         }
     }
 }

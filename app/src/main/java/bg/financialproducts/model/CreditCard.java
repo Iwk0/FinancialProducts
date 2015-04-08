@@ -14,6 +14,7 @@ public class CreditCard extends BaseLoan implements Parcelable {
     public CreditCard() {}
 
     private CreditCard(Parcel in) {
+        this.product = in.readString();
         this.cashRate = in.readString();
         this.purchaseRate = in.readString();
         this.cashAPR = in.readString();
@@ -28,6 +29,7 @@ public class CreditCard extends BaseLoan implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(product);
         parcel.writeString(cashRate);
         parcel.writeString(purchaseRate);
         parcel.writeString(cashAPR);

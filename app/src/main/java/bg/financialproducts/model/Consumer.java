@@ -14,6 +14,7 @@ public class Consumer extends BaseLoan implements Parcelable {
     public Consumer() {}
 
     private Consumer(Parcel in) {
+        this.product = in.readString();
         this.apr = in.readString();
         this.currency = in.readString();
         this.monthlyPayment = in.readString();
@@ -28,6 +29,7 @@ public class Consumer extends BaseLoan implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(product);
         parcel.writeString(apr);
         parcel.writeString(currency);
         parcel.writeString(monthlyPayment);

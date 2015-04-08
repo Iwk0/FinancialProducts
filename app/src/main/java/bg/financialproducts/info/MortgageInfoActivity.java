@@ -23,7 +23,6 @@ public class MortgageInfoActivity extends Activity {
         TextView header = (TextView) linearLayout.findViewById(R.id.header);
         ImageView icon = (ImageView) linearLayout.findViewById(R.id.icon);
 
-        header.setText(getResources().getString(R.string.title_activity_mortgage_info));
         icon.setImageResource(R.mipmap.info);
 
         ActionBar actionBar = getActionBar();
@@ -56,6 +55,8 @@ public class MortgageInfoActivity extends Activity {
             totalPayedView.setText(mortgage.totalPayed);
             downPaymentView.setText(mortgage.downPayment);
             interestRateTypeView.setText(mortgage.interestType);
+
+            header.setText(getResources().getString(R.string.title_activity_mortgage_info) + "\n" + mortgage.product);
         }
     }
 }

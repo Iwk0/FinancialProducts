@@ -23,7 +23,6 @@ public class ConsumerInfoActivity extends Activity {
         TextView header = (TextView) linearLayout.findViewById(R.id.header);
         ImageView icon = (ImageView) linearLayout.findViewById(R.id.icon);
 
-        header.setText(getResources().getString(R.string.title_activity_consumer_info));
         icon.setImageResource(R.mipmap.info);
 
         ActionBar actionBar = getActionBar();
@@ -54,6 +53,8 @@ public class ConsumerInfoActivity extends Activity {
             monthlyPaymentView.setText(consumer.monthlyPayment);
             totalPayedView.setText(consumer.totalPayed);
             interestRateType.setText(consumer.interestRateType);
+
+            header.setText(getResources().getString(R.string.title_activity_consumer_info) + "\n" + consumer.product);
         }
     }
 }

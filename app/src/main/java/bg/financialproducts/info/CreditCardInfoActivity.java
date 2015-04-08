@@ -23,7 +23,6 @@ public class CreditCardInfoActivity extends Activity {
         TextView header = (TextView) linearLayout.findViewById(R.id.header);
         ImageView icon = (ImageView) linearLayout.findViewById(R.id.icon);
 
-        header.setText(getResources().getString(R.string.title_activity_credit_card));
         icon.setImageResource(R.mipmap.info);
 
         ActionBar actionBar = getActionBar();
@@ -54,6 +53,8 @@ public class CreditCardInfoActivity extends Activity {
             cashAPR.setText(creditCard.cashAPR);
             creditCardLimit.setText(creditCard.creditCardLimit);
             annualFeeMain.setText(creditCard.annualFeeMain);
+
+            header.setText(getResources().getString(R.string.title_activity_credit_card) + "\n" + creditCard.product);
         }
     }
 }

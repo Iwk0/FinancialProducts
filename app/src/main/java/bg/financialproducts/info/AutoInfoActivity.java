@@ -23,7 +23,6 @@ public class AutoInfoActivity extends Activity {
         TextView header = (TextView) linearLayout.findViewById(R.id.header);
         ImageView icon = (ImageView) linearLayout.findViewById(R.id.icon);
 
-        header.setText(getResources().getString(R.string.title_activity_auto_info));
         icon.setImageResource(R.mipmap.info);
 
         ActionBar actionBar = getActionBar();
@@ -54,6 +53,8 @@ public class AutoInfoActivity extends Activity {
             monthlyPaymentView.setText(auto.monthlyPayment);
             totalPayedView.setText(auto.totalPayed);
             minSelfParticipationView.setText(auto.minSelfParticipation);
+
+            header.setText(getResources().getString(R.string.title_activity_auto_info) + "\n" + auto.product);
         }
     }
 }

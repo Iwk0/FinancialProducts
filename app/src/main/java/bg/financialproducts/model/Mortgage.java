@@ -15,6 +15,7 @@ public class Mortgage extends BaseLoan implements Parcelable {
     public Mortgage() {}
 
     private Mortgage(Parcel in) {
+        this.product = in.readString();
         this.apr = in.readString();
         this.currency = in.readString();
         this.monthlyPayment = in.readString();
@@ -30,6 +31,7 @@ public class Mortgage extends BaseLoan implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(product);
         parcel.writeString(apr);
         parcel.writeString(currency);
         parcel.writeString(monthlyPayment);
