@@ -8,7 +8,6 @@ import android.os.AsyncTask;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -85,31 +84,6 @@ public class AutoLayout extends Layout implements TextWatcher {
                     aLLoanTypeSpinner, ageOfCarsSpinner, residualValueSpinner);
 
             KeyBoard.hide(AutoLayout.this, (Activity) context);
-        }
-    }
-
-    private class DisableSpinner implements AdapterView.OnItemSelectedListener {
-
-        private Spinner spinner;
-
-        public DisableSpinner(Spinner spinner) {
-            this.spinner = spinner;
-        }
-
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            Loan loan = (Loan) parent.getSelectedItem();
-            if (loan.id.equals("1")) {
-                spinner.setEnabled(false);
-                spinner.setSelection(0);
-            } else {
-                spinner.setEnabled(true);
-            }
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
         }
     }
 
