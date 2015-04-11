@@ -15,9 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import bg.financialproducts.adapter.MenuAdapter;
 import bg.financialproducts.fragment.AutoFragment;
 import bg.financialproducts.fragment.ConsumerFragment;
 import bg.financialproducts.fragment.CreditCardFragment;
@@ -57,7 +57,9 @@ public class MainActivity extends FragmentActivity {
         drawerLayout.setDrawerListener(drawerToggle);
 
         drawerList.setVisibility(View.VISIBLE);
-        drawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, barTitle));
+        //drawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, barTitle));
+        drawerList.setBackgroundResource(R.mipmap.background_menu);
+        drawerList.setAdapter(new MenuAdapter(this, R.layout.menu_item));
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override

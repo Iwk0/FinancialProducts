@@ -59,9 +59,9 @@ public class MainAdapter extends ArrayAdapter<BaseLoan> {
         }
 
         if (position % 2 == 0) {
-            convertView.setBackgroundResource(R.color.DarkSlateGray);
+            convertView.setBackgroundResource(R.color.Blue);
         } else {
-            convertView.setBackgroundResource(R.color.LightSlateGray);
+            convertView.setBackgroundResource(R.color.LightBlue);
         }
 
         BaseLoan baseLoan = loans.get(position);

@@ -31,7 +31,9 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         android:scrollingCache="false"
-        android:layout_below="@+id/header" />
+        android:layout_below="@+id/header"
+        android:scrollbarThumbVertical="@drawable/custom_scroll_style"
+        android:scrollbarStyle="outsideInset" />
 
     <TextView
         android:id="@+id/noResult"

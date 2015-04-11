@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <item name="LightSlateGray" type="color">#F8F8FF</item>
-    <item name="DarkSlateGray" type="color">#DCDCDC</item>
     <item name="DarkBlue" type="color">#004455</item>
+    <item name="LightBlue" type="color">#80b3c0ff</item>
+    <item name="Blue" type="color">#ADD8E6</item>
 </resources>
