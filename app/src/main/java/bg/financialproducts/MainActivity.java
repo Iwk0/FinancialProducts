@@ -109,6 +109,15 @@ public class MainActivity extends FragmentActivity {
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(drawerList)) {
+            drawerLayout.closeDrawer(drawerList);
+        } else {
+            finish();
+        }
+    }
+
     private class CustomActionBarDrawerToggle extends ActionBarDrawerToggle {
 
         public CustomActionBarDrawerToggle(Activity mActivity, DrawerLayout mDrawerLayout) {

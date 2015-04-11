@@ -19,7 +19,7 @@
         android:layout_gravity="start"
         android:choiceMode="singleChoice"
         android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
+        android:dividerHeight="6sp"
         android:visibility="gone"
         android:background="#111" />
 

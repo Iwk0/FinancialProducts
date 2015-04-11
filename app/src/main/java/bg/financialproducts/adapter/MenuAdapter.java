@@ -17,7 +17,7 @@ import bg.financialproducts.model.Menu;
 
 public class MenuAdapter extends ArrayAdapter<Menu> {
 
-    private static final List<Menu> menus = new ArrayList<>();
+    private final List<Menu> menus = new ArrayList<>();
 
     private Context context;
 
