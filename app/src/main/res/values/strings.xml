@@ -54,6 +54,7 @@
     <string name="after_revenue_tax_amount">After revenue tax amount</string>
     <string name="down_payment">Down payment</string>
     <string name="no_image">No image</string>
+    <string name="numbers_only">Numbers only</string>
 
     <string name="title_activity_auto_info">Auto info</string>
     <string name="title_activity_consumer_info">Consumer info</string>

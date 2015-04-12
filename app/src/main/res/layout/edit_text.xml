@@ -5,6 +5,6 @@
     android:layout_height="wrap_content"
     android:textSize="20sp"
     android:padding="5dip"
-    android:inputType="numberDecimal|numberSigned"
+    android:inputType="numberDecimal"
     android:background="@drawable/edit_text"
     android:layout_marginTop="10dp" />
