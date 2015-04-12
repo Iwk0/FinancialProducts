@@ -7,9 +7,10 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import org.apache.http.NameValuePair;
@@ -22,34 +23,31 @@ import bg.financialproducts.util.CreateView;
 import bg.financialproducts.util.KeyBoard;
 import bg.financialproducts.util.XMLParser;
 
-public class MortgageLayout extends Layout implements TextWatcher {
+public class MortgageLayout implements Layout, TextWatcher {
 
+    private Activity activity;
+    private LinearLayout root;
     private EditText loanAmountText, propertyValueText;
 
-    public MortgageLayout(Context context) {
-        super(context);
+    public MortgageLayout(Activity activity) {
+        this.activity = activity;
 
-        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(0, 10, 0, 0);
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.root = (LinearLayout) inflater.inflate(R.layout.main_layout, null);
 
-        setOrientation(VERTICAL);
-        setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-
-        new ParseInformation(context, layoutParams, getResources()).execute();
+        new ParseInformation(activity).execute();
     }
 
     private class ParseInformation extends AsyncTask<Void, Void, Void> {
 
-        private Context context;
-        private LayoutParams layoutParams;
+        private Activity activity;
         private Resources resources;
 
         private List<Loan> loanPurposes, currency, loanTerm, loanType;
 
-        private ParseInformation(Context context, LayoutParams layoutParams, Resources resources) {
-            this.context = context;
-            this.layoutParams = layoutParams;
-            this.resources = resources;
+        private ParseInformation(Activity activity) {
+            this.activity = activity;
+            this.resources = activity.getResources();
         }
 
         @Override
@@ -66,29 +64,34 @@ public class MortgageLayout extends Layout implements TextWatcher {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            Spinner loanPurposesSpinner = CreateView.spinner(context, "SP_LoanPurpose", layoutParams, loanPurposes);
-            Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);
-            Spinner loanTermSpinner = CreateView.spinner(context, "SP_LoanTerm", layoutParams, loanTerm);
-            Spinner loanTypeSpinner = CreateView.spinner(context, "SP_MLLoanType", layoutParams, loanType);
+            Spinner loanPurposesSpinner = CreateView.spinner(activity, "SP_LoanPurpose", root, loanPurposes);
+            Spinner currencySpinner = CreateView.spinner(activity, "SP_Currency", root, currency);
+            Spinner loanTermSpinner = CreateView.spinner(activity, "SP_LoanTerm", root, loanTerm);
+            Spinner loanTypeSpinner = CreateView.spinner(activity, "SP_MLLoanType", root, loanType);
 
-            loanAmountText = CreateView.editText(context, "SP_LoanAmount", resources.getString(R.string.loan_amount), layoutParams, MortgageLayout.this);
-            propertyValueText = CreateView.editText(context, "SP_PropertyValue", resources.getString(R.string.property_value), layoutParams, MortgageLayout.this);
+            loanAmountText = CreateView.editText(activity, "SP_LoanAmount", resources.getString(R.string.loan_amount), root, MortgageLayout.this);
+            propertyValueText = CreateView.editText(activity, "SP_PropertyValue", resources.getString(R.string.property_value), root, MortgageLayout.this);
 
             addViews(loanAmountText, propertyValueText, loanPurposesSpinner, currencySpinner, loanTermSpinner, loanTypeSpinner);
 
-            KeyBoard.hide(MortgageLayout.this, (Activity) context);
+            KeyBoard.hide(root, activity);
         }
     }
 
     private void addViews(View... localViews) {
         for (View view : localViews) {
-            addView(view);
+            root.addView(view);
         }
     }
 
     @Override
+    public View getRootView() {
+        return root;
+    }
+
+    @Override
     public List<NameValuePair> getAllViews() {
-        return CreateView.allFieldsAreRequired(this);
+        return CreateView.allFieldsAreRequired(root);
     }
 
     @Override
@@ -107,7 +110,7 @@ public class MortgageLayout extends Layout implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-        Resources resources = getResources();
+        Resources resources = activity.getResources();
         CreateView.editTextValidation(loanAmountText, resources, 1000, 100000000);
         CreateView.editTextValidation(propertyValueText, resources, 1000, 100000000);
     }

@@ -1,4 +1,4 @@
-package bg.financialproducts.layout;
+package bg.financialproducts.util;
 
 import android.view.View;
 import android.widget.AdapterView;

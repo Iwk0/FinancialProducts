@@ -57,7 +57,6 @@ public class MainActivity extends FragmentActivity {
         drawerLayout.setDrawerListener(drawerToggle);
 
         drawerList.setVisibility(View.VISIBLE);
-        //drawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, barTitle));
         drawerList.setBackgroundResource(R.mipmap.background_menu);
         drawerList.setAdapter(new MenuAdapter(this, R.layout.menu_item));
         drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

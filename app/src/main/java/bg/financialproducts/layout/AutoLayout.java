@@ -7,8 +7,10 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import org.apache.http.NameValuePair;
@@ -18,37 +20,35 @@ import java.util.List;
 import bg.financialproducts.R;
 import bg.financialproducts.model.Loan;
 import bg.financialproducts.util.CreateView;
+import bg.financialproducts.util.DisableSpinner;
 import bg.financialproducts.util.KeyBoard;
 import bg.financialproducts.util.XMLParser;
 
-public class AutoLayout extends Layout implements TextWatcher {
+public class AutoLayout implements Layout, TextWatcher {
 
+    private Activity activity;
+    private LinearLayout root;
     private EditText loanAmountText, carPriceText;
 
-    public AutoLayout(Context context) {
-        super(context);
+    public AutoLayout(Activity activity) {
+        this.activity = activity;
 
-        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(0, 10, 0, 0);
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.root = (LinearLayout) inflater.inflate(R.layout.main_layout, null);
 
-        setOrientation(VERTICAL);
-        setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-
-        new ParseInformation(context, getResources(), layoutParams).execute();
+        new ParseInformation(activity).execute();
     }
 
     private class ParseInformation extends AsyncTask<Void, Void, Void> {
 
-        private Context context;
-        private LayoutParams layoutParams;
+        private Activity activity;
         private Resources resources;
 
         private List<Loan> carType, aLLoanTypes, ageOfCars, residualValue, currency, loanTerm;
 
-        public ParseInformation(Context context, Resources resources, LayoutParams layoutParams) {
-            this.context = context;
-            this.layoutParams = layoutParams;
-            this.resources = resources;
+        public ParseInformation(Activity activity) {
+            this.activity = activity;
+            this.resources = activity.getResources();
         }
 
         @Override
@@ -67,35 +67,40 @@ public class AutoLayout extends Layout implements TextWatcher {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            Spinner carTypeSpinner = CreateView.spinner(context, "SP_LoanType", layoutParams, carType);
-            Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);
-            Spinner loanTermInMonthsSpinner = CreateView.spinner(context, "SP_LoanTerm", layoutParams, loanTerm);
-            Spinner aLLoanTypeSpinner = CreateView.spinner(context, "SP_ALLoanType", layoutParams, aLLoanTypes);
-            Spinner ageOfCarsSpinner = CreateView.spinner(context, "SP_AgeOfCar", layoutParams, ageOfCars);
-            Spinner residualValueSpinner = CreateView.spinner(context, "SP_ResidualValue_Input", layoutParams, residualValue);
+            Spinner carTypeSpinner = CreateView.spinner(activity, "SP_LoanType", root, carType);
+            Spinner currencySpinner = CreateView.spinner(activity, "SP_Currency", root, currency);
+            Spinner loanTermInMonthsSpinner = CreateView.spinner(activity, "SP_LoanTerm", root, loanTerm);
+            Spinner aLLoanTypeSpinner = CreateView.spinner(activity, "SP_ALLoanType", root, aLLoanTypes);
+            Spinner ageOfCarsSpinner = CreateView.spinner(activity, "SP_AgeOfCar", root, ageOfCars);
+            Spinner residualValueSpinner = CreateView.spinner(activity, "SP_ResidualValue_Input", root, residualValue);
 
             aLLoanTypeSpinner.setOnItemSelectedListener(new DisableSpinner(residualValueSpinner));
             carTypeSpinner.setOnItemSelectedListener(new DisableSpinner(ageOfCarsSpinner));
 
-            loanAmountText = CreateView.editText(context, "SP_SelfParticipationAmount", resources.getString(R.string.loan_amount), layoutParams, AutoLayout.this);
-            carPriceText = CreateView.editText(context, "SP_CarPrice", resources.getString(R.string.car_price), layoutParams, AutoLayout.this);
+            loanAmountText = CreateView.editText(activity, "SP_SelfParticipationAmount", resources.getString(R.string.loan_amount), root, AutoLayout.this);
+            carPriceText = CreateView.editText(activity, "SP_CarPrice", resources.getString(R.string.car_price), root, AutoLayout.this);
 
             addViews(loanAmountText, carPriceText, carTypeSpinner, currencySpinner, loanTermInMonthsSpinner,
                     aLLoanTypeSpinner, ageOfCarsSpinner, residualValueSpinner);
 
-            KeyBoard.hide(AutoLayout.this, (Activity) context);
+            KeyBoard.hide(root, activity);
         }
     }
 
     private void addViews(View... localViews) {
         for (View view : localViews) {
-            addView(view);
+            root.addView(view);
         }
     }
 
     @Override
+    public View getRootView() {
+        return root;
+    }
+
+    @Override
     public List<NameValuePair> getAllViews() {
-        return CreateView.allFieldsAreRequired(this);
+        return CreateView.allFieldsAreRequired(root);
     }
 
     @Override
@@ -114,7 +119,7 @@ public class AutoLayout extends Layout implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-        Resources resources = getResources();
+        Resources resources = activity.getResources();
         CreateView.editTextValidation(loanAmountText, resources, 500, 5000000);
         CreateView.editTextValidation(carPriceText, resources, 500, 5000000);
     }

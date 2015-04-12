@@ -1,15 +1,13 @@
 package bg.financialproducts.util;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import org.apache.http.NameValuePair;
@@ -23,29 +21,22 @@ import bg.financialproducts.model.Loan;
 
 public class CreateView {
 
-    public static Spinner spinner(Context context, String tag, LinearLayout.LayoutParams layoutParams, List<Loan> loans) {
-        ArrayAdapter<Loan> adapter = new ArrayAdapter<>(context, R.layout.spinner_item, loans);
+    public static Spinner spinner(Activity activity, String tag, View root, List<Loan> loans) {
+        ArrayAdapter<Loan> adapter = new ArrayAdapter<>(activity, R.layout.spinner_item, loans);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        Spinner spinner = new Spinner(context);
+        Spinner spinner = (Spinner) activity.getLayoutInflater().inflate(R.layout.spinner, (ViewGroup) root, false);
         spinner.setTag(tag);
-        spinner.setLayoutParams(layoutParams);
         spinner.setAdapter(adapter);
-        spinner.setBackground(context.getResources().getDrawable(R.drawable.gradient_spinner));
-        spinner.getBackground().setAlpha(180);
 
         return spinner;
     }
 
-    public static EditText editText(Context context, String tag, String hint, LinearLayout.LayoutParams layoutParams, TextWatcher textWatcher) {
-        EditText editText = new EditText(context);
+    public static EditText editText(Activity activity, String tag, String hint, View root, TextWatcher layout) {
+        EditText editText = (EditText) activity.getLayoutInflater().inflate(R.layout.edit_text, (ViewGroup) root, false);
         editText.setHint(hint);
         editText.setTag(tag);
-        editText.setTextColor(Color.WHITE);
-        editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        editText.addTextChangedListener(textWatcher);
-        editText.setLayoutParams(layoutParams);
-        editText.setBackground(context.getResources().getDrawable(R.drawable.edit_text));
+        editText.addTextChangedListener(layout);
 
         return editText;
     }

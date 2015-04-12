@@ -1,7 +1,7 @@
 package bg.financialproducts.util;
 
+import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 
 import bg.financialproducts.fragment.AutoFragment;
 import bg.financialproducts.fragment.ConsumerFragment;
@@ -17,24 +17,24 @@ import bg.financialproducts.layout.MortgageLayout;
 
 public class Factories {
 
-    public static Layout createView(int layoutId, Context context) {
+    public static Layout createView(int layoutId, Activity activity) {
         Layout layout;
 
         switch (layoutId) {
             case Constants.AUTO:
-                layout = new AutoLayout(context);
+                layout = new AutoLayout(activity);
                 break;
             case Constants.CONSUMER:
-                layout = new ConsumerLayout(context);
+                layout = new ConsumerLayout(activity);
                 break;
             case Constants.CREDIT_CARDS:
-                layout = new CreditCardLayout(context);
+                layout = new CreditCardLayout(activity);
                 break;
             case Constants.DEPOSITS:
-                layout = new DepositsLayout(context);
+                layout = new DepositsLayout(activity);
                 break;
             case Constants.MORTGAGE:
-                layout = new MortgageLayout(context);
+                layout = new MortgageLayout(activity);
                 break;
             default: layout = null;
                 break;

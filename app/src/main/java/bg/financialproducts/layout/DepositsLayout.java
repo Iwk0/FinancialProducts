@@ -7,9 +7,10 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import org.apache.http.NameValuePair;
@@ -22,34 +23,31 @@ import bg.financialproducts.util.CreateView;
 import bg.financialproducts.util.KeyBoard;
 import bg.financialproducts.util.XMLParser;
 
-public class DepositsLayout extends Layout implements TextWatcher {
+public class DepositsLayout implements Layout, TextWatcher {
 
+    private Activity activity;
+    private LinearLayout root;
     private EditText loanAmountText;
 
-    public DepositsLayout(Context context) {
-        super(context);
+    public DepositsLayout(Activity activity) {
+        this.activity = activity;
 
-        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(0, 10, 0, 0);
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.root = (LinearLayout) inflater.inflate(R.layout.main_layout, null);
 
-        setOrientation(VERTICAL);
-        setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-
-        new ParseInformation(context, layoutParams, getResources()).execute();
+        new ParseInformation(activity).execute();
     }
 
     private class ParseInformation extends AsyncTask<Void, Void, Void> {
 
-        private Context context;
-        private LayoutParams layoutParams;
+        private Activity activity;
         private Resources resources;
 
         private List<Loan> currency, depositsTerm, interestCapitalization;
 
-        public ParseInformation(Context context, LayoutParams layoutParams, Resources resources) {
-            this.context = context;
-            this.layoutParams = layoutParams;
-            this.resources = resources;
+        public ParseInformation(Activity activity) {
+            this.activity = activity;
+            this.resources = activity.getResources();
         }
 
         @Override
@@ -65,27 +63,32 @@ public class DepositsLayout extends Layout implements TextWatcher {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            Spinner currencySpinner = CreateView.spinner(context, "SP_Currency", layoutParams, currency);
-            Spinner depositsTermSpinner = CreateView.spinner(context, "SP_DepositTerm", layoutParams, depositsTerm);
-            Spinner interestCapitalizationSpinner = CreateView.spinner(context, "SP_CapitalizationOfInterest", layoutParams, interestCapitalization);
+            Spinner currencySpinner = CreateView.spinner(activity, "SP_Currency", root, currency);
+            Spinner depositsTermSpinner = CreateView.spinner(activity, "SP_DepositTerm", root, depositsTerm);
+            Spinner interestCapitalizationSpinner = CreateView.spinner(activity, "SP_CapitalizationOfInterest", root, interestCapitalization);
 
-            loanAmountText = CreateView.editText(context, "SP_DepositAmount", resources.getString(R.string.loan_amount), layoutParams, DepositsLayout.this);
+            loanAmountText = CreateView.editText(activity, "SP_DepositAmount", resources.getString(R.string.loan_amount),  root, DepositsLayout.this);
 
             addViews(loanAmountText, currencySpinner, depositsTermSpinner, interestCapitalizationSpinner);
 
-            KeyBoard.hide(DepositsLayout.this, (Activity) context);
+            KeyBoard.hide(root, activity);
         }
     }
 
     private void addViews(View... localViews) {
         for (View view : localViews) {
-            addView(view);
+            root.addView(view);
         }
     }
 
     @Override
+    public View getRootView() {
+        return root;
+    }
+
+    @Override
     public List<NameValuePair> getAllViews() {
-        return CreateView.allFieldsAreRequired(this);
+        return CreateView.allFieldsAreRequired(root);
     }
 
     @Override
@@ -101,6 +104,6 @@ public class DepositsLayout extends Layout implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-        CreateView.editTextValidation(loanAmountText, getResources(), 100, 100000);
+        CreateView.editTextValidation(loanAmountText, activity.getResources(), 100, 100000);
     }
 }

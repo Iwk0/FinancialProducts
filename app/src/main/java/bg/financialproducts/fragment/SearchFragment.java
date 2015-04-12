@@ -72,12 +72,12 @@ public class SearchFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View child, int position, long id) {
                 if (oldLayout != null) {
-                    scrollView.removeView(oldLayout);
+                    scrollView.removeView(oldLayout.getRootView());
                 }
 
                 Loan loan = (Loan) loansSpinner.getSelectedItem();
                 oldLayout = Factories.createView(Integer.parseInt(loan.id), activity);
-                scrollView.addView(oldLayout);
+                scrollView.addView(oldLayout.getRootView());
             }
 
             @Override
