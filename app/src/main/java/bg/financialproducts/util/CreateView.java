@@ -78,17 +78,11 @@ public class CreateView {
     public static void editTextValidation(EditText textField, Resources resources, int min, int max) {
         String text = textField.getText().toString();
         if (!text.isEmpty()) {
-            if (!text.startsWith(".")) {
-                double loanAmount = Double.valueOf(text);
-                if (loanAmount < min || loanAmount > max) {
-                    textField.setTextColor(Color.RED);
-                    textField.setTag(Constants.INVALID);
-                    textField.setError(resources.getString(R.string.error) + " " + min + " and " + max);
-                }
-            } else {
+            double loanAmount = Double.valueOf(text);
+            if (loanAmount < min || loanAmount > max) {
                 textField.setTextColor(Color.RED);
                 textField.setTag(Constants.INVALID);
-                textField.setError(resources.getString(R.string.numbers_only));
+                textField.setError(resources.getString(R.string.error) + " " + min + " and " + max);
             }
         }
     }
