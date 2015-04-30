@@ -17,6 +17,8 @@ import bg.financialproducts.util.Database;
 
 public class SettingsActivity extends Activity {
 
+    private Database database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +28,9 @@ public class SettingsActivity extends Activity {
         final EditText userIdText = (EditText) findViewById(R.id.idText);
         final EditText usernameText = (EditText) findViewById(R.id.usernameText);
 
-        Settings settings = new Database(this).findLastSettingsRecord();
+
+        database = new Database(this);
+        Settings settings = database.findLastSettingsRecord();
 
         if (settings != null) {
             urlText.setText(settings.url);
@@ -34,6 +38,7 @@ public class SettingsActivity extends Activity {
             usernameText.setText(settings.username);
         } else {
             try {
+                //TODO да попълва при пускане на телефона
                 DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
                         .newInstance();
                 DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -45,6 +50,12 @@ public class SettingsActivity extends Activity {
                 userIdText.setText(id);
                 usernameText.setText(username);
                 urlText.setText(url);
+
+                database.insertSettings(urlText.getText().toString(),
+                        userIdText.getText().toString(),
+                        usernameText.getText().toString());
+
+                Log.i("Work", "Parse from xml settings");
             } catch (Exception e) {
                 Log.e("Exception", e.getMessage());
             }
@@ -55,7 +66,6 @@ public class SettingsActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                Database database = new Database(getApplicationContext());
                 database.insertSettings(urlText.getText().toString(),
                         userIdText.getText().toString(),
                         usernameText.getText().toString());
