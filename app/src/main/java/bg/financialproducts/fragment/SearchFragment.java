@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -59,6 +60,15 @@ public class SearchFragment extends Fragment {
         searchValues.add(new Loan("3", resources.getString(R.string.credit_cards)));
         searchValues.add(new Loan("4", resources.getString(R.string.deposits)));
         searchValues.add(new Loan("5", resources.getString(R.string.mortgage)));
+
+        WebView webView = (WebView) view.findViewById(R.id.banner);
+        String summary = "<html><body>You scored <b>192</b> points.</body></html>";
+        webView.loadData(summary, "text/html", "utf-8");
+        webView.setVisibility(View.VISIBLE);
+
+        String data = "<body>" + "<img src=\"large_image.png\"/></body>";
+
+        webView.loadDataWithBaseURL("file:///android_asset/",data , "text/html", "utf-8",null);
 
         loansSpinner = (Spinner) view.findViewById(R.id.loans);
         int sdk = android.os.Build.VERSION.SDK_INT;

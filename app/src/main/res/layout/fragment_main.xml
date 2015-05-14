@@ -32,8 +32,16 @@
         android:visibility="gone"
         android:scrollingCache="false"
         android:layout_below="@+id/header"
+        android:layout_above="@+id/banner"
         android:scrollbarThumbVertical="@drawable/custom_scroll_style"
         android:scrollbarStyle="outsideInset" />
+    
+    <include
+        layout="@layout/banner_layout"
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true" />
 
     <TextView
         android:id="@+id/noResult"
