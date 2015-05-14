@@ -1,8 +1,8 @@
 package bg.financialproducts.info;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,7 +12,7 @@ import bg.financialproducts.R;
 import bg.financialproducts.model.CreditCard;
 import bg.financialproducts.util.Constants;
 
-public class CreditCardInfoActivity extends Activity {
+public class CreditCardInfoActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class CreditCardInfoActivity extends Activity {
 
         icon.setImageResource(R.mipmap.info);
 
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
             actionBar.setCustomView(linearLayout);
@@ -54,7 +54,12 @@ public class CreditCardInfoActivity extends Activity {
             creditCardLimit.setText(creditCard.creditCardLimit);
             annualFeeMain.setText(creditCard.annualFeeMain);
 
-            header.setText(getResources().getString(R.string.title_activity_credit_card) + "\n" + creditCard.product);
+            String title = creditCard.product;
+            if (title.length() > 19) {
+                title = title.substring(0, 16) + "...";
+            }
+
+            header.setText(getResources().getString(R.string.title_activity_credit_card) + "\n" + title);
         }
     }
 }

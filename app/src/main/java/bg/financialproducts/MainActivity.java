@@ -1,14 +1,17 @@
 package bg.financialproducts;
 
-import android.app.ActionBar;
+//import android.app.ActionBar;
+
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -24,8 +27,12 @@ import bg.financialproducts.fragment.CreditCardFragment;
 import bg.financialproducts.fragment.DepositsFragment;
 import bg.financialproducts.fragment.MortgageFragment;
 import bg.financialproducts.fragment.SearchFragment;
+import bg.financialproducts.util.Database;
 
-public class MainActivity extends FragmentActivity {
+//import android.app.Fragment;
+//import android.support.v4.app.FragmentActivity;
+
+public class MainActivity extends ActionBarActivity {
 
     private DrawerLayout drawerLayout;
     private ListView drawerList;
@@ -41,7 +48,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        actionBar = getActionBar();
+        actionBar = getSupportActionBar();
         fragmentTitle = drawerTitle = getTitle();
         barTitle = getResources().getStringArray(R.array.loans);
 
@@ -70,6 +77,13 @@ public class MainActivity extends FragmentActivity {
         if (savedInstanceState == null) {
             selectItem(5);
         }
+
+        Database database = new Database(this);
+        Resources resources = this.getResources();
+        database.insertSettings(
+                resources.getString(R.string.settings_url),
+                resources.getString(R.string.settings_id),
+                resources.getString(R.string.settings_username));
     }
 
     @Override
@@ -160,8 +174,8 @@ public class MainActivity extends FragmentActivity {
                 fragment = new SearchFragment();
                 break;
         }
-
-        getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+        //getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
 
         drawerList.setItemChecked(position, true);
         setTitle(barTitle[position]);

@@ -1,8 +1,8 @@
 package bg.financialproducts.info;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,7 +12,7 @@ import bg.financialproducts.R;
 import bg.financialproducts.model.Deposits;
 import bg.financialproducts.util.Constants;
 
-public class DepositsInfoActivity extends Activity {
+public class DepositsInfoActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class DepositsInfoActivity extends Activity {
 
         icon.setImageResource(R.mipmap.info);
 
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
             actionBar.setCustomView(linearLayout);
@@ -50,7 +50,12 @@ public class DepositsInfoActivity extends Activity {
             interestRateType.setText(deposits.interestRateType);
             afterRevenueTaxAmount.setText(deposits.afterRevenueTaxAmount);
 
-            header.setText(getResources().getString(R.string.title_activity_deposits_info) + "\n" + deposits.product);
+            String title = deposits.product;
+            if (title.length() > 19) {
+                title = title.substring(0, 16) + "...";
+            }
+
+            header.setText(getResources().getString(R.string.title_activity_deposits_info) + "\n" + title);
         }
     }
 }

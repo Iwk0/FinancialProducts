@@ -1,7 +1,7 @@
 package bg.financialproducts.util;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 
 import bg.financialproducts.fragment.AutoFragment;
 import bg.financialproducts.fragment.ConsumerFragment;

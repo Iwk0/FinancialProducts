@@ -1,10 +1,10 @@
 package bg.financialproducts.fragment;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +61,12 @@ public class SearchFragment extends Fragment {
         searchValues.add(new Loan("5", resources.getString(R.string.mortgage)));
 
         loansSpinner = (Spinner) view.findViewById(R.id.loans);
-        loansSpinner.setBackground(resources.getDrawable(R.drawable.gradient_spinner));
+        int sdk = android.os.Build.VERSION.SDK_INT;
+        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            loansSpinner.setBackgroundDrawable(resources.getDrawable(R.drawable.gradient_spinner));
+        } else {
+            loansSpinner.setBackground(resources.getDrawable(R.drawable.gradient_spinner));
+        }
         loansSpinner.getBackground().setAlpha(180);
         ArrayAdapter<Loan> adapter = new ArrayAdapter<>(activity, R.layout.spinner_item, searchValues);
 

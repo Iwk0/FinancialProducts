@@ -62,6 +62,10 @@
     <string name="title_activity_deposits_info">Deposits info</string>
     <string name="title_activity_mortgage_info">Mortgage info</string>
 
+    <string name="settings_id">cl-sr-xml</string>
+    <string name="settings_username">demo</string>
+    <string name="settings_url">http://affiliate.finzoom.ro/default.aspx</string>
+
     <string-array name="loans">
         <item>Auto</item>
         <item>Consumer</item>
