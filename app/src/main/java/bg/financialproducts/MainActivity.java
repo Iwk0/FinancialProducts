@@ -1,7 +1,5 @@
 package bg.financialproducts;
 
-//import android.app.ActionBar;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -28,9 +26,6 @@ import bg.financialproducts.fragment.DepositsFragment;
 import bg.financialproducts.fragment.MortgageFragment;
 import bg.financialproducts.fragment.SearchFragment;
 import bg.financialproducts.util.Database;
-
-//import android.app.Fragment;
-//import android.support.v4.app.FragmentActivity;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -78,9 +73,8 @@ public class MainActivity extends ActionBarActivity {
             selectItem(5);
         }
 
-        Database database = new Database(this);
         Resources resources = this.getResources();
-        database.insertSettings(
+        new Database(this).insertSettings(
                 resources.getString(R.string.settings_url),
                 resources.getString(R.string.settings_id),
                 resources.getString(R.string.settings_username));
@@ -174,8 +168,8 @@ public class MainActivity extends ActionBarActivity {
                 fragment = new SearchFragment();
                 break;
         }
+
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-        //getFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
 
         drawerList.setItemChecked(position, true);
         setTitle(barTitle[position]);
