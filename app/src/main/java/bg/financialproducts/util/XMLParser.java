@@ -22,6 +22,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import bg.financialproducts.model.Auto;
+import bg.financialproducts.model.BannerSet;
 import bg.financialproducts.model.Consumer;
 import bg.financialproducts.model.CreditCard;
 import bg.financialproducts.model.Deposits;
@@ -313,6 +314,47 @@ public class XMLParser {
                 }
 
                 deposits.add(deposit);
+            }
+        }
+
+        return deposits;
+    }
+
+    public static List<BannerSet> parseBannerSet(InputStream content) throws IOException, ParserConfigurationException, SAXException {
+        NodeList nodeList = getElementByTagName(content);
+        List<BannerSet> deposits = new ArrayList<>();
+
+        int NODE_LIST_SIZE = nodeList.getLength();
+        for (int temp = 0; temp < NODE_LIST_SIZE; temp++) {
+            Node node = nodeList.item(temp);
+
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                BannerSet bannerSet = new BannerSet();
+
+                final int ELEMENTS_SIZE = element.getElementsByTagName("val").getLength();
+                for (int i = 0; i < ELEMENTS_SIZE; i++) {
+                    Node tmp = element.getElementsByTagName("val").item(i);
+                    String attribute = tmp.getAttributes().item(0).getTextContent();
+                    String text = tmp.getTextContent();
+
+                    switch (attribute) {
+                        case Constants.PRODUCT:
+                            bannerSet.name = text;
+                            break;
+                        case Constants.AER:
+                            bannerSet.search = Integer.parseInt(text);
+                            break;
+                        case Constants.AFTER_REVENUE_TAX_AMOUNT:
+                            bannerSet.results = Integer.parseInt(text);
+                            break;
+                        case Constants.INTEREST_RATE_TYPE:
+                            bannerSet.repayment = Integer.parseInt(text);
+                            break;
+                    }
+                }
+
+                deposits.add(bannerSet);
             }
         }
 

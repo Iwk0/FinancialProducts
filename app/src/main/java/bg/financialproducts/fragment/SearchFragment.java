@@ -62,13 +62,30 @@ public class SearchFragment extends Fragment {
         searchValues.add(new Loan("5", resources.getString(R.string.mortgage)));
 
         WebView webView = (WebView) view.findViewById(R.id.banner);
-        String summary = "<html><body>You scored <b>192</b> points.</body></html>";
+        webView.getSettings().setJavaScriptEnabled(true);
+
+        final String summary = "<html>\n" +
+                "\t<head>\n" +
+                "<style>img {width: 100%}</style>" +
+                "\t</head>\n" +
+                "\t<body>\n" +
+                "\t\t<script type=\"text/javascript\">\n" +
+                "\t\t\tvar m3_r = Math.floor(Math.random() * 99999999999);\n" +
+                "\n" +
+                "\t\t\tdocument.write(\"<\" + \"script language='JavaScript' type='text/javascript' src='\");\n" +
+                "\t\t\tdocument.write(\" http://banner.finzoom.ro/adjs.php?what=zone:8&amp;cb=\"+m3_r);\n" +
+                "\t\t\t\n" +
+                "\t\t\t\n" +
+                "\t\t\t\tdocument.write(\"&amp;referer=\" + escape(document.referrer));\n" +
+                "\t\t\t\t\n" +
+                "\t\t\tdocument.write(\"'><\" + \"/script>\");\n" +
+                "\n" +
+                "\t\t</script>\n" +
+                "\t</body>\n" +
+                "</html>";
+
         webView.loadData(summary, "text/html", "utf-8");
         webView.setVisibility(View.VISIBLE);
-
-        String data = "<body>" + "<img src=\"large_image.png\"/></body>";
-
-        webView.loadDataWithBaseURL("file:///android_asset/",data , "text/html", "utf-8",null);
 
         loansSpinner = (Spinner) view.findViewById(R.id.loans);
         int sdk = android.os.Build.VERSION.SDK_INT;
