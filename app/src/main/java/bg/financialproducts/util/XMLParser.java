@@ -6,6 +6,7 @@ import android.util.Log;
 import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -21,6 +22,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import bg.financialproducts.R;
 import bg.financialproducts.model.Auto;
 import bg.financialproducts.model.BannerSet;
 import bg.financialproducts.model.Consumer;
@@ -61,7 +63,7 @@ public class XMLParser {
         return loans;
     }
 
-    private static NodeList getElementByTagName(InputStream content) throws ParserConfigurationException, IOException, SAXException {
+    private static NodeList getElementByTagName(InputStream content, String element) throws ParserConfigurationException, IOException, SAXException {
         String rawXml = IOUtils.toString(content, "UTF-8").replaceAll("&", "&amp;");
 
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -69,12 +71,12 @@ public class XMLParser {
         Document doc = dBuilder.parse(new InputSource(new ByteArrayInputStream(rawXml.getBytes())));
 
         doc.getDocumentElement().normalize();
-
-        return doc.getElementsByTagName("row");
+        //row
+        return doc.getElementsByTagName(element);
     }
 
     public static List<Consumer> parseConsumers(InputStream content) throws ParserConfigurationException, IOException, SAXException {
-        NodeList nodeList = getElementByTagName(content);
+        NodeList nodeList = getElementByTagName(content, "row");
         List<Consumer> consumers = new ArrayList<>();
 
         int NODE_LIST_SIZE = nodeList.getLength();
@@ -124,7 +126,7 @@ public class XMLParser {
     }
 
     public static List<Mortgage> parseMortgage(InputStream content) throws IOException, ParserConfigurationException, SAXException {
-        NodeList nodeList = getElementByTagName(content);
+        NodeList nodeList = getElementByTagName(content, "row");
         List<Mortgage> mortgages = new ArrayList<>();
 
         int NODE_LIST_SIZE = nodeList.getLength();
@@ -177,7 +179,7 @@ public class XMLParser {
     }
 
     public static List<Auto> parseAuto(InputStream content) throws IOException, ParserConfigurationException, SAXException {
-        NodeList nodeList = getElementByTagName(content);
+        NodeList nodeList = getElementByTagName(content, "row");
         List<Auto> autos = new ArrayList<>();
 
         int NODE_LIST_SIZE = nodeList.getLength();
@@ -227,7 +229,7 @@ public class XMLParser {
     }
 
     public static List<CreditCard> parseCreditCards(InputStream content) throws IOException, ParserConfigurationException, SAXException {
-        NodeList nodeList = getElementByTagName(content);
+        NodeList nodeList = getElementByTagName(content, "row");
         List<CreditCard> creditCards = new ArrayList<>();
 
         int NODE_LIST_SIZE = nodeList.getLength();
@@ -277,7 +279,7 @@ public class XMLParser {
     }
 
     public static List<Deposits> parseDeposits(InputStream content) throws IOException, ParserConfigurationException, SAXException {
-        NodeList nodeList = getElementByTagName(content);
+        NodeList nodeList = getElementByTagName(content, "row");
         List<Deposits> deposits = new ArrayList<>();
 
         int NODE_LIST_SIZE = nodeList.getLength();
@@ -320,9 +322,9 @@ public class XMLParser {
         return deposits;
     }
 
-    public static List<BannerSet> parseBannerSet(InputStream content) throws IOException, ParserConfigurationException, SAXException {
-        NodeList nodeList = getElementByTagName(content);
-        List<BannerSet> deposits = new ArrayList<>();
+    public static List<BannerSet> parseBannerSet(InputStream content) throws ParserConfigurationException, IOException, SAXException {
+        NodeList nodeList = getElementByTagName(content, "BannerSet");
+        List<BannerSet> bannerSets = new ArrayList<>();
 
         int NODE_LIST_SIZE = nodeList.getLength();
         for (int temp = 0; temp < NODE_LIST_SIZE; temp++) {
@@ -331,33 +333,57 @@ public class XMLParser {
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
                 BannerSet bannerSet = new BannerSet();
+                bannerSet.name = element.getAttributes().item(0).getTextContent();
 
-                final int ELEMENTS_SIZE = element.getElementsByTagName("val").getLength();
+                NodeList zone = element.getElementsByTagName("Zone");
+                final int ELEMENTS_SIZE = zone.getLength();
                 for (int i = 0; i < ELEMENTS_SIZE; i++) {
-                    Node tmp = element.getElementsByTagName("val").item(i);
-                    String attribute = tmp.getAttributes().item(0).getTextContent();
-                    String text = tmp.getTextContent();
+                    Node tmp = zone.item(i);
+                    NamedNodeMap namedNodeMap = tmp.getAttributes();
+
+                    String attribute = namedNodeMap.item(0).getTextContent();
 
                     switch (attribute) {
-                        case Constants.PRODUCT:
-                            bannerSet.name = text;
+                        case Constants.TOP:
+                            bannerSet.top = Integer.valueOf(namedNodeMap.item(1).getTextContent());
                             break;
-                        case Constants.AER:
-                            bannerSet.search = Integer.parseInt(text);
+                        case Constants.BOTTOM:
+                            bannerSet.bottom = Integer.valueOf(namedNodeMap.item(1).getTextContent());
                             break;
-                        case Constants.AFTER_REVENUE_TAX_AMOUNT:
-                            bannerSet.results = Integer.parseInt(text);
+                        case Constants.SEARCH:
+                            bannerSet.search = Integer.valueOf(namedNodeMap.item(1).getTextContent());
                             break;
-                        case Constants.INTEREST_RATE_TYPE:
-                            bannerSet.repayment = Integer.parseInt(text);
+                        case Constants.DETAILS:
+                            bannerSet.details = Integer.valueOf(namedNodeMap.item(1).getTextContent());
+                            break;
+                        case "results":
+                            bannerSet.results = Integer.valueOf(namedNodeMap.item(1).getTextContent());
+                            break;
+                        case "repayment":
+                            bannerSet.repayment = Integer.valueOf(namedNodeMap.item(1).getTextContent());
                             break;
                     }
                 }
 
-                deposits.add(bannerSet);
+                bannerSets.add(bannerSet);
             }
         }
 
-        return deposits;
+        return bannerSets;
+    }
+
+    public static String readHTMLTemplate(Resources resources) {
+        try {
+            InputStream in_s = resources.openRawResource(R.raw.html_template);
+
+            byte[] b = new byte[in_s.available()];
+            in_s.read(b);
+
+            return new String(b);
+        } catch (Exception e) {
+            Log.e("Exception", e.getMessage());
+        }
+
+        return "";
     }
 }

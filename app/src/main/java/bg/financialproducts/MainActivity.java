@@ -25,6 +25,7 @@ import bg.financialproducts.fragment.CreditCardFragment;
 import bg.financialproducts.fragment.DepositsFragment;
 import bg.financialproducts.fragment.MortgageFragment;
 import bg.financialproducts.fragment.SearchFragment;
+import bg.financialproducts.util.BannerService;
 import bg.financialproducts.util.Database;
 
 public class MainActivity extends ActionBarActivity {
@@ -72,6 +73,8 @@ public class MainActivity extends ActionBarActivity {
         if (savedInstanceState == null) {
             selectItem(5);
         }
+
+        startService(new Intent(this, BannerService.class));
 
         Resources resources = this.getResources();
         new Database(this).insertSettings(

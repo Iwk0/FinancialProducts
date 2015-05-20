@@ -28,13 +28,17 @@ import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import bg.financialproducts.GlobalVariable;
 import bg.financialproducts.MainActivity;
 import bg.financialproducts.R;
 import bg.financialproducts.layout.Layout;
+import bg.financialproducts.model.BannerSet;
 import bg.financialproducts.model.Loan;
 import bg.financialproducts.util.Factories;
 import bg.financialproducts.util.HttpUtil;
+import bg.financialproducts.util.Internet;
 import bg.financialproducts.util.KeyBoard;
+import bg.financialproducts.util.XMLParser;
 
 public class SearchFragment extends Fragment {
 
@@ -52,6 +56,7 @@ public class SearchFragment extends Fragment {
 
         activity = getActivity();
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
+        loansSpinner = (Spinner) view.findViewById(R.id.loans);
 
         final Resources resources = getResources();
         List<Loan> searchValues = new ArrayList<>();
@@ -61,43 +66,18 @@ public class SearchFragment extends Fragment {
         searchValues.add(new Loan("4", resources.getString(R.string.deposits)));
         searchValues.add(new Loan("5", resources.getString(R.string.mortgage)));
 
-        WebView webView = (WebView) view.findViewById(R.id.banner);
-        webView.getSettings().setJavaScriptEnabled(true);
-
-        final String summary = "<html>\n" +
-                "\t<head>\n" +
-                "<style>img {width: 100%}</style>" +
-                "\t</head>\n" +
-                "\t<body>\n" +
-                "\t\t<script type=\"text/javascript\">\n" +
-                "\t\t\tvar m3_r = Math.floor(Math.random() * 99999999999);\n" +
-                "\n" +
-                "\t\t\tdocument.write(\"<\" + \"script language='JavaScript' type='text/javascript' src='\");\n" +
-                "\t\t\tdocument.write(\" http://banner.finzoom.ro/adjs.php?what=zone:8&amp;cb=\"+m3_r);\n" +
-                "\t\t\t\n" +
-                "\t\t\t\n" +
-                "\t\t\t\tdocument.write(\"&amp;referer=\" + escape(document.referrer));\n" +
-                "\t\t\t\t\n" +
-                "\t\t\tdocument.write(\"'><\" + \"/script>\");\n" +
-                "\n" +
-                "\t\t</script>\n" +
-                "\t</body>\n" +
-                "</html>";
-
-        webView.loadData(summary, "text/html", "utf-8");
-        webView.setVisibility(View.VISIBLE);
-
-        loansSpinner = (Spinner) view.findViewById(R.id.loans);
         int sdk = android.os.Build.VERSION.SDK_INT;
         if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             loansSpinner.setBackgroundDrawable(resources.getDrawable(R.drawable.gradient_spinner));
         } else {
             loansSpinner.setBackground(resources.getDrawable(R.drawable.gradient_spinner));
         }
-        loansSpinner.getBackground().setAlpha(180);
-        ArrayAdapter<Loan> adapter = new ArrayAdapter<>(activity, R.layout.spinner_item, searchValues);
 
+        loansSpinner.getBackground().setAlpha(180);
+
+        ArrayAdapter<Loan> adapter = new ArrayAdapter<>(activity, R.layout.spinner_item, searchValues);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         loansSpinner.setAdapter(adapter);
         loansSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -118,8 +98,9 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        searchButton = (Button) view.findViewById(R.id.search);
+        bannerAvailable();
 
+        searchButton = (Button) view.findViewById(R.id.search);
         searchButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -187,5 +168,42 @@ public class SearchFragment extends Fragment {
         KeyBoard.hide(view, activity);
 
         return view;
+    }
+
+    private void bannerAvailable() {
+        if (Internet.isConnected(activity)) {
+            new AsyncTask<Void, Void, List<BannerSet>>() {
+
+                @Override
+                protected List<BannerSet> doInBackground(Void... voids) {
+                    List<BannerSet> bannerSets = ((GlobalVariable) activity.getApplication()).getBannerSetList();
+                    while (bannerSets == null) {
+                        bannerSets = ((GlobalVariable) activity.getApplication()).getBannerSetList();
+                    }
+
+                    Log.i("Banner", "Banner set is ready for use");
+                    return bannerSets;
+                }
+
+                @Override
+                protected void onPostExecute(List<BannerSet> bannerSets) {
+                    super.onPostExecute(bannerSets);
+
+                    WebView webView = (WebView) view.findViewById(R.id.banner);
+                    webView.getSettings().setJavaScriptEnabled(true);
+
+                    String template = XMLParser.readHTMLTemplate(SearchFragment.this.getResources());
+
+                    for (BannerSet bannerSet : bannerSets) {
+                        if (bannerSet.name.contains("Home") && bannerSet.bottom != 0) {
+                            template = template.replace("bannerSetValue", String.valueOf(bannerSet.bottom));
+                            webView.loadData(template, "text/html", "utf-8");
+                            webView.setVisibility(View.VISIBLE);
+                            break;
+                        }
+                    }
+                }
+            }.execute();
+        }
     }
 }

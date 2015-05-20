@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<style>img {width: 100%} </style>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var m3_r = Math.floor(Math.random() * 99999999999);
+			document.write("<script language='JavaScript' type='text/javascript' src='");
+			document.write("http://banner.finzoom.ro/adjs.php?what=zone:bannerSetValue&amp;cb="+m3_r);
+			document.write("&amp;referer=" + escape(document.referrer));
+			document.write("'></" + "script>");
+		</script>
+	</body>
+</html>
