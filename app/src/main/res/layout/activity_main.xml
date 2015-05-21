@@ -23,4 +23,11 @@
         android:visibility="gone"
         android:background="#111" />
 
+    <include
+        layout="@layout/banner_layout"
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true" />
+
 </android.support.v4.widget.DrawerLayout>

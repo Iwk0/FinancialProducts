@@ -4,8 +4,8 @@
     <string name="action_settings">Settings</string>
     <string name="consumer_loans">Consumer loans</string>
     <string name="mortgage_loans">Mortgage loans</string>
-    <string name="credit_cards">Credit cards</string>
-    <string name="deposits">Deposits</string>
+    <string name="credit_cards">CreditCard</string>
+    <string name="deposits">Deposit</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="search">Search</string>
@@ -33,9 +33,9 @@
     <string name="loan_purpose">Loan purpose</string>
     <string name="property_value">Property value</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="auto">Auto</string>
-    <string name="consumer">Consumer</string>
-    <string name="mortgage">Mortgage</string>
+    <string name="auto">AutoLoan</string>
+    <string name="consumer">ConsumerLoan</string>
+    <string name="mortgage">MortgageLoan</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="error">Size must be between</string>

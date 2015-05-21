@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,20 +27,21 @@ import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import bg.financialproducts.GlobalVariable;
 import bg.financialproducts.MainActivity;
 import bg.financialproducts.R;
 import bg.financialproducts.layout.Layout;
 import bg.financialproducts.model.BannerSet;
 import bg.financialproducts.model.Loan;
+import bg.financialproducts.util.BannerUtil;
+import bg.financialproducts.util.Constants;
 import bg.financialproducts.util.Factories;
 import bg.financialproducts.util.HttpUtil;
 import bg.financialproducts.util.Internet;
 import bg.financialproducts.util.KeyBoard;
-import bg.financialproducts.util.XMLParser;
 
 public class SearchFragment extends Fragment {
 
+    private AsyncTask<Void, Void, List<BannerSet>> asyncTask;
     private Activity activity;
     private View view;
     private Spinner loansSpinner;
@@ -49,6 +49,7 @@ public class SearchFragment extends Fragment {
     private ProgressBar progressBar;
     private Button searchButton;
     private ScrollView scrollView;
+    private int oldLayoutIndex;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
@@ -83,13 +84,22 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View child, int position, long id) {
-                if (oldLayout != null) {
+                if (oldLayoutIndex != position) {
                     scrollView.removeView(oldLayout.getRootView());
-                }
+                    Loan loan = (Loan) parent.getSelectedItem();
+                    oldLayout = Factories.createView(Integer.parseInt(loan.id), activity);
+                    scrollView.addView(oldLayout.getRootView());
+                    oldLayoutIndex = position;
 
-                Loan loan = (Loan) loansSpinner.getSelectedItem();
-                oldLayout = Factories.createView(Integer.parseInt(loan.id), activity);
-                scrollView.addView(oldLayout.getRootView());
+                    if (Internet.isConnected(activity)) {
+                        if (asyncTask != null && !asyncTask.isCancelled()) {
+                            asyncTask.cancel(true);
+                        }
+
+                        asyncTask = BannerUtil.available(activity, view, loan.value, Constants.SEARCH);
+                        asyncTask.execute();
+                    }
+                }
             }
 
             @Override
@@ -98,7 +108,15 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        bannerAvailable();
+        Loan loan = (Loan) loansSpinner.getSelectedItem();
+        oldLayoutIndex = loansSpinner.getSelectedItemPosition();
+        oldLayout = Factories.createView(Integer.parseInt(loan.id), activity);
+        scrollView.addView(oldLayout.getRootView());
+
+        if (Internet.isConnected(activity)) {
+            asyncTask = BannerUtil.available(activity, view, "AutoLoan", Constants.SEARCH);
+            asyncTask.execute();
+        }
 
         searchButton = (Button) view.findViewById(R.id.search);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -170,40 +188,24 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
-    private void bannerAvailable() {
-        if (Internet.isConnected(activity)) {
-            new AsyncTask<Void, Void, List<BannerSet>>() {
-
-                @Override
-                protected List<BannerSet> doInBackground(Void... voids) {
-                    List<BannerSet> bannerSets = ((GlobalVariable) activity.getApplication()).getBannerSetList();
-                    while (bannerSets == null) {
-                        bannerSets = ((GlobalVariable) activity.getApplication()).getBannerSetList();
-                    }
-
-                    Log.i("Banner", "Banner set is ready for use");
-                    return bannerSets;
-                }
-
-                @Override
-                protected void onPostExecute(List<BannerSet> bannerSets) {
-                    super.onPostExecute(bannerSets);
-
-                    WebView webView = (WebView) view.findViewById(R.id.banner);
-                    webView.getSettings().setJavaScriptEnabled(true);
-
-                    String template = XMLParser.readHTMLTemplate(SearchFragment.this.getResources());
-
-                    for (BannerSet bannerSet : bannerSets) {
-                        if (bannerSet.name.contains("Home") && bannerSet.bottom != 0) {
-                            template = template.replace("bannerSetValue", String.valueOf(bannerSet.bottom));
-                            webView.loadData(template, "text/html", "utf-8");
-                            webView.setVisibility(View.VISIBLE);
-                            break;
-                        }
-                    }
-                }
-            }.execute();
+    @Override
+    public void onResume() {
+        if (Internet.isConnected(activity) && asyncTask != null) {
+            if (!asyncTask.isCancelled()) {
+                asyncTask.cancel(true);
+            }
+            asyncTask = BannerUtil.available(activity, view, "AutoLoan", Constants.SEARCH);
+            asyncTask.execute();
         }
+
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        if (asyncTask != null && !asyncTask.isCancelled()) {
+            asyncTask.cancel(true);
+        }
+        super.onPause();
     }
 }

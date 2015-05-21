@@ -5,7 +5,7 @@
 	<body>
 		<script type="text/javascript">
 			var m3_r = Math.floor(Math.random() * 99999999999);
-			var script = "<script language='JavaScript' type='text/javascript' src='http://banner.finzoom.ro/adjs.php?what=zone:bannerSetValue&amp;cb=" +m3_r +
+			var script = "<script language='JavaScript' type='text/javascript' src='http://banner.finzoom.ro/adjs.php?what=zone:bannerSetValue&amp;cb=" + m3_r +
 			"&amp;referer=" + escape(document.referrer) + "'></" + "script>";
 			
 			document.write(script);

@@ -2,6 +2,7 @@ package bg.financialproducts.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,13 +21,17 @@ import bg.financialproducts.R;
 import bg.financialproducts.adapter.MainAdapter;
 import bg.financialproducts.info.AutoInfoActivity;
 import bg.financialproducts.model.Auto;
+import bg.financialproducts.model.BannerSet;
 import bg.financialproducts.model.BaseLoan;
+import bg.financialproducts.util.BannerUtil;
 import bg.financialproducts.util.Constants;
 import bg.financialproducts.util.Database;
+import bg.financialproducts.util.Internet;
 
 public class AutoFragment extends Fragment {
 
     private Activity activity;
+    private AsyncTask<Void, Void, List<BannerSet>> asyncTask;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,6 +67,19 @@ public class AutoFragment extends Fragment {
             noResultsView.setVisibility(View.VISIBLE);
         }
 
+        if (Internet.isConnected(activity)) {
+            asyncTask = BannerUtil.available(activity, view, "AutoLoan", Constants.RESULTS);
+            asyncTask.execute();
+        }
+
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        if (asyncTask != null && !asyncTask.isCancelled()) {
+            asyncTask.cancel(true);
+        }
+        super.onPause();
     }
 }

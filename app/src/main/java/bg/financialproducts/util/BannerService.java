@@ -31,6 +31,11 @@ public class BannerService extends IntentService {
                     setBannerSetList(XMLParser.parseBannerSet(response.getEntity().getContent()));
         } catch (IOException e) {
             Log.e("IOException", e.getMessage());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Log.e("InterruptedException", ex.getMessage());
+            }
         } catch (ParserConfigurationException e) {
             Log.e("ParserConfiguration", e.getMessage());
         } catch (SAXException e) {
@@ -42,12 +47,6 @@ public class BannerService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
             do {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    Log.e("InterruptedException", e.getMessage());
-                }
-
                 getBannerSet("http://affiliate.finzoom.ro/mobile/banners.xml");
             } while (!Internet.isConnected(this));
         }
