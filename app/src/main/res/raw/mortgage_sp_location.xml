@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="SP_Location">
+    <option value="Select">Изберете</option>
+    <option value="2">Средни градове</option>
+    <option selected="selected" value="1">Големи градове</option>
+    <option value="4">Малки градове и села</option>
+</select>

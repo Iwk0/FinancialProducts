@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="SP_LoanPurpose" >
+    <option value="Select">Изберете</option>
+    <option value="1">За текущи нужди</option>
+    <option value="32">Покупка на имот в строеж</option>
+    <option selected="selected" value="128">Покупка на готов имот</option>
+    <option value="4">Кредит за строеж</option>
+    <option value="16">Покупка на земя</option>
+    <option value="64">Рефинансиране на кредити от други банки</option>
+    <option value="2">Ремонт, Подобрения или реконструкция</option>
+    <option value="8">Други</option>
+</select>

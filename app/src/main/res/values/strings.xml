@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Financial Products</string>
+    <!--<string name="app_name">Financial Products</string>
     <string name="action_settings">Settings</string>
     <string name="consumer_loans">Потребителски кредити</string>
     <string name="mortgage_loans">Ипотечни кредити</string>
@@ -16,7 +16,7 @@
     <string name="no_url_or_username">Setting up your url and username</string>
     <string name="back">Back</string>
 
-    <!--Labels-->
+    &lt;!&ndash;Labels&ndash;&gt;
     <string name="car_type">Car type</string>
     <string name="loan_or_a_leasing">Loan or a leasing</string>
     <string name="car_age">Age of cars</string>
@@ -42,7 +42,7 @@
 
     <string name="apr">APR</string>
     <string name="monthly_payment">Monthly payment</string>
-    <string name="total_payed">Total payed</string>
+    <string name="total_payed">Total paid</string>
     <string name="min_self_participation">Min self participation</string>
     <string name="interest_rate_type">Interest rate type</string>
     <string name="cash_rate">Cash rate</string>
@@ -60,18 +60,32 @@
     <string name="title_activity_consumer_info">Consumer info</string>
     <string name="title_activity_credit_card">Credit card info</string>
     <string name="title_activity_deposits_info">Deposits info</string>
-    <string name="title_activity_mortgage_info">Mortgage info</string>
+    <string name="title_activity_mortgage_info">Mortgage info</string>-->
+
+    <!--Header-->
+    <string name="app_name">Моите пари</string>
+
+    <!--Labels-->
+    <string name="consumer_loans">Потребителски кредит</string>
+    <string name="credit_cards">Кредитни карти</string>
+    <string name="mortgage_loans">Ипотечни кредити</string>
+    <string name="deposit">Депозити</string>
+    <string name="savings_accounts">Спестовни сметки</string>
+    <string name="financial_news">Финансови новини</string>
+    <string name="current_tips">Актуални съвети</string>
 
     <string name="settings_id">cl-sr-xml</string>
     <string name="settings_username">demo</string>
     <string name="settings_url">http://affiliate.finzoom.ro/default.aspx</string>
 
     <string-array name="loans">
-        <item>Auto</item>
-        <item>Consumer</item>
-        <item>Credit cards</item>
-        <item>Deposits</item>
-        <item>Mortgage</item>
-        <item>Search</item>
+        <item>Авто</item>
+        <item>Кредитни карти</item>
+        <item>Потребителски</item>
+        <item>Ипотечни</item>
+        <item>Бизнес</item>
+        <item>Депозити</item>
+        <item>Търсене</item>
+        <item>Начало</item>
     </string-array>
 </resources>

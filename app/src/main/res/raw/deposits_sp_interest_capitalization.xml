@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<select name="sp_capitalization_of_interest">
-    <option value="2">with capitalization</option>
-    <option value="1">without</option>
-</select>

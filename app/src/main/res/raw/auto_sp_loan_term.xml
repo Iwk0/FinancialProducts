@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="SP_LoanTerm">
+    <option selected="selected" value="Select">Изберете</option>
+    <option value="6">6 месеца</option>
+    <option value="12">12 месеца</option>
+    <option value="18">18 месеца</option>
+    <option value="24">2 години</option>
+    <option value="36">3 години</option>
+    <option value="48">4 години</option>
+    <option value="60">5 години</option>
+</select>

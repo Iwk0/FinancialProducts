@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="SP_Currency">
+    <option selected="selected" value="Select">Изберете</option>
+    <option value="CHF">CHF</option>
+    <option value="BGN">BGN</option>
+    <option value="GBP">GBP</option>
+    <option value="EUR">EUR</option>
+    <option value="USD">USD</option>
+</select>

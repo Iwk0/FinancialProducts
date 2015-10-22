@@ -53,7 +53,7 @@ public class MortgageLayout implements Layout, TextWatcher {
         @Override
         protected Void doInBackground(Void... params) {
             loanPurposes = XMLParser.parse(resources, resources.getString(R.string.loan_purpose), R.raw.mortgage_loans_loan_purpose);
-            currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.consumer_loans_sp_currency);
+            currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.consumer_sp_currency);
             loanTerm = XMLParser.parse(resources, resources.getString(R.string.loan_term), R.raw.mortgage_loans_loan_term);
             loanType = XMLParser.parse(resources, resources.getString(R.string.loan_type), R.raw.mortgage_loans_loan_type);
 

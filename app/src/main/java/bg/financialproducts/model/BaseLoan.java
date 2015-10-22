@@ -8,6 +8,7 @@ public class BaseLoan implements Parcelable {
     public String createdAt;
     public String product;
     public String bank;
+    public String gpr;
 
     public BaseLoan() {}
 
@@ -15,6 +16,7 @@ public class BaseLoan implements Parcelable {
         this.createdAt = in.readString();
         this.product = in.readString();
         this.bank = in.readString();
+        this.gpr = in.readString();
     }
 
     @Override
@@ -27,6 +29,7 @@ public class BaseLoan implements Parcelable {
         parcel.writeString(createdAt);
         parcel.writeString(product);
         parcel.writeString(bank);
+        parcel.writeString(gpr);
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

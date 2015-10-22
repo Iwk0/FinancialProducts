@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="SP_ConstructionType_Input">
+    <option value="Select">Изберете</option>
+    <option selected="selected" value="2">Тухла/ЕПК</option>
+    <option value="4">Гредоред</option>
+    <option value="8">Земя</option>
+    <option value="1">Панел</option>
+</select>

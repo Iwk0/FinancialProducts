@@ -7,51 +7,51 @@
 
     <Button
         android:id="@+id/consumer_button"
-        android:tag="1"
+        android:tag="0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/consumer_loans" />
 
     <Button
         android:id="@+id/credit_cards_button"
-        android:tag="2"
+        android:tag="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/consumer_loans" />
+        android:text="@string/credit_cards" />
 
     <Button
         android:id="@+id/mortgage_button"
         android:tag="3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/consumer_loans" />
+        android:text="@string/mortgage_loans" />
 
     <Button
         android:id="@+id/deposit_button"
         android:tag="4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/consumer_loans" />
+        android:text="@string/deposit" />
 
     <Button
         android:id="@+id/savings_accounts_button"
         android:tag="5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/consumer_loans" />
+        android:text="@string/savings_accounts" />
 
     <Button
         android:id="@+id/financial_news_button"
         android:tag="6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/consumer_loans" />
+        android:text="@string/financial_news" />
 
     <Button
         android:id="@+id/current_tips_button"
         android:tag="7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/consumer_loans" />
+        android:text="@string/current_tips" />
 
 </LinearLayout>

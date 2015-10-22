@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import bg.financialproducts.fragment.AutoFragment;
+import bg.financialproducts.fragment.BusinessFragment;
 import bg.financialproducts.fragment.ConsumerFragment;
 import bg.financialproducts.fragment.CreditCardFragment;
 import bg.financialproducts.fragment.DepositsFragment;
@@ -35,10 +35,10 @@ public class MainActivity extends ActionBarActivity {
 
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.logo));
+        //actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.logo));
 
         if (savedInstanceState == null) {
-            selectItem(-1, 1);
+            selectItem(7, 1);
         }
 
 /*        if (Internet.isConnected(this)) {
@@ -85,20 +85,23 @@ public class MainActivity extends ActionBarActivity {
         Fragment fragment;
 
         switch (position) {
-            case 1:
+            case 0:
                 fragment = new AutoFragment();
+                break;
+            case 1:
+                fragment = new CreditCardFragment();
                 break;
             case 2:
                 fragment = new ConsumerFragment();
                 break;
             case 3:
-                fragment = new CreditCardFragment();
+                fragment = new MortgageFragment();
                 break;
             case 4:
-                fragment = new DepositsFragment();
+                fragment = new BusinessFragment();
                 break;
             case 5:
-                fragment = new MortgageFragment();
+                fragment = new DepositsFragment();
                 break;
             case 6:
                 fragment = new SearchFragment();
@@ -108,7 +111,6 @@ public class MainActivity extends ActionBarActivity {
                 break;
         }
 
-        Log.i("Position", String.valueOf(position) + " " + fragment.toString());
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
         DataHolderClass<Integer> dataHolderClass = DataHolderClass.getInstance();
         dataHolderClass.setItem(layoutId);

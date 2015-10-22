@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="SP_YearOfProduction">
+    <option selected="selected" value="Select">Изберете</option>
+    <option value="96">1999</option>
+    <option value="84">2000</option>
+    <option value="72">2001</option>
+    <option value="60">2002</option>
+    <option value="48">2003</option>
+    <option value="36">2004</option>
+    <option value="24">2005</option>
+    <option value="12">2006</option>
+    <option value="0">2007</option>
+</select>

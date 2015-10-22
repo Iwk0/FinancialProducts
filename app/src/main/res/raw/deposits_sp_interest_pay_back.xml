@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="SP_InterestPayBack">
+    <option selected="selected" value="Без значение">Без значение</option>
+    <option value="2">Ежемесечно</option>
+    <option value="4">Авансово</option>
+    <option value="8">На край на период</option>
+    <option value="1">На падеж</option>
+</select>

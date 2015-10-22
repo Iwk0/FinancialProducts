@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<select name="sp_card_type_by_provider">
-    <option value="4">Co-branded card</option>
-    <option value="1">Bank credit card</option>
-    <option value="2">Non-bank credit card</option>
-</select>

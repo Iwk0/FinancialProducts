@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="SP_Purpose">
+    <option selected="selected" value="Select">Изберете</option>
+    <option value="1">Физически</option>
+    <option value="4">Юридически</option>
+    <option value="2">Всички</option>
+</select>

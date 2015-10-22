@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="SP_LoanIncomeTargetGroup">
+    <option value="Select">Изберете</option>
+    <option selected="selected" value="2">Стандартни</option>
+    <option value="4">Без обследване на доходите</option>
+</select>

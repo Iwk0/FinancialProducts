@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="SP_CarType">
+    <option selected="selected" value="Select">Изберете</option>
+    <option value="1">Нов</option>
+    <option value="2">Употребяван</option>
+</select>

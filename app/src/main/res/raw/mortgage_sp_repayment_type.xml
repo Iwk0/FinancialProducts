@@ -1,0 +1,5 @@
+<select name="SP_RepaymentType">
+    <option value="Select">Изберете</option>
+    <option selected="selected" value="2">Анюитетни</option>
+    <option value="4">Намаляващи</option>
+</select>

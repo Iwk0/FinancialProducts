@@ -52,7 +52,7 @@ public class DepositsLayout implements Layout, TextWatcher {
 
         @Override
         protected Void doInBackground(Void... params) {
-            currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.consumer_loans_sp_currency);
+            currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.consumer_sp_currency);
             depositsTerm = XMLParser.parse(resources, resources.getString(R.string.deposit_term_month), R.raw.deposits_sp_deposit_term);
             interestCapitalization = XMLParser.parse(resources, resources.getString(R.string.interest_capitalization), R.raw.deposits_sp_interest_capitalization);
 

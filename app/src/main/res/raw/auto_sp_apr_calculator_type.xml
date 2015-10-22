@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="SP_APRCalculatorType">
+    <option selected="selected" value="Select">Изберете</option>
+    <option value="2">Кредит</option>
+    <option value="1">Лизинг</option>
+</select>

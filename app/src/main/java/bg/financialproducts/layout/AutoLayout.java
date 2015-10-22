@@ -57,8 +57,8 @@ public class AutoLayout implements Layout, TextWatcher {
             aLLoanTypes = XMLParser.parse(resources, resources.getString(R.string.loan_or_a_leasing), R.raw.auto_loan_sp_alloan_type);
             ageOfCars = XMLParser.parse(resources, resources.getString(R.string.car_age), R.raw.auto_loan_sp_age_of_car);
             residualValue = XMLParser.parse(resources, resources.getString(R.string.residual_value), R.raw.auto_loan_sp_residual_value);
-            currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.consumer_loans_sp_currency);
-            loanTerm = XMLParser.parse(resources, resources.getString(R.string.loan_term), R.raw.auto_loan_sp_loan_term);
+            currency = XMLParser.parse(resources, resources.getString(R.string.currency), R.raw.consumer_sp_currency);
+            loanTerm = XMLParser.parse(resources, resources.getString(R.string.loan_term), R.raw.auto_sp_loan_term);
 
             return null;
         }
@@ -120,7 +120,7 @@ public class AutoLayout implements Layout, TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
         Resources resources = activity.getResources();
-        CreateView.editTextValidation(loanAmountText, resources, 500, 5000000);
+        CreateView.editTextValidation(loanAmountText, resources, 100, 100000);
         CreateView.editTextValidation(carPriceText, resources, 500, 5000000);
     }
 }

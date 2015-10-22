@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="SP_DepositAim" >
+    <option selected="selected" value="Без значение">Без значение</option>
+    <option value="2">В работоспособна възраст</option>
+    <option value="1">Непълнолетни</option>
+    <option value="4">Пенсионери</option>
+</select>

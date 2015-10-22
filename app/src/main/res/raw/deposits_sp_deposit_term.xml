@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<select name="sp_loan_term">
-    <option value="1">1 month</option>
-    <option value="2">2 months</option>
-    <option value="3">3 months</option>
-    <option value="4">4 months</option>
-    <option value="6">6 months</option>
-    <option value="9">9 months</option>
-    <option value="12">12 months</option>
-    <option value="18">18 months</option>
-    <option value="24">24 months</option>
-    <option value="36">36 months</option>
+<select name="SP_DepositTerm">
+    <option selected="selected" value="Select">Изберете</option>
+    <option value="1">1 месец</option>
+    <option value="3">3 месеца</option>
+    <option value="6">6 месеца</option>
+    <option value="12">1 година</option>
+    <option value="24">до 2 години</option>
+    <option value="36">до 3 години</option>
+    <option value="48">до 4 години</option>
+    <option value="60">до 5 години</option>
 </select>

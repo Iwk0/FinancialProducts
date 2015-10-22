@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="SP_LoanTerm">
+    <option selected="selected" value="Select">Изберете</option>
+    <option value="12">1 година</option>
+    <option value="24">2 години</option>
+    <option value="36">3 години</option>
+    <option value="48">4 години</option>
+    <option value="60">5 години</option>
+    <option value="72">6 години</option>
+    <option value="84">7 години</option>
+    <option value="96">8 години</option>
+    <option value="108">9 години</option>
+    <option value="120">10 години</option>
+    <option value="132">11 години</option>
+    <option value="144">12 години</option>
+    <option value="156">13 години</option>
+    <option value="168">14 години</option>
+    <option value="180">15 години</option>
+    <option value="192">16 години</option>
+    <option value="204">17 години</option>
+    <option value="216">18 години</option>
+    <option value="228">19 години</option>
+    <option value="240">20 години</option>
+    <option value="252">21 години</option>
+    <option value="264">22 години</option>
+    <option value="276">23 години</option>
+    <option value="288">24 години</option>
+    <option value="300">25 години</option>
+    <option value="312">26 години</option>
+    <option value="324">27 години</option>
+    <option value="336">28 години</option>
+    <option value="348">29 години</option>
+    <option value="360">30 години</option>
+
+</select>

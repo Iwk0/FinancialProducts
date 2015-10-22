@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<select name="SP_PropertyType_Input">
+    <option value="Select">Изберете</option>
+    <option value="16">Земя</option>
+    <option value="2">Магазин/Офис</option>
+    <option selected="selected" value="4">Апартамент</option>
+    <option value="8">Друг</option>
+    <option value="1">Къща</option>
+</select>
