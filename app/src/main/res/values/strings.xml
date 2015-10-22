@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">Financial Products</string>
     <string name="action_settings">Settings</string>
-    <string name="consumer_loans">Consumer loans</string>
-    <string name="mortgage_loans">Mortgage loans</string>
-    <string name="credit_cards">CreditCard</string>
+    <string name="consumer_loans">Потребителски кредити</string>
+    <string name="mortgage_loans">Ипотечни кредити</string>
+    <string name="credit_cards">Кредитни карти</string>
     <string name="deposits">Deposit</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>

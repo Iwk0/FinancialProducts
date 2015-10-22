@@ -69,7 +69,7 @@ public class CreateView {
         }
 
         if (params.size() < SIZE - disabledView) {
-            return null;
+            return new ArrayList<>();
         }
 
         return params;

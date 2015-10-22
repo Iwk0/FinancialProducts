@@ -8,7 +8,7 @@
     android:paddingLeft="15dp"
     android:paddingRight="15dp">
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/searchForm"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
 
         </FrameLayout>
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -55,7 +55,6 @@
         android:scrollbarThumbVertical="@drawable/custom_scroll_style"
         android:scrollbarStyle="outsideInset"
         android:layout_above="@+id/banner"
-        android:layout_below="@+id/searchForm"
         android:layout_marginTop="10dp">
 
     </ScrollView>

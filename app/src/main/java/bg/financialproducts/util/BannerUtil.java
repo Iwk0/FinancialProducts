@@ -23,7 +23,7 @@ public class BannerUtil {
 
                 do {
                     bannerSets = ((GlobalVariable) activity.getApplication()).getBannerSetList();
-                } while (bannerSets == null);
+                } while (bannerSets.isEmpty());
 
                 Log.i("Banner", "Banner set is ready for use");
                 return bannerSets;

@@ -93,6 +93,7 @@ public class Database extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
+        cursor.close();
         return settings;
     }
 
@@ -107,6 +108,7 @@ public class Database extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
+        cursor.close();
         return date;
     }
 
@@ -120,6 +122,7 @@ public class Database extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
+        cursor.close();
         return loan;
     }
 }

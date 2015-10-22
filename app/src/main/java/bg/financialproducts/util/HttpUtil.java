@@ -37,7 +37,7 @@ public class HttpUtil {
 
         String paramString = URLEncodedUtils.format(params, "utf-8");
         HttpClient client = new DefaultHttpClient();
-        HttpGet request = new HttpGet(String.format("%s?u_=%s&c_=en-US&id_=%s&", settings.url, settings.username, settings.id) + paramString);
+        HttpGet request = new HttpGet(String.format("%s?u_=%s&c_=en-US&id_=%s&%s", settings.url, settings.username, settings.id, paramString));
         HttpResponse response = client.execute(request);
 
         chooseLoanByType(context, loanType, response.getEntity().getContent());

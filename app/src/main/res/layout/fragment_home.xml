@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/consumer_button"
+        android:tag="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/consumer_loans" />
+
+    <Button
+        android:id="@+id/credit_cards_button"
+        android:tag="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/consumer_loans" />
+
+    <Button
+        android:id="@+id/mortgage_button"
+        android:tag="3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/consumer_loans" />
+
+    <Button
+        android:id="@+id/deposit_button"
+        android:tag="4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/consumer_loans" />
+
+    <Button
+        android:id="@+id/savings_accounts_button"
+        android:tag="5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/consumer_loans" />
+
+    <Button
+        android:id="@+id/financial_news_button"
+        android:tag="6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/consumer_loans" />
+
+    <Button
+        android:id="@+id/current_tips_button"
+        android:tag="7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/consumer_loans" />
+
+</LinearLayout>

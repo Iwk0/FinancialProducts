@@ -29,6 +29,7 @@ public class BannerService extends IntentService {
             HttpResponse response = client.execute(request);
             ((GlobalVariable) BannerService.this.getApplication()).
                     setBannerSetList(XMLParser.parseBannerSet(response.getEntity().getContent()));
+            //TODO запазване в базата
         } catch (IOException e) {
             Log.e("IOException", e.getMessage());
             try {

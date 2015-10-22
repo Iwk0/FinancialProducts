@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface Layout {
 
-    public View getRootView();
-    public List<NameValuePair> getAllViews();
+    View getRootView();
+    List<NameValuePair> getAllViews();
 }
